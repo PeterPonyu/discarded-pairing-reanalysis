@@ -1,0 +1,68 @@
+{
+  "package_id": "004-blora-sdxl",
+  "mode": "NEXT_DESIGN",
+  "subject": "SDXL real forward — GO checklist",
+  "status": "designed_not_authorized",
+  "written_utc": "2026-08-14T08:06:48Z",
+  "closed_lanes": {
+    "proxy_sd15_e2e": "CLOSED (laptop_closeout.json b239908, independent_review.json 960328e verdict=PASS)",
+    "laptop": "CLOSED",
+    "note": "Proxy SD1.5 lane is closed and independently reviewed; SDXL real forward is a separate, not-yet-authorized lane."
+  },
+  "go_checklist": [
+    {
+      "id": "G1",
+      "item": "Human GO with explicit verbal consent for SDXL real forward (user-level authorization, not agent-derived)",
+      "required": true
+    },
+    {
+      "id": "G2",
+      "item": "HF gate: stabilityai/stable-diffusion-xl-base-1.0 weights pulled to box cache BEFORE GPU rent — no download on laptop, no download on this session",
+      "required": true,
+      "asset": "HF:stabilityai/stable-diffusion-xl-base-1.0",
+      "snapshot_expected": "models--stabilityai--stable-diffusion-xl-base-1.0"
+    },
+    {
+      "id": "G3",
+      "item": "weight_gate.json force-refresh on next box contact (FIRE_WEIGHT_GATE_FORCE=1) to clear the frozen box-origin weights.cached:true that contradicts the canonical blocker",
+      "required": true,
+      "note": "record_weight_gate.py early-returns all writes when existing weight_gate.json has origin in {box,remote} unless FIRE_WEIGHT_GATE_FORCE=1"
+    },
+    {
+      "id": "G4",
+      "item": "Box inventory check: unet/text_encoder *.safetensors all >=100KB and no .incomplete files",
+      "required": true
+    },
+    {
+      "id": "G5",
+      "item": "vendor/B-LoRA/inference.py present on box",
+      "required": true
+    },
+    {
+      "id": "G6",
+      "item": "df >= 15G on box before any run",
+      "required": true
+    },
+    {
+      "id": "G7",
+      "item": "MANIFEST status_updated_utc restamped from a non-stale source (current value equals quarantined laptop-stale batch timestamp)",
+      "required": false,
+      "note": "housekeeping; does not gate GO"
+    }
+  ],
+  "hard_locks": {
+    "no_box_power_on": true,
+    "no_mint_sota_chexbench_json": true,
+    "no_gated_hf_download": ["CheXbench", "SDXL", "DiT", "CORPUS"],
+    "no_fabricate_llm_qa_ok": true,
+    "anchors_untouched": ["ci/laptop-substitute-fire-infra", "docs/incubator-index-audits-plans"],
+    "anchors_pinned_at": "b8a3d53",
+    "dirs_not_remotes": "001-007 are directories, not remotes; only remote is origin",
+    "no_main_sota_copy_noise": "do not commit main's !28 sota_copy noise"
+  },
+  "residuals_from_review": [
+    "F2: stale-batch contradictions (vendor_B_LoRA, code_sota_path_ready, weights.cached) to resolve at next box contact",
+    "F4: 4 sample PNGs in metrics.json sample_files are dangling (object_panel.png shipped; samples live under outputs/)"
+  ],
+  "next_action": "AWAIT_USER_GO + next box contact for G2-G6; do not proceed on any agent-side signal alone"
+}

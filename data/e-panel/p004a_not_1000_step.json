@@ -1,0 +1,96 @@
+{
+  "direction": "004",
+  "panel": "P004-A",
+  "complement": true,
+  "not_official_r": true,
+  "label": "not_1000_step",
+  "not_1000_step": true,
+  "official_blora_1000step": "missing",
+  "clip": null,
+  "dino": null,
+  "clip_dino_computed": false,
+  "status": "ok",
+  "caption": "not 1000-step, not official B-LoRA R. CLIP/DINO not computed and not claimed.",
+  "rows": [
+    {
+      "row": "1-step SDXL forward",
+      "what": "base SDXL smoke",
+      "num_inference_steps": 1,
+      "elapsed_sec": 4.74,
+      "model": "stabilityai/stable-diffusion-xl-base-1.0",
+      "status": "ok",
+      "source": "source-tree/004-diffusion-personalization/results/sota_copy/sota_blora_sdxl.json",
+      "label": "harness"
+    },
+    {
+      "row": "20-step SDXL budget",
+      "what": "budget forward, hard cap 50",
+      "num_inference_steps": 20,
+      "elapsed_sec": 6.32,
+      "model": "stabilityai/stable-diffusion-xl-base-1.0",
+      "status": "ok",
+      "source": "source-tree/004-diffusion-personalization/results/sota_copy/sota_blora_sdxl_budget.json",
+      "label": "not official B-LoRA",
+      "note": "SDXL 20-step budget forward (hard cap 50). Not the official 1000-step B-LoRA table; no invented paper R numbers."
+    },
+    {
+      "row": "N-kill (SD1.5 proxy)",
+      "what": "registered attention-type split on dog6",
+      "attribute_drift_std_baseline": 0.02004934661090374,
+      "attribute_drift_std_baseline_display": "0.0200",
+      "attribute_drift_std_full": 0.025192394852638245,
+      "attribute_drift_std_full_display": "0.0252",
+      "eval_pairing": "unknown_legacy_unpaired",
+      "n_concepts": 1,
+      "n_backgrounds": 4,
+      "kill_fires_on_registered_comparison": true,
+      "source": "data/e-kill/paper_negative_attention_split.json",
+      "label": "registered N"
+    }
+  ],
+  "sources": {
+    "step1": "source-tree/004-diffusion-personalization/results/sota_copy/sota_blora_sdxl.json",
+    "step20": "source-tree/004-diffusion-personalization/results/sota_copy/sota_blora_sdxl_budget.json",
+    "nkill": "data/e-kill/paper_negative_attention_split.json",
+    "official_selftest": "source-tree/004-diffusion-personalization/results/sota_copy/official_selftest.json",
+    "sota_copy": "data/e-blocked/sota_copy.json",
+    "paper_primary": "source-tree/004-diffusion-personalization/results/sota_copy/paper_primary.json"
+  },
+  "quoted": {
+    "num_inference_steps_1": 1,
+    "num_inference_steps_1_source": "source-tree/004-diffusion-personalization/results/sota_copy/sota_blora_sdxl.json",
+    "elapsed_sec_1": 4.74,
+    "elapsed_sec_1_source": "source-tree/004-diffusion-personalization/results/sota_copy/sota_blora_sdxl.json",
+    "num_inference_steps_20": 20,
+    "num_inference_steps_20_source": "source-tree/004-diffusion-personalization/results/sota_copy/sota_blora_sdxl_budget.json",
+    "elapsed_sec_20": 6.32,
+    "elapsed_sec_20_source": "source-tree/004-diffusion-personalization/results/sota_copy/sota_blora_sdxl_budget.json",
+    "baseline_attribute_drift_std": 0.02004934661090374,
+    "baseline_attribute_drift_std_display": "0.0200",
+    "baseline_source": "data/e-kill/paper_negative_attention_split.json",
+    "full_attribute_drift_std": 0.025192394852638245,
+    "full_attribute_drift_std_display": "0.0252",
+    "full_source": "data/e-kill/paper_negative_attention_split.json",
+    "eval_pairing": "unknown_legacy_unpaired",
+    "eval_pairing_source": "data/e-kill/paper_negative_attention_split.json",
+    "n_concepts": 1,
+    "n_concepts_source": "data/e-kill/paper_negative_attention_split.json",
+    "kill_fires_on_registered_comparison": true,
+    "kill_source": "data/e-kill/paper_negative_attention_split.json"
+  },
+  "official_selftest_pointer": {
+    "official_r": false,
+    "do_not_invent_gpu_numbers": true,
+    "cuda_used": false,
+    "entry_1000_step": "run_sota_sdxl_official.sh",
+    "executed_this_complement": false,
+    "source": "source-tree/004-diffusion-personalization/results/sota_copy/official_selftest.json"
+  },
+  "never": [
+    "1000-step B-LoRA as this complement",
+    "CLIP/DINO invention",
+    "overwrite sota_blora_sdxl.json",
+    "call 20-step budget official"
+  ],
+  "written_utc": "2026-08-16T12:57:26Z"
+}

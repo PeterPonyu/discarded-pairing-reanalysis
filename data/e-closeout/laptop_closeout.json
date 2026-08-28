@@ -1,0 +1,81 @@
+{
+  "package_id": "004-blora-sdxl",
+  "mode": "LAPTOP_CLOSEOUT",
+  "status": "closed",
+  "verified_utc": "2026-08-14T06:49:15Z",
+  "verified_on": "laptop_worktree_wt/004-diffusion-personalization",
+  "checks": {
+    "manifest_proxy_e2e": {
+      "path": "source-tree/004-blora-sdxl/MANIFEST.json",
+      "validator": "source-tree/_common/validate_manifest.py",
+      "validator_result": "OK: 8 manifests valid",
+      "e2e_status": "PASS",
+      "proxy_e2e_ok": true,
+      "train_path_verified": true,
+      "path_portable": true,
+      "REMOTE_SOTA_READY": false,
+      "readiness_tier": "LOCAL_E2E",
+      "e2e_artifacts": [
+        "data/e-proxy-run/e2e_gpu_train.json"
+      ],
+      "e2e_evidence": {
+        "entry": "train_lora.py full baseline dog6 steps=15",
+        "status": "ok",
+        "pretrained_model": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "trainable_params": 3188736,
+        "final_loss": 0.0529,
+        "wall_clock_sec": 2.9,
+        "sku_used": "local_5090_24gb"
+      }
+    },
+    "object_effect_dog6": {
+      "dir": "source-tree/004-diffusion-personalization/results/object_effect/dog6_identity_context_grid/",
+      "claim_id": "dog6_identity_context_grid",
+      "gate": "proxy",
+      "REMOTE_SOTA_READY": false,
+      "files_present": [
+        "metrics.json",
+        "gate.json",
+        "README.md",
+        "object_panel.png"
+      ],
+      "object_panel_bytes": 889524,
+      "n_sample_files": 4
+    },
+    "laptop_stale_sdxl_blocker": {
+      "quarantined_copy": "source-tree/004-diffusion-personalization/results/sota_copy/sota_sdxl_blocker.laptop-stale-1737Z.json",
+      "quarantined_written_utc": "2026-08-12T17:37:52Z",
+      "canonical_copy": "source-tree/004-diffusion-personalization/results/sota_copy/sota_sdxl_blocker.json",
+      "canonical_written_utc": "2026-08-13T01:11:54Z",
+      "status": "blocked",
+      "blockers": [
+        "HF:stabilityai/stable-diffusion-xl-base-1.0"
+      ],
+      "note": "Quarantine per ralplan-post-box-close-nexts AC #13 already applied; canonical blocker refreshed and newer than the laptop-stale copy."
+    }
+  },
+  "lanes": {
+    "proxy_sd15_e2e": "CLOSED",
+    "laptop": "CLOSED"
+  },
+  "residuals": [
+    {
+      "lane": "sdxl_real_forward",
+      "status": "residual",
+      "gate": "HF:stabilityai/stable-diffusion-xl-base-1.0",
+      "detail": "SDXL base forward (B-LoRA vendor) not run; blocked on weights + GO."
+    },
+    {
+      "lane": "box",
+      "status": "residual",
+      "gate": "GO + REMOTE_SOTA_READY",
+      "detail": "Box-side SOTA run deferred; gpu_rent_requires=REMOTE_SOTA_READY."
+    }
+  ],
+  "constraints": {
+    "no_sdxl_while_box_off": true,
+    "no_power_on_without_go": true,
+    "REMOTE_SOTA_READY": false
+  },
+  "written_utc": "2026-08-14T06:49:15Z"
+}

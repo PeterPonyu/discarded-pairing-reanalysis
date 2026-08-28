@@ -1,0 +1,164 @@
+% References for the 004 working draft.
+%
+% Two tiers, deliberately separated by the comment blocks below.
+%
+% Tier 1 entries are established methods, models and statistical results whose
+% bibliographic details are stable and independently checkable.
+%
+% Tier 2 entries are third-party artifacts identified from this project's own
+% on-disk records rather than from a verified bibliographic lookup. None may be
+% treated as verified until a human closes the bibliography gate recorded
+% alongside this manuscript. Venues are deliberately omitted where the record
+% did not confirm one; do not add a venue to make an entry look finished.
+%
+% Note for the bibliography gate: this manuscript re-analyses a comparison whose
+% design is adapted from a published method for splitting attention types across
+% adapters. The paper does not evaluate that method and does not report a result
+% about it, but it does describe the split, so the attribution has to be exactly
+% right. Getting it wrong is a fairness problem, not a formatting one.
+
+% ---------------------------------------------------------------------------
+% Tier 1 -- established methods, models and statistical results
+% ---------------------------------------------------------------------------
+
+@inproceedings{rombach2022ldm,
+  author    = {Rombach, Robin and Blattmann, Andreas and Lorenz, Dominik and
+               Esser, Patrick and Ommer, Bj\"{o}rn},
+  title     = {High-resolution image synthesis with latent diffusion models},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and
+               Pattern Recognition (CVPR)},
+  pages     = {10684--10695},
+  year      = {2022}
+}
+
+@inproceedings{ruiz2023dreambooth,
+  author    = {Ruiz, Nataniel and Li, Yuanzhen and Jampani, Varun and Pritch,
+               Yael and Rubinstein, Michael and Aberman, Kfir},
+  title     = {{DreamBooth}: fine tuning text-to-image diffusion models for
+               subject-driven generation},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and
+               Pattern Recognition (CVPR)},
+  pages     = {22500--22510},
+  year      = {2023}
+}
+
+@inproceedings{hu2022lora,
+  author    = {Hu, Edward J. and Shen, Yelong and Wallis, Phillip and
+               Allen-Zhu, Zeyuan and Li, Yuanzhi and Wang, Shean and Wang, Lu
+               and Chen, Weizhu},
+  title     = {{LoRA}: low-rank adaptation of large language models},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2022}
+}
+
+@article{wilcoxon1945individual,
+  author  = {Wilcoxon, Frank},
+  title   = {Individual comparisons by ranking methods},
+  journal = {Biometrics Bulletin},
+  volume  = {1},
+  number  = {6},
+  pages   = {80--83},
+  year    = {1945}
+}
+
+@article{dixon1946sign,
+  author  = {Dixon, W. J. and Mood, A. M.},
+  title   = {The statistical sign test},
+  journal = {Journal of the American Statistical Association},
+  volume  = {41},
+  number  = {236},
+  pages   = {557--566},
+  year    = {1946}
+}
+
+@article{student1908probable,
+  author  = {Student},
+  title   = {The probable error of a mean},
+  journal = {Biometrika},
+  volume  = {6},
+  number  = {1},
+  pages   = {1--25},
+  year    = {1908}
+}
+
+@article{simmons2011false,
+  author  = {Simmons, Joseph P. and Nelson, Leif D. and Simonsohn, Uri},
+  title   = {False-positive psychology: undisclosed flexibility in data
+             collection and analysis allows presenting anything as significant},
+  journal = {Psychological Science},
+  volume  = {22},
+  number  = {11},
+  pages   = {1359--1366},
+  year    = {2011}
+}
+
+@article{gelman2014garden,
+  author  = {Gelman, Andrew and Loken, Eric},
+  title   = {The statistical crisis in science},
+  journal = {American Scientist},
+  volume  = {102},
+  number  = {6},
+  pages   = {460--465},
+  year    = {2014}
+}
+
+@article{button2013power,
+  author  = {Button, Katherine S. and Ioannidis, John P. A. and Mokrysz, Claire
+             and Nosek, Brian A. and Flint, Jonathan and Robinson, Emma S. J.
+             and Munaf\`{o}, Marcus R.},
+  title   = {Power failure: why small sample size undermines the reliability of
+             neuroscience},
+  journal = {Nature Reviews Neuroscience},
+  volume  = {14},
+  number  = {5},
+  pages   = {365--376},
+  year    = {2013}
+}
+
+@article{nosek2018preregistration,
+  author  = {Nosek, Brian A. and Ebersole, Charles R. and DeHaven, Alexander C.
+             and Mellor, David T.},
+  title   = {The preregistration revolution},
+  journal = {Proceedings of the National Academy of Sciences},
+  volume  = {115},
+  number  = {11},
+  pages   = {2600--2606},
+  year    = {2018}
+}
+
+@article{amrhein2019retire,
+  author  = {Amrhein, Valentin and Greenland, Sander and McShane, Blake},
+  title   = {Scientists rise up against statistical significance},
+  journal = {Nature},
+  volume  = {567},
+  pages   = {305--307},
+  year    = {2019}
+}
+
+@article{box1953nonnormality,
+  author  = {Box, G. E. P.},
+  title   = {Non-normality and tests on variances},
+  journal = {Biometrika},
+  volume  = {40},
+  number  = {3--4},
+  pages   = {318--335},
+  year    = {1953}
+}
+
+% ---------------------------------------------------------------------------
+% Tier 2 -- identified from this project's on-disk records.
+% UNVERIFIED pending the bibliography gate. Do not add venues.
+% ---------------------------------------------------------------------------
+
+@misc{blora,
+  key   = {B-LoRA},
+  title = {{B-LoRA}: implicit style-content separation by training low-rank
+           adapters on separate transformer blocks},
+  note  = {Recorded in this project only as the origin of the attention-type
+           split whose composed and jointly trained arms are compared here, and
+           as the reference procedure whose full-length training run was never
+           executed. Authorship, title wording, venue and year are UNVERIFIED:
+           all were taken from this project's own recorded state and none was
+           re-checked against the official record during drafting},
+  year  = {2024}
+}

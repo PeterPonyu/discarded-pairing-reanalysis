@@ -1,0 +1,17 @@
+# Archived bindings. Tab-separated: id<TAB>path<TAB>role<TAB>note
+#
+# id	path	role	note
+E-KILL	data/e-kill/paper_negative_attention_split.json	recorded_state	the registered negative comparison, its two dispersion values, and the pairing label it was recorded under
+E-SIMPLE	data/e-simple/simple.json	recorded_state	the comparison ladder entry carrying the same two values and the sentence that downgrades them
+E-PANEL	data/e-panel/p004a_not_1000_step.json	derived_table	the display table in which the two dispersion values were rounded for presentation
+E-BASELINE	data/e-baseline/drift_report.json	derived_table	per-prompt identity and prompt fidelity for the jointly trained arm, and the dispersion it collapses to
+E-COMPOSED	data/e-composed/drift_report_full.json	derived_table	per-prompt identity and prompt fidelity for the composed split arm at both adapters on
+E-IDENTITY	data/e-identity/drift_report_identity_only.json	derived_table	per-prompt fidelity for the composed arm with the self-attention adapter switched off
+E-TRAIN-JOINT	data/e-train-joint/train_manifest.json	protocol	the jointly trained arm's configuration: module regex, trainable parameters, budget and seed
+E-TRAIN-CROSS	data/e-train-cross/train_manifest.json	protocol	the cross-attention adapter's configuration under the same budget and seed
+E-TRAIN-SELF	data/e-train-self/train_manifest.json	protocol	the self-attention adapter's configuration under the same budget and seed
+E-PROXY	data/e-proxy/naive.json	recorded_state	the separate short-budget proxy arm whose step count the source design names
+E-PROXY-RUN	data/e-proxy-run/e2e_gpu_train.json	recorded_state	the short-budget run record, including the wall clock it reports for that run
+E-CLOSEOUT	data/e-closeout/laptop_closeout.json	recorded_state	the closeout that re-states the short-budget run and reports a different wall clock for it
+E-BLOCKED	data/e-blocked/sota_copy.json	recorded_state	the full-replication tier, recorded as blocked with its reference table never produced
+E-AUTHORISATION	data/e-authorisation/next_design.json	recorded_state	the recorded gate list for the unrun lane, and its status as designed but not authorised

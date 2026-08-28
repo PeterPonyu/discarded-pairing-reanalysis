@@ -1,0 +1,110 @@
+\subsection{What was already on disk}
+
+Nothing in this study was generated for it. Every quantity comes from records
+written by runs that finished before this analysis began, and each record is
+bound to the manuscript by its SHA-256 digest; the figure code re-hashes each
+file before reading it and stops the build on any mismatch. No image was
+generated, no adapter was trained, and no evaluation was launched.
+
+The records describe a subject-driven personalisation study on a latent
+diffusion backbone. A concept is taught to the backbone through low-rank
+adapters on the attention projections, and the resulting model is asked to
+place that concept in a set of background scenes. Three arms exist on disk. The
+\emph{jointly trained} arm puts one adapter on both attention types at once.
+The \emph{composed} arm trains two adapters separately --- one on the
+cross-attention projections, one on the self-attention projections --- and
+switches both on at generation time. A third arm switches the self-attention
+adapter off and leaves the cross-attention adapter alone.
+
+\subsection{The comparison as it was recorded}
+
+The registered comparison is between the jointly trained arm and the composed
+arm on a single endpoint: the dispersion of identity fidelity across background
+prompts. Each arm generated one image per prompt for \NPairs{} prompts, and the
+dispersion is the standard deviation of the \NPairs{} resulting fidelities.
+It is a population standard deviation, dividing by the number of prompts rather
+than by one fewer; the figure code recomputes it from the per-prompt values and
+refuses to proceed unless it reproduces the recorded number exactly, because
+the entire comparison is between two such numbers.
+
+The project recorded the comparison's evaluation pairing as
+\texttt{\PairingLabel{}} and recorded that the pre-registered criterion
+\KillFires{} on it. It also recorded, in the same file and in the ladder entry
+that cites it, that this is an unpaired historical result rather than a paired
+measurement. The present paper takes that caveat as its starting point and asks
+what the same bytes do support.
+
+\subsection{What the arms share}
+
+Three configuration records, one per adapter, are bound here. The figure code
+checks that the three agree on the backbone checkpoint, the training budget,
+the learning rate, the adapter rank, the resolution, the training seed and the
+instance prompt, and stops the build if any of them differ. It also checks
+that the trainable parameter counts of the two composed adapters sum exactly to
+the count the joint arm trains, which is the sense in which the two arms are
+matched on capacity rather than merely similar.
+
+\subsection{Reconstructing the pairs}
+
+The per-prompt values underlying each dispersion are recorded, one row per
+background prompt, with the prompt text as the row key. Rows are joined across
+arms on that text rather than on position, so a reordering cannot silently pair
+the wrong generations. Two endpoints are available per row: identity fidelity,
+which the registered comparison aggregated, and prompt fidelity, which it did
+not use.
+
+A pair is one background prompt, and the difference is the composed arm's value
+minus the jointly trained arm's value at that prompt. This recovers the
+correspondence the dispersion discarded; it does not recover a pairing for the
+registered endpoint itself, which cannot have one, because a dispersion across
+prompts is a single number per arm.
+
+\subsection{Tests, and what each of them can reach}
+
+Three tests are reported on the same \NPairs{} pairs. The exact two-sided sign
+test counts how many differences fall each way; ties would be dropped by
+convention and are refused here instead, because with four pairs one discarded
+tie changes the answer. The Wilcoxon signed-rank test on the same pairs is
+reported beside it. The paired $t$ test is reported third, with its interval,
+and is the only one of the three that assumes a distributional shape.
+
+For the recorded comparison, which has no pairs, we report the interval its own
+design supports: the ratio of the two dispersions with the confidence interval
+an $F$ distribution gives at \NPairs{} generations per arm. That interval
+assumes the two arms are independent, which they are not --- they share the
+prompts. The assumption is stated rather than corrected because it is the
+assumption the unpaired comparison implicitly makes, and the interval it yields
+is already wide enough to settle the question this paper asks of it.
+
+\subsection{The attainable probability of a test, before any data}
+
+The exact sign test at $n$ pairs can return only the probabilities its
+binomial reference distribution contains. The smallest two-sided value is
+reached when every pair falls the same way and equals $2 \cdot 2^{-n}$; if $k$
+pairs are allowed to fall the other way the smallest attainable value is
+$2 \sum_{i \le k} \binom{n}{i} 2^{-n}$. These quantities depend on $n$ alone
+and can be read before the experiment exists. They are what the pre-registered
+design is sized against.
+
+\subsection{How the protocol's size was chosen}
+
+The protocol below is derived rather than picked. The background prompts are
+the recorded grid and are not changed. The source design requires a second
+concept, so that a conclusion about the mechanism can be distinguished from a
+conclusion about one subject, and it requires the conclusion to be readable per
+concept; each concept therefore needs enough pairs on its own. The number of
+generation seeds is the smallest that leaves each concept able to reach
+\Alpha{} with at least one pair falling the wrong way, which follows directly
+from the attainable-probability expression above. Everything else in the
+protocol table is a consequence of that choice.
+
+\subsection{What is deliberately not computed}
+
+The reference comparison this line of work would eventually be measured
+against was never produced, and its tier is recorded as \BlockedTier{}. No
+value is imputed for it, no substitute metric is introduced in its place, and
+the two perceptual similarity measures the wider literature reports are
+recorded on disk as not computed and are not computed here either. The recorded
+gate list for the unrun lane stands at \AuthorisationState{}, and the paired
+evaluation this paper specifies is not executed: the deliverable is the
+specification.

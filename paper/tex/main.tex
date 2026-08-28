@@ -1,0 +1,548 @@
+%% Working draft. Structure is generated; prose is authored here.
+%% Build from the repository root with: bash scripts/build_paper.sh <this paper dir>
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\graphicspath{{../figs/out/}}
+
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.8}
+\setcounter{topnumber}{2}
+\setcounter{totalnumber}{3}
+
+%% Numbers and tables are emitted by the figure code from hash-bound evidence.
+\input{generated_numbers}
+\input{captions}
+
+\title{Matched runs, unpaired test: recovering a discarded pairing in a small
+personalisation comparison, and pre-registering the one that would settle it}
+\author{Working draft --- author list not yet fixed}
+\date{Working draft. Not submitted to any venue.}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\section{Introduction}
+
+A negative result usually survives inside a project as one sentence. Some
+mechanism was tried, some number moved the wrong way, and the mechanism is
+recorded as ruled out. The sentence outlives the arithmetic that produced it,
+and by the time anyone reads it there is no way to tell whether the evidence
+was strong, weak, or of a kind that cannot bear the sentence at all.
+
+This paper takes one such sentence and recovers the arithmetic. A
+subject-driven personalisation study on a latent diffusion
+backbone~\cite{rombach2022ldm,ruiz2023dreambooth} compared two ways of spending
+the same low-rank adapter capacity~\cite{hu2022lora}: one adapter trained
+across both attention types at once, against two adapters trained separately on
+the cross-attention and self-attention projections and switched on together at
+generation time~\cite{blora}. The composed arm came out with a higher
+dispersion of identity fidelity across background prompts, \DisplayComposed{}
+against \DisplayBase{}, and the project recorded the mechanism as killed.
+
+The interesting part is not that the conclusion was too strong. It is why. The
+runs themselves were paired in every sense that matters. All three arms on disk
+were generated over the same \NPairs{} background prompts. The adapters were
+trained at the same budget, the same learning rate, the same rank, the same
+resolution and the same seed. The two composed adapters train \CrossParams{}
+and \SelfParams{} parameters, which sum exactly to the \JointParams{} that the
+joint arm trains as one, so the arms are matched on capacity rather than
+merely similar in it. Every ingredient a paired test requires was present in
+the experiment before anyone analysed it.
+
+What removed the pairing was the endpoint. Identity fidelity was measured once
+per background prompt, and then collapsed into its dispersion across prompts.
+A dispersion across prompts is one number per arm. Two numbers cannot be
+paired, cannot be ranked by sign, and carry no correspondence for a test to
+exploit. The comparison as registered therefore had no pairs at the moment it
+was defined, whatever the runs had done, and the project's own record says so:
+its pairing field reads \texttt{\PairingLabel{}}, and the ladder entry that
+cites the same two values downgrades them in prose. The caveat was written
+down. The conclusion was not adjusted to match it.
+
+This is not a niche accident. Endpoints of exactly this shape --- variance
+across prompts, drift across scenes, spread across seeds, consistency across
+conditions --- are ordinary in generative evaluation, and each of them
+aggregates along the very axis a matched design controls. An endpoint that
+aggregates along the matched axis converts a paired experiment into an unpaired
+one with a single observation per arm, and no amount of additional generation
+at the prompt level repairs it, because the count that matters has already been
+reduced to one.
+
+We do three things with this case, all computable from the recorded bytes
+without generating an image. We report what the recorded comparison supports
+when taken on its own terms, which is a ratio of dispersions anywhere from
+\DispLower{} to \DispUpper{}. We recover the pairing at the level the
+dispersion was computed from, and report the paired tests it admits. And we
+show that the reason the paired sign test does not reach the conventional
+threshold is a property of the design rather than of the data: with \NPairs{}
+pairs the smallest two-sided probability an exact sign test can return is
+\FloorAtFour{}, so no arrangement of those four results could have produced a
+significant one. That quantity depends on the number of pairs alone and is
+therefore knowable before an experiment is run, which is where we think it
+belongs.
+
+The paper ends with a pre-registered paired protocol sized against that
+quantity. The protocol is the deliverable. It is not executed here.
+
+\section{Methods}
+\input{methods}
+
+\section{The pairing was in the runs}
+
+Figure~\ref{fig:capacity} and Table~\ref{tab:arms} describe what was trained.
+The arm trained as a single adapter puts low-rank updates on both attention
+types at once and trains \JointParams{} parameters. The composed arm trains
+two adapters separately, \CrossParams{} parameters on the cross-attention
+projections and \SelfParams{} on the self-attention projections, and switches
+both on at generation time. Those two counts sum to \JointParams{} exactly, and
+the figure code stops the build if they ever fail to, because the paper's
+framing depends on it: the comparison is between two ways of spending one
+parameter budget, not between a larger model and a smaller one.
+
+The three training records also agree on the backbone checkpoint, a budget of
+\TrainSteps{} steps, learning rate \LearningRate{}, adapter rank \LoraRank{},
+resolution \Resolution{}, seed \TrainSeed{} and the instance prompt. Agreement
+on all seven is checked rather than assumed. A comparison in which the arms
+differ on any of them is a different paper, and it is easier to verify the
+seven than to remember them.
+
+Generation was matched too. Each arm produced one image per background prompt
+over the same \NPairs{} prompts, and the per-prompt values survive on disk with
+the prompt text as the row key. Rows are joined across arms on that text rather
+than on position, so a reordering of the records cannot silently pair the wrong
+generations.
+
+Figure~\ref{fig:collapse} shows what happened next. Each line in the figure is
+one background prompt followed across the three arms, and the number printed
+beneath each arm is what the recorded comparison actually used: the standard
+deviation of that arm's \NPairs{} identity fidelities. The lines are the
+experiment. The three numbers underneath are the analysis. Going from the first
+to the second is where the pairing was lost, and it is a one-way step: nothing
+downstream of those three numbers can recover which prompt produced which
+value.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig1_capacity.pdf}
+\caption{\CapCapacity}
+\label{fig:capacity}
+\end{figure}
+
+\begin{table}[tbp]
+\centering
+\caption{\CapArms}
+\label{tab:arms}
+\small
+\input{generated_table_arms}
+\end{table}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig2_collapse.pdf}
+\caption{\CapCollapse}
+\label{fig:collapse}
+\end{figure}
+
+\section{What the recorded comparison supports on its own terms}
+
+Before recovering anything, it is worth asking what the registered comparison
+would support if one simply accepted it. Two dispersions, each estimated from
+\NPairs{} generations, differ by a factor of \SDRatioComposed{}. Treating the
+arms as independent samples --- which is what an unpaired comparison of two
+dispersions assumes --- the ratio of variances follows an $F$ distribution, and
+the interval that yields is shown in Figure~\ref{fig:dispersion}.
+
+The interval runs from \DispLower{} to \DispUpper{}, at $F=\DispF{}$ and a
+two-sided probability of \DispP{}. It contains no difference. It contains a
+halving. It contains a near fivefold increase. The observed direction is inside
+it and so is the opposite direction, and the width is not a consequence of
+noisy measurement: it is what an estimate of dispersion from \NPairs{} values
+is worth. Dispersion estimates are among the least stable quantities one can
+compute from a small sample, and they are additionally sensitive to
+departures from normality in a way that comparisons of means are
+not~\cite{box1953nonnormality}.
+
+The independence assumption is worth naming rather than fixing. The two arms
+share the background prompts, so they are not independent, and the interval
+above is therefore not the right interval for these data. We report it because
+it is the interval the registered comparison implicitly claims, and because it
+is already wide enough to answer the question we are asking of it. A comparison
+that cannot exclude a halving is not a comparison that establishes an increase.
+
+The third arm makes the same point from the other side. Switching the
+self-attention adapter off leaves a dispersion of \SDIdentityOnly{}, a ratio of
+\SDRatioIdentityOnly{} to the jointly trained arm, with an interval from
+\DispIdonLower{} to \DispIdonUpper{} and a two-sided probability of
+\DispIdonP{}. Read as the registered comparison reads its own endpoint --- less
+dispersion is better --- the best arm on disk is the one that discards half the
+trained capacity, and it beats the joint arm by a wider margin than the
+composed arm loses to it. We do not think that is a finding about adapters. We
+think it is a property of an endpoint that rewards an arm for varying less,
+including for varying less because it has less to vary with, and it is the
+reason a dispersion endpoint needs a level endpoint printed beside it.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.9\linewidth]{fig3_dispersion.pdf}
+\caption{\CapDispersion}
+\label{fig:dispersion}
+\end{figure}
+
+\section{The same generations, analysed as pairs}
+
+The per-prompt values are on disk, so the correspondence the dispersion
+discarded can be put back. Table~\ref{tab:pairs} gives every value and every
+difference; Figure~\ref{fig:paired} plots the differences.
+
+On identity fidelity, the endpoint the registered comparison aggregated, the
+composed arm is lower at \IdentityDown{} of \NPairs{} prompts. The exact
+two-sided sign test~\cite{dixon1946sign} returns \IdentitySignP{}, the Wilcoxon
+signed-rank test~\cite{wilcoxon1945individual} on the same pairs returns
+\IdentityWilcoxP{}, and the mean paired difference is \IdentityDiff{} with a
+95\% interval from \IdentityLower{} to \IdentityUpper{}. The interval contains
+zero and both of its ends are larger in magnitude than the difference itself.
+
+On prompt fidelity, which is recorded in the same files and was not used, the
+composed arm is lower at all \PromptDown{} prompts. The sign test returns
+\PromptSignP{}, Wilcoxon returns \PromptWilcoxP{}, and the mean paired
+difference is \PromptDiff{} with an interval from \PromptLower{} to
+\PromptUpper{} that excludes zero. The paired $t$ test~\cite{student1908probable}
+on that endpoint returns \PromptTP{}.
+
+That last number is the only quantity in this paper below \Alpha{}, and we are
+reporting it in order to refuse it. It is not the registered endpoint. It was
+found by looking at a second column that happened to be in the same files, and
+promoting it now would be the exact manoeuvre that makes small studies
+unreliable: an endpoint chosen after the analysis, reported at the threshold it
+happens to clear~\cite{simmons2011false,gelman2014garden}. It also rests on a
+normality assumption that four points can neither support nor
+contradict~\cite{amrhein2019retire}. What the direction deserves is a line in a
+protocol, and it has one: prompt fidelity is a pre-registered secondary
+endpoint in the design below, where it will be tested on pairs that were not
+used to select it.
+
+The third arm is consistent with all of this and adds one detail. Switching the
+self-attention adapter off moves identity fidelity down at \IdonDown{} of
+\NPairs{} prompts, a sign-test probability of \IdonSignP{}, which is to say the
+arm with the lowest dispersion on disk is indistinguishable from the joint arm
+on the level of the same quantity. The two readings of that arm --- best by
+dispersion, tied on level --- come from the same eight numbers.
+
+\begin{table}[tbp]
+\centering
+\caption{\CapPairs}
+\label{tab:pairs}
+\small
+\input{generated_table_pairs}
+\end{table}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig4_paired.pdf}
+\caption{\CapPaired}
+\label{fig:paired}
+\end{figure}
+
+\section{A test that could not have succeeded}
+
+Neither sign test above reaches \Alpha{}, and the usual reading of that is
+that the effect is absent or the data are noisy. Here it is neither.
+
+An exact sign test at $n$ pairs draws its probabilities from a binomial
+reference distribution, and that distribution is fixed by $n$ before any datum
+exists. The smallest two-sided value it contains is reached when every pair
+falls the same way and equals $2 \cdot 2^{-n}$. With \NPairs{} pairs that value
+is \FloorAtFour{}, which is above \Alpha{}. Every possible outcome of the
+registered experiment, including perfect unanimity in either direction, returns
+a probability at or above \FloorAtFour{}. The test could not have been
+significant.
+
+Figure~\ref{fig:floor} plots this floor against the number of pairs, for
+unanimity and for designs that allow one or two pairs to fall the wrong way.
+Reaching \Alpha{} at all requires \MinNAny{} pairs, and then only on unanimity:
+a single discordant pair at that size puts the result back above the threshold.
+Tolerating one discordant pair requires \MinNOne{}, and tolerating two requires
+\MinNTwo{}.
+
+Three properties of these numbers are worth stating plainly, because together
+they make the quantity cheap to use. They depend on the number of pairs alone,
+so no assumption about effect size, variance or distributional shape enters.
+They are computable before the experiment exists, from the protocol rather than
+from data. And they are a hard ceiling on what the analysis can conclude, not a
+soft expectation like power: a power calculation says an effect may be missed,
+whereas this says a specific test statistic cannot return a specific answer.
+
+The practical consequence is a line that a protocol can carry and a reader can
+check: state, before running, the smallest probability the primary test can
+return at the planned sample size. If that number is above the threshold the
+study intends to use, the study has already decided its own outcome, and the
+choice is to enlarge it, to change the test, or to declare in advance that it
+is descriptive. Underpowered studies are a long-recognised problem in
+experimental fields~\cite{button2013power}; the case here is the sharper corner
+of it, where the reachable set of answers excludes the one the study is
+looking for.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig5_floor.pdf}
+\caption{\CapFloor}
+\label{fig:floor}
+\end{figure}
+
+\section{The paired experiment, fixed in advance}
+
+Table~\ref{tab:protocol} is the protocol. Every number in it is derived from
+the arithmetic above rather than chosen, and the derivation is worth stating so
+that a reader can disagree with a step instead of with the total.
+
+The pairing unit is one concept, one background prompt and one generation seed,
+with the two arms generated under that triple and differing only in whether the
+adapters were trained jointly or separately. Naming the seed inside the unit is
+what makes the pair a pair; the recorded comparison's pairing field is
+\texttt{\PairingLabel{}} precisely because no such unit was ever written down.
+
+The background prompts are the recorded grid, unchanged at \NPairs{}. Keeping
+them fixed costs nothing and means the new experiment can be read against the
+old one.
+
+Concepts are \DesignConcepts{}. Only \NConceptsRun{} concept exists on disk, so
+nothing currently distinguishes a conclusion about the mechanism from a
+conclusion about one subject, and the source design already required a second
+concept for that reason. The protocol also requires the conclusion to be
+readable per concept, which means each concept needs enough pairs on its own
+rather than borrowing significance from the pool.
+
+Seeds per prompt are \DesignSeeds{}, and this is the only number with any
+freedom in it. Each concept needs at least \MinNOne{} pairs to reach \Alpha{}
+while tolerating a single discordant pair, and \DesignSeeds{} seeds across
+\NPairs{} prompts is the smallest multiple of the prompt grid that clears it.
+That gives \DesignPerConcept{} pairs per concept and \DesignTotal{} in total,
+tolerating \DesignTolerance{} discordant pairs within a concept and
+\DesignPooledTolerance{} pooled. Requiring unanimity would have been cheaper
+and is the wrong trade: a design that fails on one contrary pair is a design
+that will be re-run until it does not.
+
+The primary endpoint is the per-pair difference in identity fidelity, tested by
+the exact two-sided sign test at \Alpha{}, with Wilcoxon on the same pairs as
+the secondary test and prompt fidelity as a secondary endpoint. Effect sizes
+and intervals are reported for all of them regardless of outcome.
+
+The training budget is \TrainSteps{} steps, which is what the arms being
+re-tested were trained at. The source design named a shorter budget of
+\ProxySteps{} steps, borrowed from a separate proxy arm, and we depart from it
+deliberately. A protocol that re-tests a comparison must train at the budget of
+the arms it re-tests, or it answers a different question and cannot contradict
+the original. The proxy arm gives a second reason to keep away from it: two
+records of that same short run, agreeing on entry point, parameter count and
+final loss, report its wall clock as \ProxyWallRun{} and \ProxyWallCloseout{}
+seconds respectively. The discrepancy is a few seconds and of no consequence in
+itself, and it is exactly the kind of thing one should notice before sizing a
+budget from a record.
+
+The cost follows. Training is \DesignTrainRuns{} runs, three adapters for each
+of \DesignConcepts{} concepts. The three arms on disk took \TrainSecondsOne{}
+seconds of wall clock between them, so the training for both concepts is
+about \TrainSecondsAll{} seconds at the recorded budget. Generation is
+\DesignGenerations{} images, two arms across \DesignTotal{} pairs. This is a
+small experiment, and that is the point: what stopped the original question
+being answered was not the cost of the runs.
+
+\begin{table}[tbp]
+\centering
+\caption{\CapProtocol}
+\label{tab:protocol}
+\small
+\input{generated_table_protocol}
+\end{table}
+
+\section{Discussion}
+
+The specific finding here is that one recorded mechanism result rests on a
+comparison that could not have supported it, and that a stronger analysis of
+the very same generations is available and still does not settle the question.
+The parts that travel are about how the failure happened, because none of them
+is specific to adapters or to diffusion.
+
+\paragraph{An endpoint can destroy a design.} The experiment was matched on
+background prompt. The endpoint aggregated across background prompt. Those two
+sentences are individually unremarkable and jointly fatal, and nothing in the
+usual checklist catches the combination: the arms were controlled, the seeds
+were fixed, the capacity was matched, and the analysis still had one number per
+arm. The check that would have caught it is one question asked at design time
+--- does the primary endpoint preserve the unit the design matched on? --- and
+if the answer is no, either the endpoint or the claim has to change. Endpoints
+that aggregate across a matched axis are common in generative evaluation, where
+stability, drift and consistency are all naturally written as spreads.
+
+\paragraph{Print what the test can reach before running it.} The attainable
+floor of an exact test is a property of the design, costs one line to compute,
+and would have flagged the original comparison as unable to reach its own
+threshold before a single image was generated. Pre-registration already asks
+for the endpoint, the test and the sample size~\cite{nosek2018preregistration};
+adding the smallest probability the test can return at that size makes the
+combination self-checking, and it is a stronger statement than a power
+calculation because it does not depend on a guessed effect.
+
+\paragraph{Recording a caveat is not propagating it.} The pairing status was
+recorded, in a machine-readable field, in the same file as the conclusion, and
+the ladder entry that cites the file downgrades the result in prose. The
+qualification was never lost. It simply did not reach the sentence that
+travelled. This is the failure a schema can actually prevent: a conclusion
+field whose strength is checked against a pairing field in the same record is a
+cheap constraint, and the alternative is to rely on every future reader
+noticing a caveat two files away.
+
+\paragraph{A dispersion endpoint needs a level endpoint.} Read by dispersion
+alone, the best arm on disk is the ablation that switches half the composed
+capacity off. Read by level, that arm is indistinguishable from the joint arm.
+Both readings come from the same values, and reporting only the first would
+have suggested an intervention --- drop the self-attention adapter --- that the
+second does not support. Any evaluation whose headline is a spread is
+recommending the arm that moves least, and should say what happens to the
+quantity that is supposed to be high.
+
+\paragraph{Re-analysis is cheap and it is bounded.} Everything above is
+arithmetic over records that already existed. No image was generated, no
+adapter was trained, and the marginal cost of the whole exercise is far below
+the cost of the runs it re-reads. It is also bounded in what it can deliver: the
+strongest paired analysis of these four pairs still cannot answer the question,
+which is why the paper ends in a protocol rather than a conclusion. Re-analysis
+can correct the strength of a claim. It cannot manufacture the evidence for
+one.
+
+\section{What this study does not claim}
+
+No claim is made that composing two separately trained adapters is worse, or
+better, than training the same parameters jointly. The paired analysis of the
+registered endpoint does not separate the arms, and the analysis that does
+separate them uses an endpoint that was not registered and is reported here
+only to be set aside until it is tested on new pairs.
+
+No result is reported for the reference procedure at full length. Its status on
+disk is \OfficialState{} and its tier is recorded as \BlockedTier{}. No value
+is imputed for it, no substitute is introduced, and nothing in this paper is
+presented as an approximation of it.
+
+No perceptual similarity measure is introduced. The record states that the two
+such measures the wider literature reports were not computed, and this paper
+does not compute them. The endpoints used here are the ones already on disk.
+
+No paired evaluation was executed. The recorded gate list for the unrun lane
+stands at \AuthorisationState{}, the project's own record instructs that the
+paired evaluation not be run, and the deliverable of this paper is the
+specification of that evaluation.
+
+No claim is made about a second concept. Exactly \NConceptsRun{} concept exists
+in these records, so no statement here distinguishes a property of the
+mechanism from a property of that subject; the protocol adds a second concept
+for that reason and the addition has not happened.
+
+No conclusion is drawn from the short-budget proxy arm. It was trained at
+\ProxySteps{} steps rather than \TrainSteps{}, it is a different arm from the
+three compared here, and the only use made of it in this paper is to note that
+two records disagree about its wall clock.
+
+No deficiency is alleged in the method that originated the attention-type
+split. This paper re-analyses one small local comparison whose design borrows
+that split. It does not evaluate the method, does not reproduce it, and reports
+no number about it.
+
+\section{Conclusion}
+
+A recorded mechanism result in a diffusion personalisation project was traced
+back to the artifacts it was computed from. The runs behind it were paired:
+three arms over the same \NPairs{} background prompts, adapters trained at the
+same budget, rank, resolution, learning rate and seed, and a composed arm whose
+two adapters train exactly the \JointParams{} parameters the joint arm trains.
+The pairing was discarded by the endpoint rather than by the experiment,
+because a dispersion across prompts is one number per arm.
+
+Taken as recorded, the comparison supports a ratio of dispersions from
+\DispLower{} to \DispUpper{}, which excludes nothing of interest. Taken as
+pairs, the composed arm is lower on identity fidelity at \IdentityDown{} of
+\NPairs{} prompts at a sign-test probability of \IdentitySignP{}, and lower on
+prompt fidelity at all \PromptDown{}, at \PromptSignP{}. Neither can reach
+\Alpha{}, and the reason is structural: at \NPairs{} pairs the smallest
+attainable two-sided probability of an exact sign test is \FloorAtFour{}. The
+one analysis that does cross \Alpha{} uses an endpoint that was not registered
+and a distributional assumption that four points cannot support, and is
+declined here in favour of testing it on pairs that did not select it.
+
+The recorded finding restated at the strength its evidence carries is that no
+separation was observed in one small comparison whose registered endpoint
+admits no paired test. The experiment that would settle it is specified in
+full: \DesignPerConcept{} pairs per concept across \DesignConcepts{} concepts,
+pairs defined at generation time by concept, prompt and seed, sized so that
+\DesignTolerance{} pairs may fall the wrong way and the primary test can still
+reach \Alpha{}. It is small, it is not run here, and its protocol carries the
+one line whose absence is the subject of this paper: the smallest probability
+its test can return before any of it happens.
+
+\section*{Data and code availability}
+
+The recorded comparison, the per-prompt fidelity tables underlying it, the
+three training records, the recorded tier and gate states, and the figure code
+that produces every number in this manuscript accompany the manuscript source.
+Each artifact is recorded with its SHA-256 digest in a manifest, and the figure
+code verifies those digests against the bytes on disk before reading them, so
+the build fails rather than silently reporting stale numbers. No generated
+image and no adapter weights are redistributed; the backbone checkpoint is a
+third-party release identified in the manifest by name rather than copied, and
+the subject images are from a publicly distributed subject-driven generation
+set held under its own licence.
+\input{generated_availability}
+
+\section*{Ethics statement}
+
+This study is a secondary analysis of numeric records produced by earlier
+computational runs. No human subjects are involved, no personal data are
+processed, and no images are reproduced. The subject depicted in the underlying
+personalisation runs is an animal from a publicly distributed set assembled for
+subject-driven generation research. Generative image models raise
+well-documented concerns around consent for training imagery and around
+synthesis of identifiable subjects; nothing in this paper generates an image,
+and the protocol it specifies operates on the same publicly distributed subject
+set under the same terms.
+
+\section*{Competing interests}
+
+Not yet declared. This is a working draft and the declaration is outstanding.
+
+\section*{Funding and author contributions}
+
+Not yet declared. This is a working draft; the author list is not fixed and
+contributions are therefore not yet attributable.
+
+\section*{Declaration of generative AI use}
+
+The analysis code, the figure code and the drafting of this manuscript were
+produced with substantial assistance from large language model agents working
+under human direction. Two safeguards bear directly on what is reported. Every
+number printed above is emitted programmatically from artifacts bound by
+cryptographic digest rather than transcribed by a model into prose. And several
+of the paper's structural claims --- that the two composed adapters partition
+the jointly trained parameter set, that the three arms agree on all seven
+shared training settings, that the recorded dispersions are reproduced exactly
+by recomputing them from the per-prompt values --- are enforced as build-time
+checks that stop the build rather than as sentences. Responsibility for the
+content rests with the authors.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,12 @@
+{
+  "direction": "004",
+  "tier": "sota_copy",
+  "name": "blora_1000step_official",
+  "status": "blocked",
+  "source": null,
+  "metrics": null,
+  "blocker": "1-step smoke landed; official 1000-step B-LoRA train/eval not run. Box is OFF.",
+  "note": "1-step SDXL paper_primary is status=partial harness, not 1000-step official R; see paper_primary claim_kind=harness, not_official_r=true, official_r=false. Official 1000-step B-LoRA stays NOT_PRODUCED.",
+  "not_official_sota": true,
+  "written_utc": "2026-08-20T13:15:27Z"
+}

@@ -1,0 +1,124 @@
+{
+  "schema": "evidence-manifest/v1",
+  "state": "BOUND",
+  "bound_utc": "2026-08-28T13:12:44Z",
+  "allowed_roots": [
+    "data",
+    "paper/evidence"
+  ],
+  "allowed_roots_note": "Archived layout. Artifacts the paper produced itself stay beside the paper; everything else was copied into data/. Digests describe the archived bytes; files whose recorded paths were redacted are listed in REDACTION.md with both digests.",
+  "entries": [
+    {
+      "id": "E-KILL",
+      "path": "data/e-kill/paper_negative_attention_split.json",
+      "role": "recorded_state",
+      "note": "the registered negative comparison, its two dispersion values, and the pairing label it was recorded under",
+      "bytes": 890,
+      "sha256": "ed557c282b600ac36a1351117e5ae2a38983eb967bb649fe925de60d84ba7dac"
+    },
+    {
+      "id": "E-SIMPLE",
+      "path": "data/e-simple/simple.json",
+      "role": "recorded_state",
+      "note": "the comparison ladder entry carrying the same two values and the sentence that downgrades them",
+      "bytes": 669,
+      "sha256": "37b5326a650f930db3d69ef6a0b849ab322189afc3b98127903e71562456ca3e"
+    },
+    {
+      "id": "E-PANEL",
+      "path": "data/e-panel/p004a_not_1000_step.json",
+      "role": "derived_table",
+      "note": "the display table in which the two dispersion values were rounded for presentation",
+      "bytes": 4196,
+      "sha256": "800ab0f8ef2ef8751dfe302f90b95e3802898f0214688e94953b6ccc97642c87"
+    },
+    {
+      "id": "E-BASELINE",
+      "path": "data/e-baseline/drift_report.json",
+      "role": "derived_table",
+      "note": "per-prompt identity and prompt fidelity for the jointly trained arm, and the dispersion it collapses to",
+      "bytes": 913,
+      "sha256": "a18fafc19c512e18f2e3118e2388b4dc7d83283a22b25a46de25a0d4a2024dca"
+    },
+    {
+      "id": "E-COMPOSED",
+      "path": "data/e-composed/drift_report_full.json",
+      "role": "derived_table",
+      "note": "per-prompt identity and prompt fidelity for the composed split arm at both adapters on",
+      "bytes": 934,
+      "sha256": "621382853be6bd4a81938cc1654de897fcd5478ea97674cdbb617889f9dde1f4"
+    },
+    {
+      "id": "E-IDENTITY",
+      "path": "data/e-identity/drift_report_identity_only.json",
+      "role": "derived_table",
+      "note": "per-prompt fidelity for the composed arm with the self-attention adapter switched off",
+      "bytes": 933,
+      "sha256": "abf16928f06298a18c833940e76923b5b2143af84e24787e77fac13eddd8e667"
+    },
+    {
+      "id": "E-TRAIN-JOINT",
+      "path": "data/e-train-joint/train_manifest.json",
+      "role": "protocol",
+      "note": "the jointly trained arm's configuration: module regex, trainable parameters, budget and seed",
+      "bytes": 502,
+      "sha256": "b72cd95f170d9a83e10f8405678a2fc46f5817983ea7a6cb76eedbf9dec97933"
+    },
+    {
+      "id": "E-TRAIN-CROSS",
+      "path": "data/e-train-cross/train_manifest.json",
+      "role": "protocol",
+      "note": "the cross-attention adapter's configuration under the same budget and seed",
+      "bytes": 500,
+      "sha256": "5861e2303d554ad20548d4142caa5eb04cfcfc700fa78f920a757ad5cf808861"
+    },
+    {
+      "id": "E-TRAIN-SELF",
+      "path": "data/e-train-self/train_manifest.json",
+      "role": "protocol",
+      "note": "the self-attention adapter's configuration under the same budget and seed",
+      "bytes": 496,
+      "sha256": "fb83eacc406aec79345adbc7d7e12ffb0797d84ef50138ff05deb41094d7328f"
+    },
+    {
+      "id": "E-PROXY",
+      "path": "data/e-proxy/naive.json",
+      "role": "recorded_state",
+      "note": "the separate short-budget proxy arm whose step count the source design names",
+      "bytes": 820,
+      "sha256": "d41aa694c26c61e0efc9e1ecf46cd4892580566be79035926629e00e1486785a"
+    },
+    {
+      "id": "E-PROXY-RUN",
+      "path": "data/e-proxy-run/e2e_gpu_train.json",
+      "role": "recorded_state",
+      "note": "the short-budget run record, including the wall clock it reports for that run",
+      "bytes": 1114,
+      "sha256": "44922842ffe1a68d1cbc445cca1f3ded20be6682b51a57e0dcfd4fc554d06f20"
+    },
+    {
+      "id": "E-CLOSEOUT",
+      "path": "data/e-closeout/laptop_closeout.json",
+      "role": "recorded_state",
+      "note": "the closeout that re-states the short-budget run and reports a different wall clock for it",
+      "bytes": 2785,
+      "sha256": "a4864b599469bccba09cccfd373f1ea036a3bca1e71a77e46a5ea8711d020fd4"
+    },
+    {
+      "id": "E-BLOCKED",
+      "path": "data/e-blocked/sota_copy.json",
+      "role": "recorded_state",
+      "note": "the full-replication tier, recorded as blocked with its reference table never produced",
+      "bytes": 525,
+      "sha256": "50b9ebd403b63c9450393871ae1b51b7c4c52c7435b97850721b0584f27cf925"
+    },
+    {
+      "id": "E-AUTHORISATION",
+      "path": "data/e-authorisation/next_design.json",
+      "role": "recorded_state",
+      "note": "the recorded gate list for the unrun lane, and its status as designed but not authorised",
+      "bytes": 2939,
+      "sha256": "01b57e6d7e0cba1ea64253696b7a5976d17e1f4495c72af2491a49a15600350c"
+    }
+  ]
+}

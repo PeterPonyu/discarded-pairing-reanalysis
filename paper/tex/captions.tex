@@ -1,0 +1,103 @@
+%% Self-contained captions. No cross-references, no section numbers: each
+%% caption must be readable on its own if the figure is lifted out.
+
+\newcommand{\CapCapacity}{%
+Two ways of spending the same parameters. A subject-driven personalisation run
+teaches a concept to a latent diffusion backbone through low-rank adapters on
+the attention projections. The upper bar trains one adapter across both
+attention types at once. The lower bar trains two adapters separately, one on
+the cross-attention projections and one on the self-attention projections, and
+switches both on at generation time. The two adapters together train
+\CrossParams{} and \SelfParams{} parameters, which sum to the \JointParams{}
+that the single adapter trains; the split is a partition of the same parameter
+set rather than a change of capacity. Both arms were trained at
+\TrainSteps{} steps, learning rate \LearningRate{}, adapter rank \LoraRank{},
+resolution \Resolution{} and seed \TrainSeed{}. Counts are read from the
+training records written by the runs.%
+}
+
+\newcommand{\CapCollapse}{%
+The values a dispersion endpoint throws away. Each line follows one background
+prompt across three arms of the same personalisation study: a single adapter
+trained across both attention types, two separately trained adapters composed
+at generation time, and the same composition with the self-attention adapter
+switched off. All three arms were generated over the same \NPairs{} prompts, so
+each line is a like-for-like sequence. The number printed beneath each arm is
+the endpoint the recorded comparison used: the standard deviation of that arm's
+\NPairs{} identity fidelities, computed across prompts. Collapsing four values
+into one leaves a single number per arm, and a comparison of two such numbers
+has nothing left to pair.%
+}
+
+\newcommand{\CapDispersion}{%
+The recorded comparison, carried through to the interval it supports. Each row
+is a ratio of dispersions: the standard deviation of identity fidelity across
+\NPairs{} background prompts for one arm, divided by the same quantity for the
+arm trained as a single adapter. Points are the observed ratios and bars are
+95\% confidence intervals from an $F$ distribution at \NPairs{} generations per
+arm, which is the interval an unpaired comparison of two dispersions at this
+size admits. The dashed line marks equal dispersion. Both intervals contain it.
+The interval assumes the two arms are independent; they are not, because they
+share the background prompts, and that assumption is the one the unpaired
+comparison already makes. The horizontal axis is logarithmic.%
+}
+
+\newcommand{\CapPaired}{%
+The same generations, analysed as the pairs they were run as. Each point is one
+background prompt, and its position is the composed arm's value minus the value
+of the arm trained as a single adapter at that same prompt, for the endpoint
+named above the panel. Identity fidelity is the quantity the recorded
+comparison aggregated into a dispersion; prompt fidelity is recorded in the
+same files and was not used. The grey band is the 95\% confidence interval for
+the mean paired difference and the vertical rule inside it is that mean. The
+annotation gives the interval and the exact two-sided sign-test probability on
+the same pairs. With \NPairs{} pairs that probability cannot fall below
+\FloorAtFour{}, so neither panel can reach a conventional threshold by the sign
+test whatever the points do.%
+}
+
+\newcommand{\CapFloor}{%
+What a sign test can reach, before any data. Each curve gives the smallest
+two-sided probability an exact sign test can return at a given number of pairs:
+the lower curve when every pair falls the same way, the others when one or two
+pairs fall the other way. The quantity depends on the number of pairs alone, so
+it is fixed before an experiment is run and no effect size changes it. The
+dashed line is \Alpha{}. The comparison re-analysed here has \NPairs{} pairs
+and so cannot cross that line; \MinNAny{} pairs is the first size that can, and
+then only on unanimity. The pre-registered design uses \DesignPerConcept{}
+pairs per concept, which reaches \Alpha{} while allowing \DesignTolerance{}
+pairs to disagree.%
+}
+
+\newcommand{\CapArms}{%
+The three adapters on disk, as their training records describe them. Trainable
+parameter counts, wall clock and final training loss are read from the manifest
+each run wrote. The two adapters in the lower block are the ones composed at
+generation time; their parameter counts sum to the count of the adapter trained
+across both attention types, which is what makes the two arms matched on
+capacity. All three were trained at the same budget, learning rate, rank,
+resolution and seed.%
+}
+
+\newcommand{\CapPairs}{%
+Per-prompt values behind the recorded comparison, and the differences the
+recorded endpoint discarded. Rows are the background prompts, joined across
+arms on the prompt text. \emph{Joint} is the arm trained as one adapter across
+both attention types; \emph{composed} is the arm whose two adapters were
+trained separately and switched on together. Differences are composed minus
+joint, so a negative value means the composed arm scored lower at that prompt.
+The final row is the endpoint the recorded comparison used: the standard
+deviation of each arm's four identity fidelities across prompts, which is one
+number per arm and therefore admits no paired difference.%
+}
+
+\newcommand{\CapProtocol}{%
+The paired experiment, fixed before it is run. The pairing unit, the arms, the
+endpoints and the tests are stated here so that no choice among them can be
+made after the results are seen. The number of background prompts is the
+recorded grid, unchanged. The number of generation seeds is the smallest that
+leaves each concept able to reach \Alpha{} on an exact sign test with at least
+one pair falling the wrong way; every other size in the table follows from it.
+The training budget is that of the arms whose comparison this protocol
+re-tests. Nothing in this table has been executed.%
+}

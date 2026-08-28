@@ -1,0 +1,16 @@
+{
+  "direction": "004",
+  "tier": "simple",
+  "name": "attention_type_split_kill",
+  "status": "partial",
+  "source": "data/e-kill/paper_negative_attention_split.json",
+  "metrics": {
+    "baseline_attribute_drift_std": 0.02004934661090374,
+    "full_attribute_drift_std": 0.025192394852638245,
+    "kill_fires_on_registered_comparison": true
+  },
+  "blocker": null,
+  "note": "Invalidated historical smoke. The drift comparison is unpaired (eval_pairing=unknown_legacy_unpaired), not paired science and not a Real 'style adapter net harmful' claim. Official 1000-step B-LoRA stays NOT_PRODUCED.",
+  "not_official_sota": true,
+  "written_utc": "2026-08-20T13:15:27Z"
+}

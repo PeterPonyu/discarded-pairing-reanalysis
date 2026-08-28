@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: >-
+  Code and data for: Matched runs, unpaired test: recovering a discarded pairing in a small personalisation comparison, and pre-registering the one that would settle it
+message: If you use this code or data, please cite this archive and the manuscript.
+type: dataset
+authors:
+  - given-names: Zeyu
+    family-names: Fu
+    email: fuzeyu99@126.com
+    orcid: 'https://orcid.org/0009-0001-8329-0108'
+    affiliation: 'Army Medical University, Chongqing, China'
+abstract: >-
+  Per-prompt fidelity records, adapter training manifests, figure code and manuscript source for a re-analysis that recovers the pairing a small diffusion-personalisation comparison discarded, reports what four pairs can and cannot support, and fixes the paired protocol that would settle the question before it is run.
+keywords:
+  - negative result
+  - paired comparison
+  - pre-registration
+  - statistical power
+  - diffusion personalisation
+  - low-rank adaptation
+  - re-analysis
+license: MIT
+version: 0.1.0
+date-released: '2026-08-28'
+# No DOI: this work has not been deposited in a public archive.
+# The field is added when the archive exists, not before.

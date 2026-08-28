@@ -1,0 +1,33 @@
+{
+  "package_id": "004-blora-sdxl",
+  "mode": "LOCAL_E2E",
+  "status": "ok",
+  "metrics": {
+    "output_dir": "source-tree/004-diffusion-personalization/outputs/e2e_dog6_steps15",
+    "n_manifests": 1,
+    "files": [
+      "pytorch_lora_weights.safetensors",
+      "train_manifest.json"
+    ],
+    "train_manifest": {
+      "adapter_name": "baseline",
+      "target": "full",
+      "target_modules_regex": ".*attn[12]\\.(to_k|to_q|to_v|to_out\\.0)$",
+      "trainable_params": 3188736,
+      "instance_data_dir": "source-tree/004-diffusion-personalization/data/dog6",
+      "instance_prompt": "a photo of sks dog",
+      "pretrained_model": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+      "max_train_steps": 15,
+      "learning_rate": 0.0001,
+      "lora_rank": 16,
+      "seed": 42,
+      "resolution": 512,
+      "wall_clock_sec": 4.0,
+      "final_loss": 0.0529
+    }
+  },
+  "entry": "train_lora.py full baseline dog6 steps=15",
+  "note": "E2E uses SD1.5 (cached). Remote SOTA copy may upgrade to SDXL B-LoRA same entry pattern.",
+  "sku_used": "local_5090_24gb",
+  "written_utc": "2026-08-14T10:47:26Z"
+}

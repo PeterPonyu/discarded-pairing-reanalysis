@@ -1,0 +1,33 @@
+{
+  "output_dir": "../outputs/treatment_dog6",
+  "adapters": {
+    "identity": 1.0,
+    "style": 0.0
+  },
+  "identity_prompt": "sks dog",
+  "per_prompt": [
+    {
+      "background_prompt": "on a beach at sunset",
+      "identity_fidelity": 0.849737286567688,
+      "prompt_fidelity": 0.26455873250961304
+    },
+    {
+      "background_prompt": "in a snowy forest",
+      "identity_fidelity": 0.8500927686691284,
+      "prompt_fidelity": 0.24845239520072937
+    },
+    {
+      "background_prompt": "on a city street at night",
+      "identity_fidelity": 0.8354459404945374,
+      "prompt_fidelity": 0.2023162692785263
+    },
+    {
+      "background_prompt": "in a colorful flower garden",
+      "identity_fidelity": 0.8549067378044128,
+      "prompt_fidelity": 0.28409695625305176
+    }
+  ],
+  "mean_identity_fidelity": 0.8475456833839417,
+  "attribute_drift_std": 0.007278043311089277,
+  "mean_prompt_fidelity": 0.24985608831048012
+}

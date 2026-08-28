@@ -1,0 +1,24 @@
+{
+  "direction": "004",
+  "paper_kind": [
+    "N"
+  ],
+  "claim": "Registered full-composition treatment increases attribute_drift_std vs DreamBooth-LoRA baseline.",
+  "eval_pairing": "unknown_legacy_unpaired",
+  "n_concepts": 1,
+  "n_backgrounds": 4,
+  "baseline_attribute_drift_std": 0.02004934661090374,
+  "full_attribute_drift_std": 0.025192394852638245,
+  "identity_only_attribute_drift_std": 0.007278043311089277,
+  "kill_fires_on_registered_comparison": true,
+  "official_blora_1000step": "missing",
+  "sota_1step_smoke": {
+    "status": "ok",
+    "num_inference_steps": 1,
+    "model": "stabilityai/stable-diffusion-xl-base-1.0",
+    "device": "cuda",
+    "source": "source-tree/004-diffusion-personalization/results/sota_copy/sota_blora_sdxl.json",
+    "note": "Harness 1-step SDXL forward only; not official 1000-step B-LoRA table."
+  },
+  "written_utc": "2026-08-20T13:15:27Z"
+}

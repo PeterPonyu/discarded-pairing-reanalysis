@@ -1,0 +1,32 @@
+{
+  "output_dir": "../outputs/baseline_dog6",
+  "adapters": {
+    "baseline": 1.0
+  },
+  "identity_prompt": "sks dog",
+  "per_prompt": [
+    {
+      "background_prompt": "on a beach at sunset",
+      "identity_fidelity": 0.8327885866165161,
+      "prompt_fidelity": 0.27148938179016113
+    },
+    {
+      "background_prompt": "in a snowy forest",
+      "identity_fidelity": 0.8762102127075195,
+      "prompt_fidelity": 0.2371722012758255
+    },
+    {
+      "background_prompt": "on a city street at night",
+      "identity_fidelity": 0.8260092735290527,
+      "prompt_fidelity": 0.21725612878799438
+    },
+    {
+      "background_prompt": "in a colorful flower garden",
+      "identity_fidelity": 0.8578640818595886,
+      "prompt_fidelity": 0.2710055410861969
+    }
+  ],
+  "mean_identity_fidelity": 0.8482180237770081,
+  "attribute_drift_std": 0.02004934661090374,
+  "mean_prompt_fidelity": 0.24923081323504448
+}
