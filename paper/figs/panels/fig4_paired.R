@@ -24,17 +24,28 @@ summaries$note <- sprintf("mean %s, 95%% interval %s to %s\n%d of %d pairs lower
                           fmt(summaries$upper, 3), summaries$down, N_PAIRS,
                           fmt(summaries$sign_p, 3))
 
+# The interval band and the note that reads it share the strip below the last
+# pair, so their positions are set against each other here rather than each
+# being placed independently.  The note hangs from just under the band: anchored
+# by its bottom instead, a two-line note grows upward into the band and the mean
+# marker is drawn through the middle of the text.
+BAND_BOTTOM <- 0.52
+BAND_TOP <- 0.86
+NOTE_GAP <- 0.12
+
 fig4 <- ggplot(endpoints, aes(x = diff, y = label)) +
   geom_vline(xintercept = 0, linetype = "22", linewidth = 0.4, colour = "grey30") +
   geom_rect(data = summaries, inherit.aes = FALSE,
-            aes(xmin = lower, xmax = upper, ymin = 0.52, ymax = 0.86),
+            aes(xmin = lower, xmax = upper, ymin = BAND_BOTTOM, ymax = BAND_TOP),
             fill = "grey85", colour = NA) +
   geom_segment(data = summaries, inherit.aes = FALSE,
-               aes(x = estimate, xend = estimate, y = 0.52, yend = 0.86),
+               aes(x = estimate, xend = estimate, y = BAND_BOTTOM, yend = BAND_TOP),
                linewidth = 0.5, colour = "grey20") +
   geom_point(aes(colour = side), size = 1.9) +
-  geom_text(data = summaries, inherit.aes = FALSE, aes(x = -Inf, y = 0.05, label = note),
-            hjust = -0.04, vjust = 0, size = 2.4, colour = "grey25", lineheight = 0.95) +
+  geom_text(data = summaries, inherit.aes = FALSE,
+            aes(x = -Inf, y = BAND_BOTTOM - NOTE_GAP, label = note),
+            hjust = -0.04, vjust = 1, size = FIGURE_ANNOTATION_SIZE,
+            colour = "grey25", lineheight = 0.95) +
   facet_wrap(~endpoint, ncol = 2, scales = "free_x") +
   scale_colour_manual(values = c("Composed lower" = "#B2182B", "Composed higher" = "#4D7EA8"),
                       name = NULL) +
@@ -48,4 +59,4 @@ fig4 <- ggplot(endpoints, aes(x = diff, y = label)) +
         axis.text.y = element_text(size = 7.5),
         strip.text = element_text(size = 8.5))
 
-save_fig(fig4, "fig4_paired", 6.3, 2.9)
+save_fig(fig4, "fig4_paired", FIGURE_TEXT_WIDTH_IN, 2.9)

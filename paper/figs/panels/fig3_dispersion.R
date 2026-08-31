@@ -30,4 +30,4 @@ fig3 <- ggplot(forest, aes(x = ratio, y = contrast)) +
   rtx_theme() +
   theme(axis.text.y = element_text(size = 7.5, lineheight = 0.9))
 
-save_fig(fig3, "fig3_dispersion", 6.1, 2.7)
+save_fig(fig3, "fig3_dispersion", 0.9 * FIGURE_TEXT_WIDTH_IN, 2.7)

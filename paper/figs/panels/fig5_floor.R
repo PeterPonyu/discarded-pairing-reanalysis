@@ -56,4 +56,4 @@ fig5 <- ggplot(floor_curves, aes(x = n, y = p, colour = series)) +
   theme(legend.position = "bottom", legend.text = element_text(size = 7),
         legend.key.size = unit(0.3, "cm"), legend.margin = margin(t = -2))
 
-save_fig(fig5, "fig5_floor", 6.3, 3.4)
+save_fig(fig5, "fig5_floor", FIGURE_TEXT_WIDTH_IN, 3.4)

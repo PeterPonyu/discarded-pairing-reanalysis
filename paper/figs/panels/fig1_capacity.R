@@ -37,4 +37,4 @@ fig1 <- ggplot(capacity, aes(x = arm, y = params / 1e6, fill = part)) +
   theme(legend.position = "bottom", legend.text = element_text(size = 7),
         legend.key.size = unit(0.3, "cm"), legend.margin = margin(t = -2))
 
-save_fig(fig1, "fig1_capacity", 6.1, 2.4)
+save_fig(fig1, "fig1_capacity", FIGURE_TEXT_WIDTH_IN, 2.4)

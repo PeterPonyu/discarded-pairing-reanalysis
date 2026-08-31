@@ -32,4 +32,4 @@ fig2 <- ggplot(long, aes(x = arm, y = value, group = label, colour = label)) +
         legend.key.size = unit(0.3, "cm"), legend.margin = margin(t = -2),
         axis.text.x = element_text(size = 7.5, lineheight = 0.9))
 
-save_fig(fig2, "fig2_collapse", 6.1, 3.2)
+save_fig(fig2, "fig2_collapse", FIGURE_TEXT_WIDTH_IN, 3.2)
