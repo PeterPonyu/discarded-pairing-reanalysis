@@ -64,6 +64,59 @@ belongs.
 The paper ends with a pre-registered paired protocol sized against that
 quantity. The protocol is the deliverable. It is not executed here.
 
+\section{Related work}
+
+This paper sits between two literatures that rarely meet: the engineering
+literature on composing adapters, and the methodological literature on how
+comparisons get registered and read. The case here is one where the second
+determined what the first was allowed to conclude.
+
+The technical setting is standard. Latent diffusion models made
+high-resolution synthesis practical~\cite{rombach2022ldm}, subject
+personalisation gave a way to bind a specific subject to a
+model~\cite{ruiz2023dreambooth}, and low-rank adaptation made it cheap enough
+to train many such adaptations
+separately~\cite{hu2022lora}. Composing separately trained adapters rather than
+retraining jointly is an active idea, including for implicitly decomposing an
+image into separable components~\cite{blora}. Whether composition costs
+anything relative to joint training is a reasonable question, and the
+comparison we re-read was an attempt to answer it. Our contribution is not a
+better answer to that question; we generate no images and train nothing. It is
+an account of why the recorded attempt could not answer it.
+
+The methodological literature is where the interesting part lies. That
+flexibility in analysis can manufacture significance is well
+established~\cite{simmons2011false}, as is the subtler point that a single
+analysis chosen in good faith, but contingent on the data seen, is enough to
+invalidate its own probability~\cite{gelman2014garden}. Preregistration is the
+standard remedy~\cite{nosek2018preregistration}. The case here is a failure mode
+that remedy does not address. The comparison \emph{was} registered, and it was
+registered honestly, in advance. What went wrong is that the registered
+endpoint --- a dispersion across prompts, which is one number per arm ---
+discarded a pairing the runs had actually produced. Preregistration protects
+against choosing the analysis after seeing the data. It offers no protection
+against fixing, in advance, an endpoint that destroys the structure of the
+experiment. We have not seen that failure described as such, and it is not
+exotic: any summary that collapses within-pair structure before the comparison
+does the same thing.
+
+The inferential tools are old and well understood. The sign
+test~\cite{dixon1946sign}, the signed-rank test~\cite{wilcoxon1945individual}
+and the $t$ test~\cite{student1908probable} are the obvious candidates for the
+recovered pairs, and the $t$ test's tolerance of non-normality at moderate
+sample sizes is itself classical~\cite{box1953nonnormality}. What deserves more
+attention than it gets is the discreteness of the exact tests at small $n$. With
+\NPairs{} pairs the smallest two-sided probability the exact sign test can
+return is \FloorAtFour{}, so no configuration of the data reaches \Alpha{}. This
+is a stronger statement than low power. An underpowered test may fail to detect
+a real effect~\cite{button2013power}; this test could not have reported one. The
+distinction matters because the remedy differs: power is improved by collecting
+more data, whereas a floor above the threshold means the test was the wrong
+instrument regardless of what the data showed. Calls to stop dichotomising at a
+fixed threshold~\cite{amrhein2019retire} are usually made about results that
+cleared it or narrowly missed; the same argument applies with more force to a
+test whose attainable minimum sits above the line before any data arrive.
+
 \section{Methods}
 \input{methods}
 
@@ -457,6 +510,47 @@ pairs defined at generation time by concept, prompt and seed, sized so that
 reach \Alpha{}. It is small, it is not run here, and its protocol carries the
 one line whose absence is the subject of this paper: the smallest probability
 its test can return before any of it happens.
+
+\appendix
+
+\section{The bound evidence}
+\label{app:evidence}
+
+Table~\ref{tab:evidence} lists all \NEvidence{} artifacts behind this
+manuscript, totalling \EvidenceBytes{} bytes, in the order the analysis consumes
+them. Every number the text prints is computed from these bytes by the figure
+code, and the code recomputes each digest before reading, so a stale artifact
+stops the build rather than reaching the page.
+
+The discipline matters more here than it would in a paper reporting a positive
+result. This manuscript's subject is a comparison that was registered, run, and
+then downgraded, and the whole argument depends on that order being the actual
+order. An account like this is exactly the kind that is easy to improve in
+retrospect --- to remember the caveat as having been noticed earlier than it
+was, or to let the registered comparison and the sentence retiring it blur into
+one revision. Both documents are pinned separately here, along with the display
+table that rounded the two dispersion values for presentation. A reader who
+suspects the sequence has been tidied can check it rather than take our word.
+
+Two limits are worth stating so the table is not read as more than it is. A
+digest fixes bytes to a claim; it does not make the bytes true, and nothing here
+certifies that an artifact was correct when it was written. And the internal
+identifier and path of each artifact are omitted deliberately: they describe a
+private tree, they would tell a reader nothing, and keeping them out of the PDF
+is a property the build verifies rather than a habit.
+
+\begin{table}[htbp]
+\centering
+\caption{Every artifact this manuscript rests on, with its size and the first 16
+hexadecimal characters of its SHA-256 digest. Full digests, and the paths they
+apply to, are in the manifest accompanying the manuscript source; the prefix is
+shown here only because a 64-character digest does not set in a table column.
+The figure and table code recomputes each digest from the bytes on disk before
+reading them and stops the build on any mismatch.}
+\label{tab:evidence}
+\footnotesize
+\input{generated_table_evidence}
+\end{table}
 
 \section*{Data and code availability}
 

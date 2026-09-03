@@ -212,7 +212,9 @@ write_generated(c(
   macro("OfficialState", gsub("_", "\\\\_", kill$official_blora_1000step)),
   macro("BlockedTier", blocked$status),
   macro("AuthorisationState", gsub("_", "\\\\_", authorisation$status)),
-  macro("KillFires", if (isTRUE(kill$kill_fires_on_registered_comparison)) "fires" else "does not fire")
+  macro("KillFires", if (isTRUE(kill$kill_fires_on_registered_comparison)) "fires" else "does not fire"),
+  macro("NEvidence", nrow(manifest$entries)),
+  macro("EvidenceBytes", format(sum(manifest$entries$bytes), big.mark = ","))
 ), "generated_numbers.tex")
 
 arms <- data.frame(
@@ -283,4 +285,8 @@ write_generated(c(
   "\\end{tabular}"
 ), "generated_table_protocol.tex")
 
-message(sprintf("wrote 5 figures to figs/out and 4 generated tex files to tex/"))
+## The manifest itself, so the evidence discipline can be checked rather than believed.
+
+write_generated(evidence_table(manifest), "generated_table_evidence.tex")
+
+message(sprintf("wrote 5 figures to figs/out and 5 generated tex files to tex/"))
