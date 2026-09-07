@@ -2,7 +2,7 @@
 
 Per-prompt fidelity records, adapter training manifests, figure code and manuscript source for a re-analysis that recovers the pairing a small diffusion-personalisation comparison discarded, reports what four pairs can and cannot support, and fixes the paired protocol that would settle the question before it is run.
 
-This repository has not been deposited in a public archive, so it has no persistent identifier yet. One will be recorded here when an archive exists.
+Archived at [10.5281/zenodo.22647020](https://doi.org/10.5281/zenodo.22647020).
 
 Repository: https://github.com/PeterPonyu/discarded-pairing-reanalysis
 
