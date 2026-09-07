@@ -20,9 +20,9 @@ the build instead of producing a stale number.
 | `data/e-train-self/train_manifest.json` | protocol | 496 | `fb83eacc406aec79…` |
 | `data/e-proxy/naive.json` | recorded_state | 820 | `d41aa694c26c61e0…` |
 | `data/e-proxy-run/e2e_gpu_train.json` | recorded_state | 1114 | `44922842ffe1a68d…` |
-| `data/e-closeout/laptop_closeout.json` | recorded_state | 2785 | `a4864b599469bccb…` |
+| `data/e-closeout/laptop_closeout.json` | recorded_state | 2778 | `0ca2fbf280db26ef…` |
 | `data/e-blocked/sota_copy.json` | recorded_state | 525 | `50b9ebd403b63c94…` |
-| `data/e-authorisation/next_design.json` | recorded_state | 2939 | `01b57e6d7e0cba1e…` |
+| `data/e-authorisation/next_design.json` | recorded_state | 2907 | `027151dafb365afc…` |
 
 Some of these files recorded the paths of the machine that produced them. Those path strings and source links were refreshed before deposit; `REDACTION.md` states the rules, lists every file touched with both digests, and describes the check that proves no number changed.
 

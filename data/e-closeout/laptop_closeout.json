@@ -3,7 +3,7 @@
   "mode": "LAPTOP_CLOSEOUT",
   "status": "closed",
   "verified_utc": "2026-08-14T06:49:15Z",
-  "verified_on": "laptop_worktree_wt/004-diffusion-personalization",
+  "verified_on": "source-tree/004-diffusion-personalization",
   "checks": {
     "manifest_proxy_e2e": {
       "path": "source-tree/004-blora-sdxl/MANIFEST.json",

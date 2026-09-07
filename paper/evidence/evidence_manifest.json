@@ -101,8 +101,8 @@
       "path": "data/e-closeout/laptop_closeout.json",
       "role": "recorded_state",
       "note": "the closeout that re-states the short-budget run and reports a different wall clock for it",
-      "bytes": 2785,
-      "sha256": "a4864b599469bccba09cccfd373f1ea036a3bca1e71a77e46a5ea8711d020fd4"
+      "bytes": 2778,
+      "sha256": "0ca2fbf280db26ef10d4c30e826bc57a3d932eb283957e612c3de7dec15643ec"
     },
     {
       "id": "E-BLOCKED",
@@ -117,8 +117,8 @@
       "path": "data/e-authorisation/next_design.json",
       "role": "recorded_state",
       "note": "the recorded gate list for the unrun lane, and its status as designed but not authorised",
-      "bytes": 2939,
-      "sha256": "01b57e6d7e0cba1ea64253696b7a5976d17e1f4495c72af2491a49a15600350c"
+      "bytes": 2907,
+      "sha256": "027151dafb365afc716d6d482e6ded8a276cdc886a46baf8b27a2a9a9e26d974"
     }
   ]
 }

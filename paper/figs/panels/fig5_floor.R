@@ -30,6 +30,7 @@ marks$p <- attainable_p(marks$n, discordant = marks$discordant)
 
 fig5 <- ggplot(floor_curves, aes(x = n, y = p, colour = series)) +
   geom_hline(yintercept = ALPHA, linetype = "22", linewidth = 0.4, colour = "grey30") +
+  geom_vline(xintercept = N_PAIRS, linetype = "22", linewidth = 0.35, colour = "grey40") +
   geom_line(linewidth = 0.5) +
   geom_point(size = 0.9) +
   geom_segment(data = marks, inherit.aes = FALSE,
@@ -42,6 +43,8 @@ fig5 <- ggplot(floor_curves, aes(x = n, y = p, colour = series)) +
             size = 2.4, colour = "grey25", lineheight = 0.95) +
   annotate("text", x = 3, y = ALPHA, hjust = 0, vjust = -0.6, size = 2.5, colour = "grey30",
            label = sprintf("alpha = %s", fmt(ALPHA))) +
+  annotate("text", x = N_PAIRS, y = 1.25, hjust = 0.5, vjust = 0,
+           size = 2.35, colour = "grey35", label = sprintf("recorded n = %d", N_PAIRS)) +
   scale_colour_manual(values = c("every pair agrees" = "#B2182B",
                                  "one pair disagrees" = "#4D7EA8",
                                  "two pairs disagree" = "#4D9221"), name = NULL) +

@@ -55,7 +55,7 @@
     "no_mint_sota_chexbench_json": true,
     "no_gated_hf_download": ["CheXbench", "SDXL", "DiT", "CORPUS"],
     "no_fabricate_llm_qa_ok": true,
-    "anchors_untouched": ["ci/laptop-substitute-fire-infra", "docs/incubator-index-audits-plans"],
+    "anchors_untouched": ["<private-branch>", "<private-branch>"],
     "anchors_pinned_at": "b8a3d53",
     "dirs_not_remotes": "001-007 are directories, not remotes; only remote is origin",
     "no_main_sota_copy_noise": "do not commit main's !28 sota_copy noise"

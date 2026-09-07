@@ -48,6 +48,8 @@ authorisation <- read_bound("E-AUTHORISATION")
 
 pairs <- join_arms(baseline, composed, identity_only)
 N_PAIRS <- nrow(pairs)
+PROMPT_CODES <- paste0("P", seq_len(N_PAIRS))
+if (anyDuplicated(PROMPT_CODES)) stop("prompt row codes are not unique")
 
 # The recorded endpoint is a population dispersion over the per-prompt identity
 # fidelities. Recomputing it is what licenses the paper to treat the two as the
@@ -138,7 +140,8 @@ if (DESIGN_PER_CONCEPT < MIN_N_ONE) stop("the derived design cannot tolerate a s
 ## ---------------------------------------------------------------------------
 
 for (unit in c("fig1_capacity.R", "fig2_collapse.R", "fig3_dispersion.R",
-               "fig4_paired.R", "fig5_floor.R")) {
+               "fig4_paired.R", "fig5_floor.R", "fig6_tradeoff.R",
+               "fig7_protocol.R")) {
   source(file.path("figs", "panels", unit))
 }
 
@@ -179,6 +182,8 @@ write_generated(c(
   macro("DispIdonUpper", fmt(disp_idon$sd_upper)),
   macro("DispIdonP", fmt(disp_idon$p)),
   macro("IdentityDown", identity_sign$negative),
+  macro("IdentityHigher", sum(pairs$d_identity > 0)),
+  macro("IdentityTies", sum(pairs$d_identity == 0)),
   macro("IdentitySignP", fmt(identity_sign$p, 3)),
   macro("IdentityWilcoxP", fmt(identity_wilcox, 3)),
   macro("IdentityDiff", fmt(identity_t$estimate, 4)),
@@ -247,7 +252,7 @@ write_generated(c(
   "Background prompt & Joint & Composed & Difference & Joint & Composed & Difference \\\\",
   "\\midrule",
   paste0(
-    short_prompt(pairs$prompt), " & ",
+    PROMPT_CODES, " & ",
     fmt(pairs$base_identity, 4), " & ", fmt(pairs$comp_identity, 4), " & ",
     sprintf("%+.4f", pairs$d_identity), " & ",
     fmt(pairs$base_prompt, 4), " & ", fmt(pairs$comp_prompt, 4), " & ",
@@ -289,4 +294,4 @@ write_generated(c(
 
 write_generated(evidence_table(manifest), "generated_table_evidence.tex")
 
-message(sprintf("wrote 5 figures to figs/out and 5 generated tex files to tex/"))
+message(sprintf("wrote 7 figures to figs/out and 5 generated tex files to tex/"))

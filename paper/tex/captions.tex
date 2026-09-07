@@ -26,7 +26,8 @@ each line is a like-for-like sequence. The number printed beneath each arm is
 the endpoint the recorded comparison used: the standard deviation of that arm's
 \NPairs{} identity fidelities, computed across prompts. Collapsing four values
 into one leaves a single number per arm, and a comparison of two such numbers
-has nothing left to pair.%
+has nothing left to pair. The legend uses P1--P4, stable row codes in the
+recorded order, rather than printing the background-prompt text.%
 }
 
 \newcommand{\CapDispersion}{%
@@ -54,6 +55,25 @@ annotation gives the interval and the exact two-sided sign-test probability on
 the same pairs. With \NPairs{} pairs that probability cannot fall below
 \FloorAtFour{}, so neither panel can reach a conventional threshold by the sign
 test whatever the points do.%
+The dashed vertical rule is zero paired change; marker fill and shape redundantly
+encode whether the composed arm is lower or higher. The y-axis uses the same
+P1--P4 row codes as the paired table; the codes are not prompt content.%
+}
+
+\newcommand{\CapEndpointMap}{%
+A descriptive paired map of two recorded endpoints. For each of the \NPairs{}
+background-prompt rows, the horizontal coordinate is prompt fidelity for the
+composed arm minus the jointly trained arm and the vertical coordinate is the
+corresponding identity-fidelity difference. The arrows start at zero only to
+make each within-prompt change vector visible; they are not trajectories and
+carry no causal interpretation. P1--P4 are stable row codes in the recorded
+order and intentionally do not reproduce prompt text. Red triangles are the
+composed arm and green squares are the cross-attention-only arm. Prompt fidelity
+was recorded but was not the registered historical endpoint, so this four-row
+diagnostic supplies no pooled effect, correlation, or general-population
+inference. All \PromptDown{} composed-arm prompt-fidelity changes are negative,
+while the identity changes do not share one sign; the figure is a separation of
+coordinates, not evidence of a trade-off.%
 }
 
 \newcommand{\CapFloor}{%
@@ -64,9 +84,10 @@ pairs fall the other way. The quantity depends on the number of pairs alone, so
 it is fixed before an experiment is run and no effect size changes it. The
 dashed line is \Alpha{}. The comparison re-analysed here has \NPairs{} pairs
 and so cannot cross that line; \MinNAny{} pairs is the first size that can, and
-then only on unanimity. The pre-registered design uses \DesignPerConcept{}
-pairs per concept, which reaches \Alpha{} while allowing \DesignTolerance{}
-pairs to disagree.%
+then only on unanimity. The pre-registered design pools \DesignTotal{} pairs
+across its two concept strata, reaching \Alpha{} while allowing \DesignPooledTolerance{}
+pairs to disagree. The vertical marker identifies the recorded \(n=\NPairs{}\)
+case, so the floor is a design limit rather than an observed effect.%
 }
 
 \newcommand{\CapArms}{%
@@ -81,8 +102,9 @@ resolution and seed.%
 
 \newcommand{\CapPairs}{%
 Per-prompt values behind the recorded comparison, and the differences the
-recorded endpoint discarded. Rows are the background prompts, joined across
-arms on the prompt text. \emph{Joint} is the arm trained as one adapter across
+recorded endpoint discarded. Rows are stable P1--P4 codes in the recorded
+background-prompt order; the analysis joins arms on the private prompt key but
+does not print that text here. \emph{Joint} is the arm trained as one adapter across
 both attention types; \emph{composed} is the arm whose two adapters were
 trained separately and switched on together. Differences are composed minus
 joint, so a negative value means the composed arm scored lower at that prompt.
@@ -100,4 +122,19 @@ leaves each concept able to reach \Alpha{} on an exact sign test with at least
 one pair falling the wrong way; every other size in the table follows from it.
 The training budget is that of the arms whose comparison this protocol
 re-tests. Nothing in this table has been executed.%
+}
+
+\newcommand{\CapProtocolFlow}{%
+The pre-registered sequence, shown as a design rather than a result. A pair is
+one concept, one background prompt and one generation seed; the jointly trained
+and composed arms are matched on the recorded training budget and controls. The
+primary endpoint is the within-pair change in identity fidelity, tested by one
+pooled exact two-sided sign test at \Alpha{}; concept-specific estimates are
+descriptive strata, and the registered secondary checks sit beside them. The
+lower strip gives the derived design counts: \DesignConcepts{}
+concepts, \DesignPerConcept{} pairs per concept and \DesignTotal{} pairs in
+total, yielding \DesignGenerations{} generations. The analysis lock requires
+joining by the pair key, fixing the protocol before generation and unblinding
+once. The protocol is explicitly UNRUN and UNAUTHORIZED; no value in this
+diagram is an observed result.%
 }

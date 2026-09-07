@@ -1,40 +1,24 @@
-A small comparison in a diffusion personalisation project was recorded as a
-mechanism being ruled out: composing two separately trained attention adapters
-raised a dispersion statistic relative to training the same parameters jointly,
-and the project logged the comparison under a label marking its evaluation as
-unpaired. We re-read the artifacts that comparison was computed from and find
-that the pairing was never missing from the experiment. All three arms were
-generated over the same \NPairs{} background prompts, from adapters trained at
-the same budget, learning rate, rank, resolution and seed, and the two composed
-adapters train exactly the \JointParams{} parameters that the joint arm trains
-as one. What discarded the pairing was the endpoint: a dispersion across
-prompts is one number per arm, so the comparison that was registered has no
-pairs left to test, whatever the runs did.
+A diffusion-personalisation comparison was recorded as unpaired evidence for
+a mechanism claim. Re-reading the artifacts shows that the pairing was
+present: all three arms used the same \NPairs{} prompts and matched training
+budgets, while the registered endpoint reduced each arm to one dispersion
+number and thereby erased the pairs.
 
-Three things follow, all computable from the recorded bytes without generating
-an image. First, taken on its own terms as a comparison of two dispersions
-estimated from \NPairs{} generations each, the recorded result supports a ratio
-anywhere from \DispLower{} to \DispUpper{} at 95\% confidence; it contains no
-difference, a halving, and a near fivefold increase alike. Second, the pairing
-can be recovered at the level the dispersion was computed from, and when it is,
-the composed arm is lower on \IdentityDown{} of \NPairs{} pairs in identity
-fidelity and on \PromptDown{} of \NPairs{} in prompt fidelity, at sign-test
-probabilities of \IdentitySignP{} and \PromptSignP{}. Third, the reason the
-second of those does not reach the conventional threshold is not the data: with
-\NPairs{} pairs the smallest two-sided probability an exact sign test can
-return is \FloorAtFour{}, so the test could not have produced a significant
-result however the pairs had fallen. The only analysis of these runs that
-crosses \Alpha{} is a paired $t$ test on an endpoint that was not the
-registered one, and it does so by assuming a distributional shape that four
-points cannot exhibit.
+At that endpoint, the recorded dispersion ratio is compatible with
+\DispLower{}--\DispUpper{} at 95\% confidence, so it supports no separation.
+When the pairing is recovered at the level of the recorded generations, the
+composed arm is lower on identity fidelity for \IdentityDown{} of
+\NPairs{} pairs (sign-test \(p=\IdentitySignP{}\)) and on prompt fidelity for
+\PromptDown{} of \NPairs{} pairs (\(p=\PromptSignP{}\)). With
+\NPairs{} pairs, the smallest two-sided exact sign-test probability is
+\FloorAtFour{}, so the registered endpoint could not reach \Alpha{} whatever
+the four outcomes. An unregistered paired \(t\) test crosses that threshold
+only by changing the endpoint and assuming a distributional shape that four
+points cannot establish.
 
-We therefore state the recorded finding at the strength its evidence carries
---- no separation observed in one small comparison whose registered endpoint
-admits no paired test --- and pre-register the experiment that would settle it:
-\DesignPerConcept{} pairs per concept across \DesignConcepts{} concepts,
-defined at generation time by concept, prompt and seed, sized so that
-\DesignTolerance{} pairs may fall the wrong way and the test can still reach
-\Alpha{}. The protocol is the deliverable. It is not run here, the reference
-table it would eventually be compared against remains unproduced, and the
-recorded gate for the unrun lane still stands at
-\AuthorisationState{}.
+We therefore report no separation in this small comparison at its registered
+endpoint and pre-register the experiment that could settle it:
+\DesignPerConcept{} pairs per concept across \DesignConcepts{} concepts, with
+\DesignTolerance{} tolerated reversals and a target of \Alpha{}. The protocol
+has not been run, its reference table remains unproduced, and the paired run
+remains unauthorised.

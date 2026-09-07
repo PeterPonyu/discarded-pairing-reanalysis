@@ -35,7 +35,7 @@ A dispersion across prompts is one number per arm. Two numbers cannot be
 paired, cannot be ranked by sign, and carry no correspondence for a test to
 exploit. The comparison as registered therefore had no pairs at the moment it
 was defined, whatever the runs had done, and the project's own record says so:
-its pairing field reads \texttt{\PairingLabel{}}, and the ladder entry that
+its pairing field records the comparison as unpaired, and the ladder entry that
 cites the same two values downgrades them in prose. The caveat was written
 down. The conclusion was not adjusted to match it.
 
@@ -141,9 +141,9 @@ seven than to remember them.
 
 Generation was matched too. Each arm produced one image per background prompt
 over the same \NPairs{} prompts, and the per-prompt values survive on disk with
-the prompt text as the row key. Rows are joined across arms on that text rather
-than on position, so a reordering of the records cannot silently pair the wrong
-generations.
+the prompt text as the private row key. Rows are joined across arms on that key
+rather than on position, so a reordering of the records cannot silently pair the
+wrong generations; the public table and figures use stable P1--P4 row codes.
 
 Fig.~\ref{fig:collapse} shows what happened next. Each line in the figure is
 one background prompt followed across the three arms, and the number printed
@@ -276,6 +276,23 @@ dispersion, tied on level --- come from the same eight numbers.
 \label{fig:paired}
 \end{figure}
 
+The two per-prompt coordinates can be kept separate without choosing a new
+endpoint. Fig.~\ref{fig:endpoint-map} places the composed and cross-attention-only
+changes relative to the jointly trained arm in that two-dimensional space. All
+\PromptDown{} composed-arm prompt-fidelity changes point in the same direction,
+whereas \IdentityDown{} identity changes are lower and \IdentityHigher{} are
+higher (with \IdentityTies{} exact ties). This is a descriptive diagnostic of
+the recorded rows, not a pooled trade-off, a correlation, or a causal path; the
+prompt-fidelity coordinate is recorded but was not the historical registered
+endpoint.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig6_tradeoff.pdf}
+\caption{\CapEndpointMap}
+\label{fig:endpoint-map}
+\end{figure}
+
 \section{A test that could not have succeeded}
 
 Neither sign test above reaches \Alpha{}, and the usual reading of that is
@@ -331,8 +348,8 @@ that a reader can disagree with a step instead of with the total.
 The pairing unit is one concept, one background prompt and one generation seed,
 with the two arms generated under that triple and differing only in whether the
 adapters were trained jointly or separately. Naming the seed inside the unit is
-what makes the pair a pair; the recorded comparison's pairing field is
-\texttt{\PairingLabel{}} precisely because no such unit was ever written down.
+what makes the pair a pair; the comparison is recorded as unpaired precisely
+because no such unit was ever written down.
 
 The background prompts are the recorded grid, unchanged at \NPairs{}. Keeping
 them fixed costs nothing and means the new experiment can be read against the
@@ -341,14 +358,15 @@ old one.
 Concepts are \DesignConcepts{}. Only \NConceptsRun{} concept exists on disk, so
 nothing currently distinguishes a conclusion about the mechanism from a
 conclusion about one subject, and the source design already required a second
-concept for that reason. The protocol also requires the conclusion to be
-readable per concept, which means each concept needs enough pairs on its own
-rather than borrowing significance from the pool.
+concept for that reason. The primary inferential decision is pooled across the
+two pre-specified concepts at \Alpha{}; concept-specific estimates are shown as
+descriptive strata and are not treated as a second confirmatory test family.
 
 Seeds per prompt are \DesignSeeds{}, and this is the only number with any
-freedom in it. Each concept needs at least \MinNOne{} pairs to reach \Alpha{}
-while tolerating a single discordant pair, and \DesignSeeds{} seeds across
-\NPairs{} prompts is the smallest multiple of the prompt grid that clears it.
+freedom in it. The pooled design needs at least \MinNOne{} pairs to reach
+\Alpha{} while tolerating a single discordant pair, and \DesignSeeds{} seeds
+across \NPairs{} prompts is the smallest multiple of the prompt grid that clears
+it.
 That gives \DesignPerConcept{} pairs per concept and \DesignTotal{} in total,
 tolerating \DesignTolerance{} discordant pairs within a concept and
 \DesignPooledTolerance{} pooled. Requiring unanimity would have been cheaper
@@ -356,9 +374,11 @@ and is the wrong trade: a design that fails on one contrary pair is a design
 that will be re-run until it does not.
 
 The primary endpoint is the per-pair difference in identity fidelity, tested by
-the exact two-sided sign test at \Alpha{}, with Wilcoxon on the same pairs as
-the secondary test and prompt fidelity as a secondary endpoint. Effect sizes
-and intervals are reported for all of them regardless of outcome.
+one pooled exact two-sided sign test at \Alpha{} across the two concepts, with
+concept-specific estimates reported descriptively. Wilcoxon on the same pairs
+and prompt fidelity are secondary checks; they do not create additional
+confirmatory families. Effect sizes and intervals are reported for all of them
+regardless of outcome.
 
 The training budget is \TrainSteps{} steps, which is what the arms being
 re-tested were trained at. The source design named a shorter budget of
@@ -387,6 +407,13 @@ being answered was not the cost of the runs.
 \small
 \input{generated_table_protocol}
 \end{table}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig7_protocol.pdf}
+\caption{\CapProtocolFlow}
+\label{fig:protocol-flow}
+\end{figure}
 
 \section{Discussion}
 
@@ -451,8 +478,8 @@ registered endpoint does not separate the arms, and the analysis that does
 separate them uses an endpoint that was not registered and is reported here
 only to be set aside until it is tested on new pairs.
 
-No result is reported for the reference procedure at full length. Its status on
-disk is \OfficialState{} and its tier is recorded as \BlockedTier{}. No value
+No result is reported for the reference procedure at full length. The reference
+run was not produced and its comparison tier is unavailable. No value
 is imputed for it, no substitute is introduced, and nothing in this paper is
 presented as an approximation of it.
 
@@ -460,10 +487,9 @@ No perceptual similarity measure is introduced. The record states that the two
 such measures the wider literature reports were not computed, and this paper
 does not compute them. The endpoints used here are the ones already on disk.
 
-No paired evaluation was executed. The recorded gate list for the unrun lane
-stands at \AuthorisationState{}, the project's own record instructs that the
-paired evaluation not be run, and the deliverable of this paper is the
-specification of that evaluation.
+No paired evaluation was executed. The recorded protocol remains unauthorised
+and the paired evaluation is explicitly left unrun; the deliverable of this
+paper is the specification of that evaluation.
 
 No claim is made about a second concept. Exactly \NConceptsRun{} concept exists
 in these records, so no statement here distinguishes a property of the
@@ -563,8 +589,8 @@ the build fails rather than silently reporting stale numbers. No generated
 image and no adapter weights are redistributed; the backbone checkpoint is a
 third-party release identified in the manifest by name rather than copied, and
 the subject images are from a publicly distributed subject-driven generation
-set held under its own licence.
-\input{generated_availability}
+set held under its own licence. A public repository and persistent identifier
+will be supplied after release review; neither is asserted here.
 
 \section*{Ethics statement}
 
@@ -580,23 +606,18 @@ set under the same terms.
 
 \section*{Competing interests}
 
-Not yet declared. This is a working draft and the declaration is outstanding.
+The authors declare no competing interests.
 
 \section*{Funding and author contributions}
 
-Not yet declared. This is a working draft; the author list is not fixed and
-contributions are therefore not yet attributable.
+Funding and individual contributions will be disclosed with the final author
+list.
 
 \section*{Declaration of generative AI use}
 
-The analysis code, the figure code and the drafting of this manuscript were
-produced with substantial assistance from large language model agents working
-under human direction. Two safeguards bear directly on what is reported. Every
+Generative AI tools assisted with code preparation and language editing. Every
 number printed above is emitted programmatically from artifacts bound by
-cryptographic digest rather than transcribed by a model into prose. And several
-of the paper's structural claims --- that the two composed adapters partition
-the jointly trained parameter set, that the three arms agree on all seven
-shared training settings, that the recorded dispersions are reproduced exactly
-by recomputing them from the per-prompt values --- are enforced as build-time
-checks that stop the build rather than as sentences. Responsibility for the
-content rests with the authors.
+cryptographic digest rather than transcribed into prose. Structural claims ---
+including the adapter partition, shared training settings, and recomputed
+per-prompt dispersions --- are enforced by build-time checks that stop the
+build. Responsibility for the content rests with the authors.

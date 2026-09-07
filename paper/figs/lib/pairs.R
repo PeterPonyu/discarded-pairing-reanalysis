@@ -1,8 +1,8 @@
 # Rebuilding the pairs the recorded endpoint threw away.
 #
 # The three arms were generated over the same four background prompts, so the
-# per-prompt rows join on the prompt text. Nothing here estimates anything; it
-# only puts back the correspondence that a per-arm dispersion number discards.
+# per-prompt rows join on a private prompt key. Nothing here estimates anything;
+# it only puts back the correspondence that a per-arm dispersion number discards.
 
 # The order the drift reports were written in. Joining on the text rather than
 # on position, because a silent reordering would otherwise pair the wrong rows.
@@ -39,8 +39,8 @@ assert_recorded_dispersion <- function(values, recorded, label, tol = 1e-9) {
   recomputed
 }
 
-# Short axis labels. The manuscript prints the recorded prompt text, so the two
-# never disagree about which generation is being named.
+# Short axis labels are retained for internal diagnostics only; reader-facing
+# tables and figures use stable P1--P4 codes rather than prompt content.
 short_prompt <- function(x) {
   x <- sub("^on a ", "", x)
   x <- sub("^in a ", "", x)

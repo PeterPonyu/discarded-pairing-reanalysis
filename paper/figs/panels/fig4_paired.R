@@ -6,8 +6,8 @@ endpoints <- rbind(
   data.frame(endpoint = "Prompt fidelity", prompt = pairs$prompt, diff = pairs$d_prompt,
              stringsAsFactors = FALSE)
 )
-endpoints$label <- factor(short_prompt(endpoints$prompt),
-                          levels = rev(short_prompt(pairs$prompt)))
+endpoints$label <- factor(rep(PROMPT_CODES, 2L),
+                          levels = rev(PROMPT_CODES))
 endpoints$side <- ifelse(endpoints$diff < 0, "Composed lower", "Composed higher")
 
 summaries <- data.frame(
@@ -23,6 +23,7 @@ summaries$note <- sprintf("mean %s, 95%% interval %s to %s\n%d of %d pairs lower
                           fmt(summaries$estimate, 3), fmt(summaries$lower, 3),
                           fmt(summaries$upper, 3), summaries$down, N_PAIRS,
                           fmt(summaries$sign_p, 3))
+summaries$note <- sprintf("n = %d pairs; %s", N_PAIRS, summaries$note)
 
 # The interval band and the note that reads it share the strip below the last
 # pair, so their positions are set against each other here rather than each
@@ -41,7 +42,7 @@ fig4 <- ggplot(endpoints, aes(x = diff, y = label)) +
   geom_segment(data = summaries, inherit.aes = FALSE,
                aes(x = estimate, xend = estimate, y = BAND_BOTTOM, yend = BAND_TOP),
                linewidth = 0.5, colour = "grey20") +
-  geom_point(aes(colour = side), size = 1.9) +
+  geom_point(aes(colour = side, shape = side), size = 1.9) +
   geom_text(data = summaries, inherit.aes = FALSE,
             aes(x = -Inf, y = BAND_BOTTOM - NOTE_GAP, label = note),
             hjust = -0.04, vjust = 1, size = FIGURE_ANNOTATION_SIZE,
@@ -49,6 +50,8 @@ fig4 <- ggplot(endpoints, aes(x = diff, y = label)) +
   facet_wrap(~endpoint, ncol = 2, scales = "free_x") +
   scale_colour_manual(values = c("Composed lower" = "#B2182B", "Composed higher" = "#4D7EA8"),
                       name = NULL) +
+  scale_shape_manual(values = c("Composed lower" = 1, "Composed higher" = 16),
+                     name = NULL) +
   scale_x_continuous(name = "Composed arm minus jointly trained arm",
                      expand = expansion(mult = 0.09)) +
   scale_y_discrete(name = NULL, expand = expansion(add = c(1.25, 0.55))) +

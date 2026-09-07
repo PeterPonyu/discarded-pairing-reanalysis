@@ -27,9 +27,8 @@ than by one fewer; the figure code recomputes it from the per-prompt values and
 refuses to proceed unless it reproduces the recorded number exactly, because
 the entire comparison is between two such numbers.
 
-The project recorded the comparison's evaluation pairing as
-\texttt{\PairingLabel{}} and recorded that the pre-registered criterion
-\KillFires{} on it. It also recorded, in the same file and in the ladder entry
+The project recorded the comparison as unpaired and recorded that the
+pre-registered criterion \KillFires{} on it. It also recorded, in the same file and in the ladder entry
 that cites it, that this is an unpaired historical result rather than a paired
 measurement. The present paper takes that caveat as its starting point and asks
 what the same bytes do support.
@@ -47,9 +46,10 @@ matched on capacity rather than merely similar.
 \subsection{Reconstructing the pairs}
 
 The per-prompt values underlying each dispersion are recorded, one row per
-background prompt, with the prompt text as the row key. Rows are joined across
-arms on that text rather than on position, so a reordering cannot silently pair
-the wrong generations. Two endpoints are available per row: identity fidelity,
+background prompt, with the prompt text as a private row key. Rows are joined
+across arms on that key rather than on position, so a reordering cannot silently
+pair the wrong generations. Public tables and figures replace that key with
+stable P1--P4 row codes. Two endpoints are available per row: identity fidelity,
 which the registered comparison aggregated, and prompt fidelity, which it did
 not use.
 
@@ -58,6 +58,34 @@ minus the jointly trained arm's value at that prompt. This recovers the
 correspondence the dispersion discarded; it does not recover a pairing for the
 registered endpoint itself, which cannot have one, because a dispersion across
 prompts is a single number per arm.
+
+For a visual diagnostic only, we also retain the two per-prompt coordinates as
+the change vector
+\(\Delta_i=(\Delta_{\mathrm{prompt},i},\Delta_{\mathrm{identity},i})\)
+relative to the jointly trained arm, for the composed and cross-attention-only
+arms. The map reports these four recorded rows without averaging, fitting a
+trend, or testing the prompt-fidelity coordinate. Prompt fidelity is shown to
+make the distinction between endpoints inspectable; it is not promoted to the
+historical primary comparison.
+
+The two analyses therefore target different estimands. The historical
+unpaired quantity is
+\[
+  \widehat{\theta}_{U}
+  = \frac{\widehat{\sigma}_{\mathrm{composed}}}
+          {\widehat{\sigma}_{\mathrm{joint}}},
+\]
+where each standard deviation is computed after aggregating its arm over the
+\NPairs{} prompts. The reconstructed paired quantity is
+\[
+  \widehat{\theta}_{P}
+  = \frac{1}{\NPairs{}}\sum_{i=1}^{\NPairs{}}
+    \bigl(y_{\mathrm{composed},i}-y_{\mathrm{joint},i}\bigr).
+\]
+\(\widehat{\theta}_{U}\) is a ratio of arm-level dispersions and
+\(\widehat{\theta}_{P}\) is a mean within-prompt difference; neither is a
+re-expression of the other. We report both only to expose what the recorded
+endpoint discarded, not to replace the registered estimand.
 
 \subsection{Tests, and what each of them can reach}
 
@@ -86,25 +114,41 @@ $2 \sum_{i \le k} \binom{n}{i} 2^{-n}$. These quantities depend on $n$ alone
 and can be read before the experiment exists. They are what the pre-registered
 design is sized against.
 
+At the recorded \(n=4\), the all-agreeing floor is \(2\,2^{-4}=0.125\).
+Consequently an exact sign test on these four pairs cannot cross
+\(\alpha=0.05\), even if all four differences have the same sign; this is a
+design limit, not evidence that the two arms are equal.
+
 \subsection{How the protocol's size was chosen}
 
 The protocol below is derived rather than picked. The background prompts are
 the recorded grid and are not changed. The source design requires a second
 concept, so that a conclusion about the mechanism can be distinguished from a
 conclusion about one subject, and it requires the conclusion to be readable per
-concept; each concept therefore needs enough pairs on its own. The number of
-generation seeds is the smallest that leaves each concept able to reach
-\Alpha{} with at least one pair falling the wrong way, which follows directly
-from the attainable-probability expression above. Everything else in the
-protocol table is a consequence of that choice.
+concept. The primary inferential decision is pooled across the two pre-specified
+concepts at \Alpha{}; concept-specific estimates are reported as descriptive
+strata rather than as a second family of confirmatory tests. The number of
+generation seeds is therefore the smallest multiple of the prompt grid that lets
+the pooled test reach \Alpha{} while tolerating the registered discordant-pair
+budget. Everything else in the protocol table is a consequence of that choice.
+
+Figure~\ref{fig:protocol-flow} is a visual rendering of the same protocol
+contract. It is deliberately a flow of fixed objects rather than a result
+plot: the pair key is defined first, the two matched arms are generated under
+that key, the registered endpoints and exact tests are applied next, and the
+analysis is locked before a single unblinding. The ``UNRUN / UNAUTHORIZED''
+status is part of the figure, not a footnote, so the design counts cannot be
+mistaken for an observed sample size. The diagram is generated from the same
+derived constants that populate Table~\ref{tab:protocol}; if the protocol
+arithmetic or its gate status changes, the figure build stops rather than
+silently retaining the old flow.
 
 \subsection{What is deliberately not computed}
 
 The reference comparison this line of work would eventually be measured
-against was never produced, and its tier is recorded as \BlockedTier{}. No
+against was never produced, and its comparison tier is unavailable. No
 value is imputed for it, no substitute metric is introduced in its place, and
 the two perceptual similarity measures the wider literature reports are
 recorded on disk as not computed and are not computed here either. The recorded
-gate list for the unrun lane stands at \AuthorisationState{}, and the paired
-evaluation this paper specifies is not executed: the deliverable is the
-specification.
+recorded protocol remains unauthorised, and the paired evaluation this paper
+specifies is not executed: the deliverable is the specification.

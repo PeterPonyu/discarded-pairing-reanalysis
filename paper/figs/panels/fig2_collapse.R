@@ -9,7 +9,7 @@ long <- rbind(
   data.frame(arm = levels_arm[3], prompt = pairs$prompt, value = pairs$idon_identity)
 )
 long$arm <- factor(long$arm, levels = levels_arm)
-long$label <- short_prompt(long$prompt)
+long$label <- rep(PROMPT_CODES, 3L)
 
 dispersions <- data.frame(
   arm = factor(levels_arm, levels = levels_arm),
