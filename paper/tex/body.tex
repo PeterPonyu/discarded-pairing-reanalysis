@@ -71,26 +71,44 @@ literature on composing adapters, and the methodological literature on how
 comparisons get registered and read. The case here is one where the second
 determined what the first was allowed to conclude.
 
-The technical setting is standard. Latent diffusion models made
-high-resolution synthesis practical~\cite{rombach2022ldm}, subject
-personalisation gave a way to bind a specific subject to a
-model~\cite{ruiz2023dreambooth}, and low-rank adaptation made it cheap enough
-to train many such adaptations
-separately~\cite{hu2022lora}. Composing separately trained adapters rather than
-retraining jointly is an active idea, including for implicitly decomposing an
-image into separable components~\cite{blora}. Whether composition costs
-anything relative to joint training is a reasonable question, and the
-comparison we re-read was an attempt to answer it. Our contribution is not a
-better answer to that question; we generate no images and train nothing. It is
-an account of why the recorded attempt could not answer it.
+The technical setting is standard. Denoising diffusion began as a
+nonequilibrium sampling construction~\cite{sohldickstein2015deep}, became a
+practical generator once the reverse process was parameterised as a noise
+prediction~\cite{ho2020ddpm,nichol2021improved,song2020ddim,song2021score,
+dhariwal2021diffusion,karras2022edm,croitoru2023survey}, and its latent-space
+successors made high-resolution synthesis
+practical~\cite{rombach2022ldm,podell2023sdxl,goodfellow2014gan,
+isola2017pix2pix}. Text-conditional systems then made the same process a
+caption-to-image instrument~\cite{ramesh2021dalle,nichol2021glide,
+ramesh2022dalle2,saharia2022imagen,schuhmann2022laion}; classifier-free
+guidance, cross-attention editing and instruction-following edits made the
+sampling process itself an object of
+control~\cite{ho2022cfg,hertz2022prompt,zhang2023controlnet,meng2021sdedit,
+brooks2023instruct}. Subject personalisation gave a way to bind a specific
+subject to a model, first by inverting a word~\cite{gal2022textual} and then by
+fine-tuning the weights~\cite{ruiz2023dreambooth}, and low-rank adaptation made
+it cheap enough to train many such adaptations
+separately~\cite{hu2022lora,han2023svdiff,kumari2023custom,ye2023ipadapter}.
+Composing separately trained adapters rather than retraining jointly is an
+active idea, including for implicitly decomposing an image into separable
+components~\cite{blora}. The scores those papers print are usually a
+distributional distance, a reference-free image--text similarity, or a learned
+preference
+proxy~\cite{heusel2017fid,radford2021clip,hessel2021clipscore,
+kirstain2023pick,wu2023hps,xu2023imagereward}. Whether
+composition costs anything relative to joint training is a reasonable question,
+and the comparison we re-read was an attempt to answer it. Our contribution is
+not a better answer to that question; we generate no images and train nothing.
+It is an account of why the recorded attempt could not answer it.
 
 The methodological literature is where the interesting part lies. That
 flexibility in analysis can manufacture significance is well
-established~\cite{simmons2011false}, as is the subtler point that a single
-analysis chosen in good faith, but contingent on the data seen, is enough to
-invalidate its own probability~\cite{gelman2014garden}. Preregistration is the
-standard remedy~\cite{nosek2018preregistration}. The case here is a failure mode
-that remedy does not address. The comparison \emph{was} registered, and it was
+established~\cite{simmons2011false,head2015phacking,ioannidis2005why,
+openscience2015repro}, as is the subtler point that a single analysis chosen in
+good faith, but contingent on the data seen, is enough to invalidate its own
+probability~\cite{gelman2014garden}. Preregistration is the standard
+remedy~\cite{nosek2018preregistration,munafo2017manifesto,pineau2021improving,
+goodman2016mean}. The case here is a failure mode that remedy does not address. The comparison \emph{was} registered, and it was
 registered honestly, in advance. What went wrong is that the registered
 endpoint --- a dispersion across prompts, which is one number per arm ---
 discarded a pairing the runs had actually produced. Preregistration protects
@@ -104,18 +122,22 @@ The inferential tools are old and well understood. The sign
 test~\cite{dixon1946sign}, the signed-rank test~\cite{wilcoxon1945individual}
 and the $t$ test~\cite{student1908probable} are the obvious candidates for the
 recovered pairs, and the $t$ test's tolerance of non-normality at moderate
-sample sizes is itself classical~\cite{box1953nonnormality}. What deserves more
+sample sizes is itself classical~\cite{box1953nonnormality}. The intervals we
+report beside them are the ordinary bootstrap and binomial
+constructions~\cite{efron1979bootstrap,clopper1934use}. What deserves more
 attention than it gets is the discreteness of the exact tests at small $n$. With
 \NPairs{} pairs the smallest two-sided probability the exact sign test can
 return is \FloorAtFour{}, so no configuration of the data reaches \Alpha{}. This
-is a stronger statement than low power. An underpowered test may fail to detect
-a real effect~\cite{button2013power}; this test could not have reported one. The
+is a stronger statement than low power. Power is the chance of detecting a real
+effect of a stated size~\cite{cohen1992power}; an underpowered test may fail to
+detect one~\cite{button2013power}. This test could not have reported one. The
 distinction matters because the remedy differs: power is improved by collecting
 more data, whereas a floor above the threshold means the test was the wrong
 instrument regardless of what the data showed. Calls to stop dichotomising at a
-fixed threshold~\cite{amrhein2019retire} are usually made about results that
-cleared it or narrowly missed; the same argument applies with more force to a
-test whose attainable minimum sits above the line before any data arrive.
+fixed threshold~\cite{amrhein2019retire,wasserstein2016asa} are usually made
+about results that cleared it or narrowly missed; the same argument applies with
+more force to a test whose attainable minimum sits above the line before any
+data arrive.
 
 \section{Methods}
 \input{methods}
