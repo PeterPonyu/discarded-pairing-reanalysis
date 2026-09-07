@@ -4,6 +4,8 @@ Per-prompt fidelity records, adapter training manifests, figure code and manuscr
 
 This repository has not been deposited in a public archive, so it has no persistent identifier yet. One will be recorded here when an archive exists.
 
+Repository: https://github.com/PeterPonyu/discarded-pairing-reanalysis
+
 ## What is here
 
 - `paper/tex/` — manuscript source. The abstract, the methods and the figure
