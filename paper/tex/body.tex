@@ -363,8 +363,10 @@ looking for.
 
 \section{The paired experiment, fixed in advance}
 
-Table~\ref{tab:protocol} is the protocol. Every number in it is derived from
-the arithmetic above rather than chosen, and the derivation is worth stating so
+Table~\ref{tab:protocol} is the protocol, and Fig.~\ref{fig:protocol-flow} draws the
+same specification as a sequence with its unrun status printed on it, so the design
+cannot be mistaken for a result when read apart from the table. Every number in the
+table is derived from the arithmetic above rather than chosen, and the derivation is worth stating so
 that a reader can disagree with a step instead of with the total.
 
 The pairing unit is one concept, one background prompt and one generation seed,
@@ -501,7 +503,7 @@ separate them uses an endpoint that was not registered and is reported here
 only to be set aside until it is tested on new pairs.
 
 No result is reported for the reference procedure at full length. The reference
-run was not produced and its comparison tier is unavailable. No value
+run was not produced, so no reference-level result exists to report. No value
 is imputed for it, no substitute is introduced, and nothing in this paper is
 presented as an approximation of it.
 
@@ -561,13 +563,13 @@ its test can return before any of it happens.
 
 \appendix
 
-\section{The bound evidence}
+\section{Source artifacts and their checksums}
 \label{app:evidence}
 
 Table~\ref{tab:evidence} lists all \NEvidence{} artifacts behind this
 manuscript, totalling \EvidenceBytes{} bytes, in the order the analysis consumes
 them. Every number the text prints is computed from these bytes by the figure
-code, and the code recomputes each digest before reading, so a stale artifact
+code, and the code recomputes each checksum before reading, so a stale artifact
 stops the build rather than reaching the page.
 
 The discipline matters more here than it would in a paper reporting a positive
@@ -581,7 +583,7 @@ table that rounded the two dispersion values for presentation. A reader who
 suspects the sequence has been tidied can check it rather than take our word.
 
 Two limits are worth stating so the table is not read as more than it is. A
-digest fixes bytes to a claim; it does not make the bytes true, and nothing here
+checksum fixes bytes to a claim; it does not make the bytes true, and nothing here
 certifies that an artifact was correct when it was written. And the internal
 identifier and path of each artifact are omitted deliberately: they describe a
 private tree, they would tell a reader nothing, and keeping them out of the PDF
@@ -590,10 +592,10 @@ is a property the build verifies rather than a habit.
 \begin{table}[htbp]
 \centering
 \caption{Every artifact this manuscript rests on, with its size and the first 16
-hexadecimal characters of its SHA-256 digest. Full digests, and the paths they
+hexadecimal characters of its SHA-256 checksum. Full checksums, and the paths they
 apply to, are in the manifest accompanying the manuscript source; the prefix is
-shown here only because a 64-character digest does not set in a table column.
-The figure and table code recomputes each digest from the bytes on disk before
+shown here only because a 64-character checksum does not set in a table column.
+The figure and table code recomputes each checksum from the bytes on disk before
 reading them and stops the build on any mismatch.}
 \label{tab:evidence}
 \footnotesize
@@ -603,10 +605,11 @@ reading them and stops the build on any mismatch.}
 \section*{Data and code availability}
 
 The recorded comparison, the per-prompt fidelity tables underlying it, the
-three training records, the recorded tier and gate states, and the figure code
+three training records, the recorded status of the reference comparison and of the
+authorisation gate, and the figure code
 that produces every number in this manuscript accompany the manuscript source.
-Each artifact is recorded with its SHA-256 digest in a manifest, and the figure
-code verifies those digests against the bytes on disk before reading them, so
+Each artifact is recorded with its SHA-256 checksum in a manifest, and the figure
+code verifies those checksums against the bytes on disk before reading them, so
 the build fails rather than silently reporting stale numbers. No generated
 image and no adapter weights are redistributed; the backbone checkpoint is a
 third-party release identified in the manifest by name rather than copied, and
@@ -649,8 +652,8 @@ and editing.
 \section*{Declaration of generative AI use}
 
 Generative AI tools assisted with code preparation and language editing. Every
-number printed above is emitted programmatically from artifacts bound by
-cryptographic digest rather than transcribed into prose. Structural claims ---
+number printed above is emitted programmatically from artifacts tied to the manuscript by cryptographic
+checksum rather than transcribed into prose. Structural claims ---
 including the adapter partition, shared training settings, and recomputed
 per-prompt dispersions --- are enforced by build-time checks that stop the
 build. Responsibility for the content rests with the authors.

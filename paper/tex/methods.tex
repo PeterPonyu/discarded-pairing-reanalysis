@@ -2,7 +2,7 @@
 
 Nothing in this study was generated for it. Every quantity comes from records
 written by runs that finished before this analysis began, and each record is
-bound to the manuscript by its SHA-256 digest; the figure code re-hashes each
+tied to the manuscript by its SHA-256 checksum; the figure code re-hashes each
 file before reading it and stops the build on any mismatch. No image was
 generated, no adapter was trained, and no evaluation was launched.
 
@@ -35,7 +35,7 @@ what the same bytes do support.
 
 \subsection{What the arms share}
 
-Three configuration records, one per adapter, are bound here. The figure code
+Three configuration records, one per adapter, are recorded here. The figure code
 checks that the three agree on the backbone checkpoint, the training budget,
 the learning rate, the adapter rank, the resolution, the training seed and the
 instance prompt, and stops the build if any of them differ. It also checks
@@ -146,7 +146,7 @@ silently retaining the old flow.
 \subsection{What is deliberately not computed}
 
 The reference comparison this line of work would eventually be measured
-against was never produced, and its comparison tier is unavailable. No
+against was never produced, so no reference-level result exists to report. No
 value is imputed for it, no substitute metric is introduced in its place, and
 the two perceptual similarity measures the wider literature reports are
 recorded on disk as not computed and are not computed here either. The recorded
