@@ -1,4 +1,4 @@
-# Matched runs, unpaired test: recovering a discarded pairing in a small personalisation comparison, and pre-registering the one that would settle it
+# Matched runs, unpaired test: recovering a discarded pairing in a small personalisation comparison, and the registered protocol that found no identity separation
 
 Identity and caption-fidelity records, adapter manifests, paired concept-by-seed figures and manuscript source for a re-analysis that recovers the pairing a small diffusion-personalisation comparison discarded, reports what the registered identity endpoint can support, and separates its prompt-fidelity secondary endpoint from the protocol design. The official 1000-step B-LoRA result is absent.
 

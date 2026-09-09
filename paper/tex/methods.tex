@@ -1,11 +1,11 @@
-\subsection{What was already on disk}
+\subsection{Records, arms and the comparison as recorded}
 
 The historical half of this study uses records written by runs that finished
 before that reanalysis began. Each record is tied to the manuscript by its
-evidence-manifest binding; the figure code verifies each bound file before reading it and
-stops the build on any mismatch. That half trained nothing and launched no
-new evaluation. The registered half is a later, declared execution of the
-protocol below, bound under evidence ID E-PREDECL.
+evidence-manifest binding; the figure code verifies each bound file before
+reading it and stops the build on any mismatch. That half trained nothing and
+launched no new evaluation. The registered half is a later, declared execution
+of the protocol below, bound under digest \PredeclarationShaShort{}.
 
 The records describe a subject-driven personalisation study on a latent
 diffusion backbone. A concept is taught to the backbone through low-rank
@@ -17,26 +17,21 @@ cross-attention projections, one on the self-attention projections --- and
 switches both on at generation time. A third arm switches the self-attention
 adapter off and leaves the cross-attention adapter alone.
 
-\subsection{The comparison as it was recorded}
-
 The registered comparison is between the jointly trained arm and the composed
 arm on a single endpoint: the dispersion of identity fidelity across background
 prompts. Each arm generated one image per prompt for \NPairs{} prompts, and the
 dispersion is the standard deviation of the \NPairs{} resulting fidelities.
 It is a population standard deviation, dividing by the number of prompts rather
 than by one fewer; the figure code recomputes it from the per-prompt values and
-refuses to proceed unless it reproduces the recorded number exactly, because
-the entire comparison is between two such numbers.
-
-The project recorded the comparison as unpaired and recorded that the
-pre-registered criterion \KillFires{} on it. It also recorded, in the same file and in the ladder entry
+proceeds only when it reproduces the recorded number exactly, because the
+entire comparison is between two such numbers. The project recorded the
+comparison as unpaired and recorded that the pre-registered criterion
+\KillFires{} on it. It also recorded, in the same file and in the ladder entry
 that cites it, that this is an unpaired historical result rather than a paired
 measurement. The present paper takes that caveat as its starting point and asks
 what the same bytes do support.
 
-\subsection{What the arms share}
-
-Three configuration records, one per adapter, are recorded here. The figure code
+Three configuration records, one per adapter, are bound. The figure code
 checks that the three agree on the backbone checkpoint, the training budget,
 the learning rate, the adapter rank, the resolution, the training seed and the
 instance prompt, and stops the build if any of them differ. It also checks
@@ -48,26 +43,25 @@ matched on capacity rather than merely similar.
 
 The per-prompt values underlying each dispersion are recorded, one row per
 background prompt, with the prompt text as a private row key. Rows are joined
-across arms on that key rather than on position, so a reordering cannot silently
-pair the wrong generations. Public tables and figures replace that key with
-stable P1--P4 row codes. Two endpoints are available per row: identity fidelity,
-which the registered comparison aggregated, and prompt fidelity, which it did
-not use.
+across arms on that key rather than on position, so a reordering leaves the
+pairing intact. Public tables and figures replace that key with stable P1--P4
+row codes. Two endpoints are available per row: identity fidelity, which the
+registered comparison aggregated, and prompt fidelity, which sat outside it.
 
 A pair is one background prompt, and the difference is the composed arm's value
 minus the jointly trained arm's value at that prompt. This recovers the
-correspondence the dispersion discarded; it does not recover a pairing for the
-registered endpoint itself, which cannot have one, because a dispersion across
-prompts is a single number per arm.
+correspondence the dispersion discarded. The registered endpoint itself has no
+pairing to recover, because a dispersion across prompts is a single number per
+arm.
 
-For a visual diagnostic only, we also retain the two per-prompt coordinates as
+For a visual diagnostic, we also retain the two per-prompt coordinates as
 the change vector
 \(\Delta_i=(\Delta_{\mathrm{prompt},i},\Delta_{\mathrm{identity},i})\)
 relative to the jointly trained arm, for the composed and cross-attention-only
 arms. The map reports these four recorded rows without averaging, fitting a
 trend, or testing the prompt-fidelity coordinate. Prompt fidelity is shown to
-make the distinction between endpoints inspectable; it is not promoted to the
-historical primary comparison.
+make the distinction between endpoints inspectable; the historical primary
+comparison stays on identity fidelity.
 
 The two analyses therefore target different estimands. The historical
 unpaired quantity is
@@ -85,17 +79,18 @@ where each standard deviation is computed after aggregating its arm over the
 \]
 \(\widehat{\theta}_{U}\) is a ratio of arm-level dispersions and
 \(\widehat{\theta}_{P}\) is a mean within-prompt difference; neither is a
-re-expression of the other. We report both only to expose what the recorded
-endpoint discarded, not to replace the registered estimand.
+re-expression of the other. Both are reported so that what the recorded
+endpoint discarded is visible; the registered estimand stays as recorded.
 
 \subsection{Tests, and what each of them can reach}
 
 Three tests are reported on the same \NPairs{} pairs. The exact two-sided sign
 test counts how many differences fall each way; ties would be dropped by
-convention and are refused here instead, because with four pairs one discarded
-tie changes the answer. The Wilcoxon signed-rank test on the same pairs is
-reported beside it. The paired $t$ test is reported third, with its interval,
-and is the only one of the three that assumes a distributional shape.
+convention and are treated as a stop condition here instead, because with four
+pairs one discarded tie changes the answer. The Wilcoxon signed-rank test on the
+same pairs is reported beside it. The paired $t$ test is reported third, with
+its interval, and is the only one of the three that assumes a distributional
+shape.
 
 For the recorded comparison, which has no pairs, we report the interval its own
 design supports: the ratio of the two dispersions with the confidence interval
@@ -105,20 +100,16 @@ prompts. The assumption is stated rather than corrected because it is the
 assumption the unpaired comparison implicitly makes, and the interval it yields
 is already wide enough to settle the question this paper asks of it.
 
-\subsection{The attainable probability of a test, before any data}
-
 The exact sign test at $n$ pairs can return only the probabilities its
 binomial reference distribution contains. The smallest two-sided value is
 reached when every pair falls the same way and equals $2 \cdot 2^{-n}$; if $k$
 pairs are allowed to fall the other way the smallest attainable value is
 $2 \sum_{i \le k} \binom{n}{i} 2^{-n}$. These quantities depend on $n$ alone
 and can be read before the experiment exists. They are what the pre-registered
-design is sized against.
-
-At the recorded \(n=4\), the all-agreeing floor is \(2\,2^{-4}=0.125\).
-Consequently an exact sign test on these four pairs cannot cross
-\(\alpha=0.05\), even if all four differences have the same sign; this is a
-design limit, not evidence that the two arms are equal.
+design is sized against. At the recorded \(n=4\), the all-agreeing floor is
+\(2\,2^{-4}=0.125\). An exact sign test on these four pairs therefore stays
+above \(\alpha=0.05\) even when all four differences share a sign; this is a
+design limit, and it says nothing about whether the two arms are equal.
 
 \subsection{How the protocol's size was chosen}
 
@@ -133,13 +124,13 @@ generation seeds is therefore the smallest multiple of the prompt grid that lets
 the pooled test reach \Alpha{} while tolerating the registered discordant-pair
 budget. Everything else in the protocol table is a consequence of that choice.
 
-Figure~\ref{fig:protocol-flow} is a visual rendering of the same protocol
+Fig.~\ref{fig:protocol-flow} is a visual rendering of the same protocol
 contract. It is deliberately a flow of fixed objects rather than a result
 plot: the pair key is defined first, the two matched arms are generated under
 that key, the registered endpoints and exact tests are applied next, and the
 analysis is locked before a single unblinding. The banner reads the
 declaration time from the bound pre-declaration and the realised pair count
-from the bound analysis, so the design counts cannot be mistaken for the
+from the bound analysis, so the design counts stay distinct from the
 historical \(n=\NPairs{}\) grid. The diagram is generated from the same
 derived constants that populate Table~\ref{tab:protocol}; if the protocol
 arithmetic or those bound fields change, the figure build stops rather than
@@ -148,23 +139,22 @@ silently retaining the old flow.
 \subsection{The executed run}
 
 The registered execution is a single paired run authorised by the bound
-pre-declaration (evidence ID E-PREDECL). Pairing unit, arms,
+pre-declaration (digest \PredeclarationShaShort{}). Pairing unit, arms,
 prompt grid, seeds, budget, primary test and failure rule are those of
 Table~\ref{tab:protocol}. The bound analysis records every realised pair, the
 pooled primary sign test, the descriptive concept strata, the secondary
 prompt-fidelity test, and the recomputed dispersion ratios. The figure code
-refuses to emit run macros unless those recorded facts match the declared
-design: \RunPairs{} realised pairs, and the historical grid remaining
-\NPairs{} prompts.
+emits run macros only when those recorded facts match the declared design:
+\RunPairs{} realised pairs, and the historical grid remaining \NPairs{}
+prompts.
 
-\subsection{What is deliberately not computed}
-
-The reference comparison this line of work would eventually be measured
-against was never produced, so no reference-level result exists to report. No
-value is imputed for it, no substitute metric is introduced in its place, and
-the two perceptual similarity measures the wider literature reports are
-recorded on disk as not computed and are not computed here either. The historical
+The computation is bounded to what is on disk. The reference comparison this
+line of work would eventually be measured against was never produced, so no
+reference-level result exists to report; no value is imputed for it, and no
+substitute metric is introduced in its place. The two perceptual similarity
+measures the wider literature reports are recorded on disk as not computed,
+and the endpoints used here are the two recorded ones. The historical
 authorisation record remains the status at protocol-design time; the single
-authorised execution is the run declared in
-E-PREDECL and bound as the registered result. Re-runs and
-unregistered variants are out of scope.
+authorised execution is the run declared in \PredeclarationShaShort{} and
+bound as the registered result. Re-runs and unregistered variants are out of
+scope.

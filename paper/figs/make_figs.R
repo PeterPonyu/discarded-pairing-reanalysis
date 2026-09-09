@@ -234,6 +234,105 @@ if (anyDuplicated(run_keys) || anyDuplicated(expected_keys) ||
   stop("registered run is not a complete concept x prompt x seed Cartesian grid")
 }
 
+# The smallest two-sided probability the registered primary can return at the
+# pair count that was actually realised. Read from E-PAIRED, not from the
+# design constant, so the printed floor belongs to the run that happened.
+PAIRS_REALISED <- as.integer(paired$pairs_realised)
+if (!identical(PAIRS_REALISED, as.integer(DESIGN_TOTAL))) {
+  stop("pairs_realised differs from DESIGN_TOTAL; the realised floor would not describe the registered design")
+}
+FLOOR_AT_REALISED <- attainable_p(PAIRS_REALISED)
+if (abs(FLOOR_AT_REALISED - 2 * 0.5^PAIRS_REALISED) > 1e-15) {
+  stop("realised sign-test floor does not equal 2 * 0.5^pairs_realised")
+}
+if (FLOOR_AT_REALISED >= ALPHA) {
+  stop("realised sign-test floor is not below alpha; the sizing derivation is broken")
+}
+
+## ---------------------------------------------------------------------------
+## What the registered primary could resolve at the realised size. The floor
+## above says which p-values the test can return; this block says which true
+## effects it had a fair chance of detecting. Inputs are the bound pair count,
+## the bound observed count and the design alpha, nothing else, so the printed
+## power statement belongs to the test that was run and stops if any of them
+## drift. The rejection region is the two-sided exact one binom.test uses.
+## ---------------------------------------------------------------------------
+
+SIGN_POWER_TARGET <- 0.80
+SIGN_OBSERVED_LOWER <- as.integer(ident_run$composed_lower)
+if (!identical(PAIRS_REALISED, 24L) || !identical(SIGN_OBSERVED_LOWER, 13L) ||
+    !isTRUE(all.equal(ALPHA, 0.05))) {
+  stop("power statement inputs differ from the bound values (pairs_realised 24, composed_lower 13, alpha 0.05)")
+}
+
+sign_counts <- 0:PAIRS_REALISED
+sign_two_sided_p <- vapply(sign_counts,
+                           function(k) stats::binom.test(k, PAIRS_REALISED)$p.value,
+                           numeric(1))
+sign_reject_low <- sign_counts[sign_two_sided_p <= ALPHA & sign_counts < PAIRS_REALISED / 2]
+if (!length(sign_reject_low)) stop("the registered test has no rejection region at the realised size")
+SIGN_REJECT_LOW <- max(sign_reject_low)
+SIGN_CRITICAL_COUNT <- as.integer(PAIRS_REALISED - SIGN_REJECT_LOW)
+# The low-side rejection bound is the pooled discordant-pair tolerance the
+# protocol table already prints; the two derivations must agree.
+if (!identical(as.integer(SIGN_REJECT_LOW), as.integer(DESIGN_POOLED_TOLERANCE))) {
+  stop("the exact rejection region does not agree with the pooled discordant-pair tolerance")
+}
+if (SIGN_OBSERVED_LOWER <= SIGN_REJECT_LOW || SIGN_OBSERVED_LOWER >= SIGN_CRITICAL_COUNT) {
+  stop("the observed count lies in the rejection region, contradicting significant_at_alpha = false")
+}
+
+# Power of the two-sided exact test against a true probability that the
+# composed arm is lower on a pair.
+sign_power <- function(prob_lower) {
+  stats::pbinom(SIGN_REJECT_LOW, PAIRS_REALISED, prob_lower) +
+    stats::pbinom(SIGN_CRITICAL_COUNT - 1L, PAIRS_REALISED, prob_lower, lower.tail = FALSE)
+}
+if (sign_power(0.5) > ALPHA) stop("the exact two-sided test exceeds alpha under the null")
+
+# The power function of the equal-tailed exact test is symmetric about one half
+# and increasing above it, so the root on (0.5, 1) is unique. It is printed as
+# the smallest two-decimal proportion at which power reaches the target, which
+# is the reading "at least this large" requires; both neighbours are checked so
+# the printed value is tight rather than merely sufficient.
+sign_power_root <- stats::uniroot(function(p) sign_power(p) - SIGN_POWER_TARGET,
+                                  lower = 0.5, upper = 1, tol = 1e-12)$root
+SIGN_POWER_EIGHTY <- ceiling(sign_power_root * 100) / 100
+if (sign_power(SIGN_POWER_EIGHTY) < SIGN_POWER_TARGET) {
+  stop("power at the printed proportion is below the target")
+}
+if (sign_power(SIGN_POWER_EIGHTY - 0.01) >= SIGN_POWER_TARGET) {
+  stop("the printed proportion is not the smallest two-decimal value reaching the target")
+}
+
+SIGN_OBSERVED_PROP <- SIGN_OBSERVED_LOWER / PAIRS_REALISED
+sign_observed_ci <- stats::binom.test(SIGN_OBSERVED_LOWER, PAIRS_REALISED)$conf.int
+if (abs(stats::binom.test(SIGN_OBSERVED_LOWER, PAIRS_REALISED)$p.value -
+        ident_run$sign_test_two_sided_p) > 1e-12) {
+  stop("the recomputed primary sign-test p does not reproduce the bound value")
+}
+# The results sentence says the observed proportion sits inside the region the
+# design left unresolved. That is a claim about numbers, so it is checked here
+# rather than trusted in prose.
+if (!(SIGN_OBSERVED_PROP > 1 - SIGN_POWER_EIGHTY && SIGN_OBSERVED_PROP < SIGN_POWER_EIGHTY)) {
+  stop("the observed proportion is outside the under-powered region; the results sentence would be false")
+}
+if (!(sign_observed_ci[1] < 0.5 && sign_observed_ci[2] > 0.5)) {
+  stop("the exact interval for the observed proportion excludes one half, contradicting the non-separation")
+}
+
+# Fixed-point formatting (as FloorAtFour uses) would print this value as 0.000,
+# so it is emitted in scientific form wrapped for use in text or math.
+fmt_sci <- function(x, digits = 1) {
+  e <- floor(log10(abs(x)))
+  m <- x / 10^e
+  if (round(m, digits) >= 10) {
+    m <- m / 10
+    e <- e + 1L
+  }
+  sprintf("\\ensuremath{%s\\times 10^{%d}}", formatC(m, format = "f", digits = digits), as.integer(e))
+}
+
 ## ---------------------------------------------------------------------------
 ## Figures. Each panel reads the objects above and writes one file.
 ## ---------------------------------------------------------------------------
@@ -300,6 +399,13 @@ write_generated(c(
   macro("IdonSignP", fmt(idon_sign$p, 3)),
   macro("Alpha", fmt(ALPHA)),
   macro("FloorAtFour", fmt(FLOOR_AT_N, 3)),
+  macro("SignFloorRealised", fmt_sci(FLOOR_AT_REALISED, 1)),
+  macro("SignCriticalCount", SIGN_CRITICAL_COUNT),
+  macro("SignPowerTarget", pct(SIGN_POWER_TARGET, 0)),
+  macro("SignPowerEighty", fmt(SIGN_POWER_EIGHTY, 2)),
+  macro("SignObservedProp", fmt(SIGN_OBSERVED_PROP, 2)),
+  macro("SignObservedPropLo", fmt(sign_observed_ci[1], 2)),
+  macro("SignObservedPropHi", fmt(sign_observed_ci[2], 2)),
   macro("MinNAny", MIN_N_ANY),
   macro("MinNOne", MIN_N_ONE),
   macro("MinNTwo", MIN_N_TWO),
@@ -319,6 +425,7 @@ write_generated(c(
   macro("KillFires", if (isTRUE(kill$kill_fires_on_registered_comparison)) "fires" else "does not fire"),
   macro("RunPairs", as.integer(paired$pairs_realised)),
   macro("RunFailures", as.integer(paired$failure_ledger_entries)),
+  macro("PredeclarationShaShort", substr(EXPECTED_PREDECL_SHA, 1, 16)),
   macro("RunIdentityLower", as.integer(ident_run$composed_lower)),
   macro("RunIdentityHigher", as.integer(ident_run$composed_higher)),
   macro("RunIdentitySignP", fmt(ident_run$sign_test_two_sided_p)),

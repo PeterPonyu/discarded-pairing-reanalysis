@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: >-
-  Code and data for: Matched runs, unpaired test: recovering a discarded pairing in a small personalisation comparison, and pre-registering the one that would settle it
+  Code and data for: Matched runs, unpaired test: recovering a discarded pairing in a small personalisation comparison, and the registered protocol that found no identity separation
 message: If you use this code or data, please cite this archive and the manuscript.
 type: dataset
 authors:
@@ -14,7 +14,7 @@ abstract: >-
 keywords:
   - negative result
   - paired comparison
-  - pre-registration
+  - registered protocol
   - statistical power
   - diffusion personalisation
   - low-rank adaptation

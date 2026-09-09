@@ -1,23 +1,23 @@
-The registered paired protocol for this diffusion-personalisation comparison
-found no identity separation. Across \RunPairs{} identity pairs the composed
-arm was lower on \RunIdentityLower{} and higher on \RunIdentityHigher{}
-(exact sign-test \(p=\RunIdentitySignP{}\)). The mean paired-difference
-interval \RunIdentityCiLo{} to \RunIdentityCiHi{} includes zero, so the
-confirmatory test does not separate the arms.
+A registered paired protocol for a diffusion-personalisation comparison was
+executed once. On the registered primary endpoint, per-pair identity fidelity,
+the composed arm was lower on \RunIdentityLower{} of \RunPairs{} pairs and
+higher on \RunIdentityHigher{} (sign-test \(p=\RunIdentitySignP{}\)); the
+paired-difference interval \RunIdentityCiLo{} to \RunIdentityCiHi{} includes
+zero, the pre-declared kill rule fired, and the test does not separate the
+arms.
 
-That design was sized from a historical reanalysis. A recorded unpaired
-comparison had collapsed the same \NPairs{} matched prompts into one
-dispersion per arm. Recovered as pairs, the composed arm was lower on
-identity fidelity for \IdentityDown{} of \NPairs{} prompts (sign-test
-\(p=\IdentitySignP{}\)), a test whose attainable floor at that size is
-\FloorAtFour{}. The registered design therefore used \DesignTotal{} pairs
-across \DesignConcepts{} concepts.
+The protocol's size came from a recovered pairing. A recorded comparison had collapsed
+\NPairs{} matched prompts into one dispersion per arm. Restored as pairs, the
+composed arm was lower on identity for \IdentityDown{} of \NPairs{} prompts
+(sign-test \(p=\IdentitySignP{}\)), and the smallest probability that test can
+return at that size is \FloorAtFour{}, a design limit. The registered design
+used \DesignTotal{} pairs across \DesignConcepts{} concepts, declared before
+training (digest \PredeclarationShaShort{}) and realised with \RunFailures{}
+failures.
 
-Prompt fidelity, the registered secondary endpoint, was lower for the
-composed arm on \RunPromptLower{} of \RunPairs{} pairs
-(\(p=\RunPromptSignP{}\)) and is not promoted. Dispersion ratios reversed
-relative to the historical \SDRatioComposed{} (\RunDispersionDog{} and
-\RunDispersionClock{}) and are descriptive only. The protocol was declared
-before training (evidence ID E-PREDECL) and realised every pair
-with \RunFailures{} failures. The scoped claim is that a pre-declared paired
-sign test at this size does not separate the arms on identity fidelity.
+Prompt fidelity, the registered secondary endpoint, was lower for the composed
+arm on \RunPromptLower{} of \RunPairs{} pairs (\(p=\RunPromptSignP{}\)) and
+stays secondary. Dispersion ratios (\RunDispersionDog{},
+\RunDispersionClock{}) reversed the historical \SDRatioComposed{} and are
+descriptive. The licensed claim is that a pre-declared paired sign test at this
+size does not separate the arms on identity fidelity.

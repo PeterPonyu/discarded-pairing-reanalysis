@@ -52,9 +52,9 @@ comparison aggregated into a dispersion; prompt fidelity is recorded in the
 same files and was not used. The grey band is the 95\% confidence interval for
 the mean paired difference and the vertical rule inside it is that mean. The
 annotation gives the interval and the exact two-sided sign-test probability on
-the same pairs. With \NPairs{} pairs that probability cannot fall below
-\FloorAtFour{}, so neither panel can reach a conventional threshold by the sign
-test whatever the points do.%
+the same pairs. With \NPairs{} pairs the smallest value that probability can
+take is \FloorAtFour{}, so the sign test in either panel stays above a
+conventional threshold whatever the points do.
 The dashed vertical rule is zero paired change; marker fill and shape redundantly
 encode whether the composed arm is lower or higher. The y-axis uses the same
 P1--P4 row codes as the paired table; the codes are not prompt content.%
@@ -83,8 +83,8 @@ the lower curve when every pair falls the same way, the others when one or two
 pairs fall the other way. The quantity depends on the number of pairs alone, so
 it is fixed before an experiment is run and no effect size changes it. The
 dashed line is \Alpha{}. The comparison re-analysed here has \NPairs{} pairs
-and so cannot cross that line; \MinNAny{} pairs is the first size that can, and
-then only on unanimity. The pre-registered design pools \DesignTotal{} pairs
+and sits above that line at every outcome; \MinNAny{} pairs is the first size
+that can cross it, and then only on unanimity. The pre-registered design pools \DesignTotal{} pairs
 across its two concept strata, reaching \Alpha{} while allowing \DesignPooledTolerance{}
 pairs to disagree. The vertical marker identifies the recorded \(n=\NPairs{}\)
 case, so the floor is a design limit rather than an observed effect.%
@@ -149,7 +149,7 @@ probability on those pairs: identity fidelity is the registered primary
 endpoint (\RunIdentityLower{} of \RunPairs{} composed lower,
 $p=\RunIdentitySignP{}$); prompt fidelity is the registered secondary endpoint
 (\RunPromptLower{} of \RunPairs{} composed lower, $p=\RunPromptSignP{}$),
-shown only as that secondary and not as a confirmatory peer of the primary.
+shown at that secondary rank, outside the confirmatory family.
 The dashed vertical rule is zero paired change.%
 }
 
@@ -160,8 +160,9 @@ pair; the two facets in each row are the dog and clock concepts. Identity
 fidelity is the registered primary endpoint and is shown in the top row;
 prompt fidelity is the declared secondary endpoint below it. The panel contains
 all \RunPairs{} realised pairs (\RunPairsPerConcept{} per concept), with
-\RunSeedCount{} generation seeds across \RunPromptCount{} prompts. Slopes are descriptive paired observations: they do
-not add a second confirmatory test, estimate a population beyond these two
-concepts, or turn prompt fidelity into an identity claim. The plotted rows are
-derived solely from the bound E-PAIRED analysis record; the declaration remains
-bound as E-PREDECL.}
+\RunSeedCount{} generation seeds across \RunPromptCount{} prompts. Slopes are
+descriptive paired observations: they add no second confirmatory test,
+estimate no population beyond these two concepts, and leave the identity claim
+to the primary endpoint. The plotted rows are
+derived solely from the bound paired-run analysis record; the declaration remains
+bound under digest \PredeclarationShaShort{}.}
