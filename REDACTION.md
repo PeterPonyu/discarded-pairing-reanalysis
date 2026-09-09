@@ -53,3 +53,10 @@ checks.
 | `data/e-proxy-run/e2e_gpu_train.json` | 4 | 0 | `57e3b93b9737ac0f…` | `44922842ffe1a68d…` |
 | `data/e-closeout/laptop_closeout.json` | 7 | 0 | `7197703b1925a14f…` | `0ca2fbf280db26ef…` |
 | `data/e-authorisation/next_design.json` | 2 | 0 | `01b57e6d7e0cba1e…` | `027151dafb365afc…` |
+| `data/e-predecl/PREDECLARATION.json` | 5 | 0 | `a263fb9706c96581…` | `5135aa0bda446e6e…` |
+| `data/e-run-train-dog6-joint/train_manifest.json` | 2 | 0 | `062b1d42f5be7971…` | `d2e1a9b6d409c3d9…` |
+| `data/e-run-train-dog6-cross/train_manifest.json` | 2 | 0 | `f2b7afb177f3f379…` | `8b62f68d6e5dff92…` |
+| `data/e-run-train-dog6-self/train_manifest.json` | 2 | 0 | `2036a3454bf0fbf1…` | `cfb3010284be467a…` |
+| `data/e-run-train-clock-joint/train_manifest.json` | 2 | 0 | `90fe34bbfbc702a0…` | `d8b8a74e8749f616…` |
+| `data/e-run-train-clock-cross/train_manifest.json` | 2 | 0 | `43408a146684e04f…` | `691a4cf38a4becc7…` |
+| `data/e-run-train-clock-self/train_manifest.json` | 2 | 0 | `67a6783dc795e68c…` | `10b2dd659d76b57f…` |

@@ -1,0 +1,16 @@
+{
+  "adapter_name": "identity",
+  "target": "cross",
+  "target_modules_regex": ".*attn2\\.(to_k|to_q|to_v|to_out\\.0)$",
+  "trainable_params": 1591296,
+  "instance_data_dir": "source-tree/004-diffusion-personalization/data/dog6",
+  "instance_prompt": "a photo of sks dog",
+  "pretrained_model": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+  "max_train_steps": 500,
+  "learning_rate": 0.0001,
+  "lora_rank": 16,
+  "seed": 42,
+  "resolution": 512,
+  "wall_clock_sec": 75.2,
+  "final_loss": 0.036
+}

@@ -1,23 +1,23 @@
-A diffusion-personalisation comparison was recorded as unpaired evidence for
-a mechanism claim. Re-reading the artifacts shows that the pairing was
-present: all three arms used the same \NPairs{} prompts and matched training
-budgets, while the registered endpoint reduced each arm to one dispersion
-number and thereby erased the pairs.
+The registered paired protocol for this diffusion-personalisation comparison
+found no identity separation. Across \RunPairs{} identity pairs the composed
+arm was lower on \RunIdentityLower{} and higher on \RunIdentityHigher{}
+(exact sign-test \(p=\RunIdentitySignP{}\)). The mean paired-difference
+interval \RunIdentityCiLo{} to \RunIdentityCiHi{} includes zero, so the
+confirmatory test does not separate the arms.
 
-At that endpoint, the recorded dispersion ratio is compatible with
-\DispLower{}--\DispUpper{} at 95\% confidence, so it supports no separation.
-When the pairing is recovered at the level of the recorded generations, the
-composed arm is lower on identity fidelity for \IdentityDown{} of
-\NPairs{} pairs (sign-test \(p=\IdentitySignP{}\)) and on prompt fidelity for
-\PromptDown{} of \NPairs{} pairs (\(p=\PromptSignP{}\)). With
-\NPairs{} pairs, the smallest two-sided exact sign-test probability is
-\FloorAtFour{}, so the registered endpoint could not reach \Alpha{} whatever
-the four outcomes. An unregistered paired \(t\) test crosses that threshold
-only by changing the endpoint and assuming a distributional shape that four
-points cannot establish.
+That design was sized from a historical reanalysis. A recorded unpaired
+comparison had collapsed the same \NPairs{} matched prompts into one
+dispersion per arm. Recovered as pairs, the composed arm was lower on
+identity fidelity for \IdentityDown{} of \NPairs{} prompts (sign-test
+\(p=\IdentitySignP{}\)), a test whose attainable floor at that size is
+\FloorAtFour{}. The registered design therefore used \DesignTotal{} pairs
+across \DesignConcepts{} concepts.
 
-We therefore report no separation in this small comparison at its registered
-endpoint and pre-register the experiment that could settle it:
-\DesignPerConcept{} pairs per concept across \DesignConcepts{} concepts, with
-\DesignTolerance{} tolerated reversals and a target of \Alpha{}. The sized
-protocol has not been run and remains unauthorised.
+Prompt fidelity, the registered secondary endpoint, was lower for the
+composed arm on \RunPromptLower{} of \RunPairs{} pairs
+(\(p=\RunPromptSignP{}\)) and is not promoted. Dispersion ratios reversed
+relative to the historical \SDRatioComposed{} (\RunDispersionDog{} and
+\RunDispersionClock{}) and are descriptive only. The protocol was declared
+before training (evidence ID E-PREDECL) and realised every pair
+with \RunFailures{} failures. The scoped claim is that a pre-declared paired
+sign test at this size does not separate the arms on identity fidelity.

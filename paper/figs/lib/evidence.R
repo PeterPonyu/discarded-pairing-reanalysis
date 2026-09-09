@@ -25,8 +25,8 @@ load_manifest <- function() {
 
 # Built once by the driver and closed over by the readers below, so a panel
 # cannot reach past the manifest by constructing a path of its own.
-evidence_reader <- function(manifest, repo_root) {
-  bound_path <- function(id) {
+bound_path_resolver <- function(manifest, repo_root) {
+  function(id) {
     row <- manifest$entries[manifest$entries$id == id, ]
     if (nrow(row) != 1L) stop("no unique evidence entry bound under id ", id)
     path <- file.path(repo_root, row$path[[1]])
@@ -35,10 +35,30 @@ evidence_reader <- function(manifest, repo_root) {
     if (!identical(actual, row$sha256[[1]])) stop("bound evidence drifted on disk: ", id)
     path
   }
+}
+
+evidence_reader <- function(manifest, repo_root) {
+  bound_path <- bound_path_resolver(manifest, repo_root)
   function(id) jsonlite::fromJSON(bound_path(id), simplifyVector = TRUE)
 }
 
-# The manifest, as an appendix table.
+# The run's stage timeline is plain text, one line per stage boundary. It goes
+# through the same digest check as the JSON records; only the parser differs.
+evidence_lines_reader <- function(manifest, repo_root) {
+  bound_path <- bound_path_resolver(manifest, repo_root)
+  function(id) readLines(bound_path(id), warn = FALSE)
+}
+
+# The digest the manifest recorded for one entry, so a record that quotes the
+# digest of another bound artifact can be checked against the binding itself.
+bound_sha256 <- function(manifest, id) {
+  row <- manifest$entries[manifest$entries$id == id, ]
+  if (nrow(row) != 1L) stop("no unique evidence entry bound under id ", id)
+  row$sha256[[1]]
+}
+
+# The manifest binding is retained for sidecar verification. It is not emitted
+# as a reader-facing appendix table; publication text uses evidence IDs.
 #
 # The methods section asserts that every artifact is digest-bound; this prints
 # the bindings so a reader can check the assertion instead of taking it. Two

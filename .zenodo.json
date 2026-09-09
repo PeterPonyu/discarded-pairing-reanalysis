@@ -1,6 +1,6 @@
 {
   "title": "Matched runs, unpaired test: recovering a discarded pairing in a small personalisation comparison, and pre-registering the one that would settle it",
-  "description": "Identity and caption-fidelity records, adapter training manifests, figure code and manuscript source for a re-analysis that recovers the pairing a small diffusion-personalisation comparison discarded, reports what four pairs can and cannot support, and fixes the paired protocol that would settle the question before it is run. Code is MIT; manuscript text, figures and recorded result data are CC-BY-4.0. Third-party simulators and datasets are not redistributed.",
+  "description": "Identity and caption-fidelity records, adapter manifests, paired concept-by-seed figures and manuscript source for a re-analysis that recovers the pairing a small diffusion-personalisation comparison discarded, reports what the registered identity endpoint can support, and separates its prompt-fidelity secondary endpoint from the protocol design. The official 1000-step B-LoRA result is absent. Code is MIT; manuscript text, figures and recorded result data are CC-BY-4.0. Third-party simulators and datasets are not redistributed.",
   "upload_type": "dataset",
   "access_right": "open",
   "license": "MIT",

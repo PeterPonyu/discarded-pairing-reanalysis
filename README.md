@@ -1,6 +1,6 @@
 # Matched runs, unpaired test: recovering a discarded pairing in a small personalisation comparison, and pre-registering the one that would settle it
 
-Identity and caption-fidelity records, adapter training manifests, figure code and manuscript source for a re-analysis that recovers the pairing a small diffusion-personalisation comparison discarded, reports what four pairs can and cannot support, and fixes the paired protocol that would settle the question before it is run.
+Identity and caption-fidelity records, adapter manifests, paired concept-by-seed figures and manuscript source for a re-analysis that recovers the pairing a small diffusion-personalisation comparison discarded, reports what the registered identity endpoint can support, and separates its prompt-fidelity secondary endpoint from the protocol design. The official 1000-step B-LoRA result is absent.
 
 Archived at [10.5281/zenodo.22647020](https://doi.org/10.5281/zenodo.22647020).
 
@@ -11,7 +11,7 @@ Repository: https://github.com/PeterPonyu/discarded-pairing-reanalysis
 - `paper/tex/` — manuscript source
 - `paper/figs/` — the R code that draws the figures and writes the printed numbers
 - `paper/evidence/` — a file list with SHA-256 hashes
-- `data/` — the 14 data files named in that list
+- `data/` — the 28 data files named in that list
 
 ## Not included
 

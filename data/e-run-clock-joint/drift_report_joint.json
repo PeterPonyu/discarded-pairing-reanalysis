@@ -1,0 +1,200 @@
+{
+  "output_dir": "../outputs/paired_20260907/clock",
+  "paired": true,
+  "seed": 42,
+  "frozen_subject_ids": [
+    "clock"
+  ],
+  "frozen_latent_ids": [
+    "seed-family-paired_20260907"
+  ],
+  "frozen_seeds": [
+    101,
+    202,
+    303
+  ],
+  "paired_comparisons": true,
+  "complete_output_inventory": [
+    {
+      "path": "seed-101_on_a_beach_at_sunset.png",
+      "sha256": "4f17097458f1596b92369ba4792768c56529d80901d8007539ac5360c442e345"
+    },
+    {
+      "path": "seed-202_on_a_beach_at_sunset.png",
+      "sha256": "858478c8b5f0440db20b3d9512f42786f7623b2ec9e086a0534e64b0da70675a"
+    },
+    {
+      "path": "seed-303_on_a_beach_at_sunset.png",
+      "sha256": "ff09b385ba99a5b5e44a7986db0ee916bb31c95c58df344c5b32ed8359813cd2"
+    },
+    {
+      "path": "seed-101_in_a_snowy_forest.png",
+      "sha256": "ea984d07301d22ecf09419a4947d1eab55eaf8fd76b9857c198caf17d9283416"
+    },
+    {
+      "path": "seed-202_in_a_snowy_forest.png",
+      "sha256": "25aeb270628cbc39964b183c585ee8a9a23b9314aad0402ddd8e86d67babad0a"
+    },
+    {
+      "path": "seed-303_in_a_snowy_forest.png",
+      "sha256": "cbfbbc956f24dfacf7e1cff6c8ea89717417a0d56f7d73fa43f9c75849d287a6"
+    },
+    {
+      "path": "seed-101_on_a_city_street_at_night.png",
+      "sha256": "39eca87ad8d967a7328bb4e8f50214d52ad554da2f165572b8cdc01d3e07289e"
+    },
+    {
+      "path": "seed-202_on_a_city_street_at_night.png",
+      "sha256": "c93f39f5500a51c30eb26bb3ae90d916dde9a84eff5665879db8c0b7aa6b72e0"
+    },
+    {
+      "path": "seed-303_on_a_city_street_at_night.png",
+      "sha256": "ec616b739f198e8b1ca8feb1688f93cfe7573af0dfc09c9f527fa9016aa8ef3e"
+    },
+    {
+      "path": "seed-101_in_a_colorful_flower_garden.png",
+      "sha256": "e344750cb47e59e16dfc89f4d68c3a2d67b19bb3a86015983dcee997c782b261"
+    },
+    {
+      "path": "seed-202_in_a_colorful_flower_garden.png",
+      "sha256": "ff96c6b5f9b968168783537be4e85b837242fdc6fc23f9097a87155773c612b1"
+    },
+    {
+      "path": "seed-303_in_a_colorful_flower_garden.png",
+      "sha256": "23f3f1f0e6cd31bfecf1b3454878aa0b766d38caf275bd1bbd7f56e49237c6d1"
+    }
+  ],
+  "metric_implementation": {
+    "clip_model": "openai/clip-vit-base-patch32",
+    "clip_model_revision": null,
+    "clip_model_digest": null,
+    "dino_model_revision": null,
+    "dino_model_digest": null
+  },
+  "protected_bounds": null,
+  "primary_evaluation_hand_picked": false,
+  "governed_evidence_complete": false,
+  "adapters": {
+    "baseline": 1.0
+  },
+  "identity_prompt": "sks clock",
+  "per_prompt": [
+    {
+      "subject_id": "clock",
+      "background_prompt": "on a beach at sunset",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 101,
+      "identity_fidelity": 0.8720329403877258,
+      "prompt_fidelity": 0.25058141350746155,
+      "output": "seed-101_on_a_beach_at_sunset.png"
+    },
+    {
+      "subject_id": "clock",
+      "background_prompt": "on a beach at sunset",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 202,
+      "identity_fidelity": 0.8634982109069824,
+      "prompt_fidelity": 0.2603912949562073,
+      "output": "seed-202_on_a_beach_at_sunset.png"
+    },
+    {
+      "subject_id": "clock",
+      "background_prompt": "on a beach at sunset",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 303,
+      "identity_fidelity": 0.8730287551879883,
+      "prompt_fidelity": 0.24017280340194702,
+      "output": "seed-303_on_a_beach_at_sunset.png"
+    },
+    {
+      "subject_id": "clock",
+      "background_prompt": "in a snowy forest",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 101,
+      "identity_fidelity": 0.8772717714309692,
+      "prompt_fidelity": 0.20759764313697815,
+      "output": "seed-101_in_a_snowy_forest.png"
+    },
+    {
+      "subject_id": "clock",
+      "background_prompt": "in a snowy forest",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 202,
+      "identity_fidelity": 0.6818680167198181,
+      "prompt_fidelity": 0.2562951445579529,
+      "output": "seed-202_in_a_snowy_forest.png"
+    },
+    {
+      "subject_id": "clock",
+      "background_prompt": "in a snowy forest",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 303,
+      "identity_fidelity": 0.7697285413742065,
+      "prompt_fidelity": 0.25976672768592834,
+      "output": "seed-303_in_a_snowy_forest.png"
+    },
+    {
+      "subject_id": "clock",
+      "background_prompt": "on a city street at night",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 101,
+      "identity_fidelity": 0.6704896688461304,
+      "prompt_fidelity": 0.29752790927886963,
+      "output": "seed-101_on_a_city_street_at_night.png"
+    },
+    {
+      "subject_id": "clock",
+      "background_prompt": "on a city street at night",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 202,
+      "identity_fidelity": 0.6948373913764954,
+      "prompt_fidelity": 0.2642541229724884,
+      "output": "seed-202_on_a_city_street_at_night.png"
+    },
+    {
+      "subject_id": "clock",
+      "background_prompt": "on a city street at night",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 303,
+      "identity_fidelity": 0.8740290403366089,
+      "prompt_fidelity": 0.23359015583992004,
+      "output": "seed-303_on_a_city_street_at_night.png"
+    },
+    {
+      "subject_id": "clock",
+      "background_prompt": "in a colorful flower garden",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 101,
+      "identity_fidelity": 0.8401798009872437,
+      "prompt_fidelity": 0.2862825095653534,
+      "output": "seed-101_in_a_colorful_flower_garden.png"
+    },
+    {
+      "subject_id": "clock",
+      "background_prompt": "in a colorful flower garden",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 202,
+      "identity_fidelity": 0.7129852771759033,
+      "prompt_fidelity": 0.3086947202682495,
+      "output": "seed-202_in_a_colorful_flower_garden.png"
+    },
+    {
+      "subject_id": "clock",
+      "background_prompt": "in a colorful flower garden",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 303,
+      "identity_fidelity": 0.8882544040679932,
+      "prompt_fidelity": 0.26035207509994507,
+      "output": "seed-303_in_a_colorful_flower_garden.png"
+    }
+  ],
+  "mean_identity_fidelity": 0.8015169501304626,
+  "attribute_drift_std": 0.0844866931438446,
+  "mean_prompt_fidelity": 0.2604588766892751,
+  "governance_missing_reasons": [
+    "fewer_than_five_frozen_subjects",
+    "pinned_clip_and_dino_metadata_missing",
+    "protected_bounds_missing",
+    "complete_finite_five_metric_rows_missing"
+  ]
+}

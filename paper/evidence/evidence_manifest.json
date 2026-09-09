@@ -1,7 +1,7 @@
 {
   "schema": "evidence-manifest/v1",
   "state": "BOUND",
-  "bound_utc": "2026-08-28T13:12:44Z",
+  "bound_utc": "2026-09-08T13:29:46Z",
   "allowed_roots": [
     "data",
     "paper/evidence"
@@ -116,9 +116,121 @@
       "id": "E-AUTHORISATION",
       "path": "data/e-authorisation/next_design.json",
       "role": "recorded_state",
-      "note": "the recorded gate list for the unrun lane, and its status as designed but not authorised",
+      "note": "the recorded gate list at protocol time, whose status was designed_not_authorized before the authorised paired run",
       "bytes": 2907,
       "sha256": "027151dafb365afc716d6d482e6ded8a276cdc886a46baf8b27a2a9a9e26d974"
+    },
+    {
+      "id": "E-PREDECL",
+      "path": "data/e-predecl/PREDECLARATION.json",
+      "role": "protocol",
+      "note": "the pre-declaration of the paired run, written before any training: the two concepts, the prompt grid, the generation seeds, the budget, the single confirmatory test and the rule that a failure is recorded rather than replaced",
+      "bytes": 3590,
+      "sha256": "5135aa0bda446e6ea46df834bf061faeda07f9490fec1525476e4ddd597597f2"
+    },
+    {
+      "id": "E-RUN-TIMELINE",
+      "path": "data/e-run-timeline/nohup.out",
+      "role": "recorded_state",
+      "note": "the stage timeline of the executed run: the start and finish of each training and generation stage, in UTC",
+      "bytes": 1006,
+      "sha256": "362d4f3e0dfea591ac2b7432e2ee4723dc14a7460605685d2aa5474bdaf94a75"
+    },
+    {
+      "id": "E-FAILURES",
+      "path": "data/e-failures/failure_ledger.json",
+      "role": "recorded_state",
+      "note": "the failure ledger of the executed run, which records no failed training and no failed generation",
+      "bytes": 17,
+      "sha256": "1908edf459bbd0608fbaf437666e7262d179bc54c585dbd556f27ff562b371f1"
+    },
+    {
+      "id": "E-PAIRED",
+      "path": "data/e-paired/paired_analysis.json",
+      "role": "derived_table",
+      "note": "the analysis of the executed run: every realised pair, the pooled primary sign test, the descriptive concept strata, the secondary endpoint, the recomputed dispersion endpoint with its interval, and the training wall clock",
+      "bytes": 21179,
+      "sha256": "89bfddd5f4bd99f8be68eff7e85827f5393f6103ccf2d1d0219ef692543b4fd6"
+    },
+    {
+      "id": "E-RUN-DOG6-JOINT",
+      "path": "data/e-run-dog6-joint/drift_report_joint.json",
+      "role": "derived_table",
+      "note": "per-generation identity and prompt fidelity for the jointly trained arm on the first concept (a dog) in the executed run: four prompts by three seeds",
+      "bytes": 6575,
+      "sha256": "10eeebb506fa3c7f3f565184b82c18f325ac512b5b0c23b0757b42eb08a9255e"
+    },
+    {
+      "id": "E-RUN-DOG6-COMPOSED",
+      "path": "data/e-run-dog6-composed/drift_report_composed.json",
+      "role": "derived_table",
+      "note": "per-generation identity and prompt fidelity for the composed arm on the first concept (a dog) in the executed run: the same four prompts by three seeds",
+      "bytes": 6596,
+      "sha256": "ca6468e7d61e87af8388d9f7c851b33cbac570022e0fa4deb9bd9510cdff0314"
+    },
+    {
+      "id": "E-RUN-CLOCK-JOINT",
+      "path": "data/e-run-clock-joint/drift_report_joint.json",
+      "role": "derived_table",
+      "note": "per-generation identity and prompt fidelity for the jointly trained arm on the second concept (a clock) in the executed run: four prompts by three seeds",
+      "bytes": 6594,
+      "sha256": "d2cd4b60d2d781bbe05a17f7f27e2ba9d44ec140381e6c3efd2a6a8c4b8e1ab2"
+    },
+    {
+      "id": "E-RUN-CLOCK-COMPOSED",
+      "path": "data/e-run-clock-composed/drift_report_composed.json",
+      "role": "derived_table",
+      "note": "per-generation identity and prompt fidelity for the composed arm on the second concept (a clock) in the executed run: the same four prompts by three seeds",
+      "bytes": 6614,
+      "sha256": "d1bf6810dbe9fd495fa61e6d8ea96eca3ed2fa69c1b3c14051afd5707cb92cbb"
+    },
+    {
+      "id": "E-RUN-TRAIN-DOG6-JOINT",
+      "path": "data/e-run-train-dog6-joint/train_manifest.json",
+      "role": "protocol",
+      "note": "the jointly trained adapter's configuration for the first concept in the executed run: trainable parameters, budget, seed and wall clock",
+      "bytes": 501,
+      "sha256": "d2e1a9b6d409c3d9ecb6971c3dd2128e9435e825d18818e6412d8d35d1320c5c"
+    },
+    {
+      "id": "E-RUN-TRAIN-DOG6-CROSS",
+      "path": "data/e-run-train-dog6-cross/train_manifest.json",
+      "role": "protocol",
+      "note": "the cross-attention adapter's configuration for the first concept in the executed run, under the same budget and seed",
+      "bytes": 498,
+      "sha256": "8b62f68d6e5dff921b6b2cec02902784f76ebaa3921c1ec236cfb3af525e1a86"
+    },
+    {
+      "id": "E-RUN-TRAIN-DOG6-SELF",
+      "path": "data/e-run-train-dog6-self/train_manifest.json",
+      "role": "protocol",
+      "note": "the self-attention adapter's configuration for the first concept in the executed run, under the same budget and seed",
+      "bytes": 495,
+      "sha256": "cfb3010284be467aa01c0a378236ee98cced23b158e180d851868a10a68fc602"
+    },
+    {
+      "id": "E-RUN-TRAIN-CLOCK-JOINT",
+      "path": "data/e-run-train-clock-joint/train_manifest.json",
+      "role": "protocol",
+      "note": "the jointly trained adapter's configuration for the second concept in the executed run: trainable parameters, budget, seed and wall clock",
+      "bytes": 505,
+      "sha256": "d8b8a74e8749f616845da6ec5e194f9095fecc454abaa0b3f9f968f988949b99"
+    },
+    {
+      "id": "E-RUN-TRAIN-CLOCK-CROSS",
+      "path": "data/e-run-train-clock-cross/train_manifest.json",
+      "role": "protocol",
+      "note": "the cross-attention adapter's configuration for the second concept in the executed run, under the same budget and seed",
+      "bytes": 503,
+      "sha256": "691a4cf38a4becc7497c067ce451f2fcd43c53424f6941a20a64bfe585b8fd4b"
+    },
+    {
+      "id": "E-RUN-TRAIN-CLOCK-SELF",
+      "path": "data/e-run-train-clock-self/train_manifest.json",
+      "role": "protocol",
+      "note": "the self-attention adapter's configuration for the second concept in the executed run, under the same budget and seed",
+      "bytes": 498,
+      "sha256": "10b2dd659d76b57f46f3765eec020cbae6ab6b47a31ef690e836bb74a1c01a91"
     }
   ]
 }

@@ -14,4 +14,18 @@ E-PROXY	data/e-proxy/naive.json	recorded_state	the separate short-budget proxy a
 E-PROXY-RUN	data/e-proxy-run/e2e_gpu_train.json	recorded_state	the short-budget run record, including the wall clock it reports for that run
 E-CLOSEOUT	data/e-closeout/laptop_closeout.json	recorded_state	the closeout that re-states the short-budget run and reports a different wall clock for it
 E-BLOCKED	data/e-blocked/sota_copy.json	recorded_state	the full-replication tier, recorded as blocked with its reference table never produced
-E-AUTHORISATION	data/e-authorisation/next_design.json	recorded_state	the recorded gate list for the unrun lane, and its status as designed but not authorised
+E-AUTHORISATION	data/e-authorisation/next_design.json	recorded_state	the recorded gate list at protocol time, whose status was designed_not_authorized before the authorised paired run
+E-PREDECL	data/e-predecl/PREDECLARATION.json	protocol	the pre-declaration of the paired run, written before any training: the two concepts, the prompt grid, the generation seeds, the budget, the single confirmatory test and the rule that a failure is recorded rather than replaced
+E-RUN-TIMELINE	data/e-run-timeline/nohup.out	recorded_state	the stage timeline of the executed run: the start and finish of each training and generation stage, in UTC
+E-FAILURES	data/e-failures/failure_ledger.json	recorded_state	the failure ledger of the executed run, which records no failed training and no failed generation
+E-PAIRED	data/e-paired/paired_analysis.json	derived_table	the analysis of the executed run: every realised pair, the pooled primary sign test, the descriptive concept strata, the secondary endpoint, the recomputed dispersion endpoint with its interval, and the training wall clock
+E-RUN-DOG6-JOINT	data/e-run-dog6-joint/drift_report_joint.json	derived_table	per-generation identity and prompt fidelity for the jointly trained arm on the first concept (a dog) in the executed run: four prompts by three seeds
+E-RUN-DOG6-COMPOSED	data/e-run-dog6-composed/drift_report_composed.json	derived_table	per-generation identity and prompt fidelity for the composed arm on the first concept (a dog) in the executed run: the same four prompts by three seeds
+E-RUN-CLOCK-JOINT	data/e-run-clock-joint/drift_report_joint.json	derived_table	per-generation identity and prompt fidelity for the jointly trained arm on the second concept (a clock) in the executed run: four prompts by three seeds
+E-RUN-CLOCK-COMPOSED	data/e-run-clock-composed/drift_report_composed.json	derived_table	per-generation identity and prompt fidelity for the composed arm on the second concept (a clock) in the executed run: the same four prompts by three seeds
+E-RUN-TRAIN-DOG6-JOINT	data/e-run-train-dog6-joint/train_manifest.json	protocol	the jointly trained adapter's configuration for the first concept in the executed run: trainable parameters, budget, seed and wall clock
+E-RUN-TRAIN-DOG6-CROSS	data/e-run-train-dog6-cross/train_manifest.json	protocol	the cross-attention adapter's configuration for the first concept in the executed run, under the same budget and seed
+E-RUN-TRAIN-DOG6-SELF	data/e-run-train-dog6-self/train_manifest.json	protocol	the self-attention adapter's configuration for the first concept in the executed run, under the same budget and seed
+E-RUN-TRAIN-CLOCK-JOINT	data/e-run-train-clock-joint/train_manifest.json	protocol	the jointly trained adapter's configuration for the second concept in the executed run: trainable parameters, budget, seed and wall clock
+E-RUN-TRAIN-CLOCK-CROSS	data/e-run-train-clock-cross/train_manifest.json	protocol	the cross-attention adapter's configuration for the second concept in the executed run, under the same budget and seed
+E-RUN-TRAIN-CLOCK-SELF	data/e-run-train-clock-self/train_manifest.json	protocol	the self-attention adapter's configuration for the second concept in the executed run, under the same budget and seed

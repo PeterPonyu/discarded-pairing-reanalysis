@@ -1,0 +1,200 @@
+{
+  "output_dir": "../outputs/paired_20260907/dog6",
+  "paired": true,
+  "seed": 42,
+  "frozen_subject_ids": [
+    "dog6"
+  ],
+  "frozen_latent_ids": [
+    "seed-family-paired_20260907"
+  ],
+  "frozen_seeds": [
+    101,
+    202,
+    303
+  ],
+  "paired_comparisons": true,
+  "complete_output_inventory": [
+    {
+      "path": "seed-101_on_a_beach_at_sunset.png",
+      "sha256": "60f81310a36194ab7e151568a6e15b265dc8cfab8468b7a146ced0f27af8ed85"
+    },
+    {
+      "path": "seed-202_on_a_beach_at_sunset.png",
+      "sha256": "1f0757eff8e66233a6a0d47b171be7f0ae3fae0362eb21260365be776fa65376"
+    },
+    {
+      "path": "seed-303_on_a_beach_at_sunset.png",
+      "sha256": "0adfb738dcb1a33b5e9447966a6ad6c3ad91a2f0368838ba5ea42fefd5ed61e0"
+    },
+    {
+      "path": "seed-101_in_a_snowy_forest.png",
+      "sha256": "0f7591e22fdc7a2521dbd2f411eea442c5ecdabc9b2eac302c8c0e689fc9b609"
+    },
+    {
+      "path": "seed-202_in_a_snowy_forest.png",
+      "sha256": "12859ce580633953d93322cd933b530b74f7791130bcc23f4a15605da198477c"
+    },
+    {
+      "path": "seed-303_in_a_snowy_forest.png",
+      "sha256": "ee4f07f3018859229c321d9d5c2b7ea07d2b410e20806768de5ff1f379ae723d"
+    },
+    {
+      "path": "seed-101_on_a_city_street_at_night.png",
+      "sha256": "21017f6476c50b42f91806bcd35286fa669da1b51407e18edc9cf1f659f04759"
+    },
+    {
+      "path": "seed-202_on_a_city_street_at_night.png",
+      "sha256": "7522d48be83ab4ea8fbaf1cc892259f2c7d89f68cb9b6dc4b8d5a00fa4b613ae"
+    },
+    {
+      "path": "seed-303_on_a_city_street_at_night.png",
+      "sha256": "a201bfaccd1d6894376a654d68043d7a8e00c6136fde4738a5e697cf446dcae4"
+    },
+    {
+      "path": "seed-101_in_a_colorful_flower_garden.png",
+      "sha256": "c755acc817eb57f1dfd99364957b16d735c14f5bb8cdb1a3fc2ea54e179f0cf4"
+    },
+    {
+      "path": "seed-202_in_a_colorful_flower_garden.png",
+      "sha256": "838ea9afb674ee5da64ac33951ede82fd3c474479f19e2612205c5474aed5f72"
+    },
+    {
+      "path": "seed-303_in_a_colorful_flower_garden.png",
+      "sha256": "c86e60427d9579b6f363f3b289a76e3ac16544d086a2ed53ba96f1170ff5ad30"
+    }
+  ],
+  "metric_implementation": {
+    "clip_model": "openai/clip-vit-base-patch32",
+    "clip_model_revision": null,
+    "clip_model_digest": null,
+    "dino_model_revision": null,
+    "dino_model_digest": null
+  },
+  "protected_bounds": null,
+  "primary_evaluation_hand_picked": false,
+  "governed_evidence_complete": false,
+  "adapters": {
+    "baseline": 1.0
+  },
+  "identity_prompt": "sks dog",
+  "per_prompt": [
+    {
+      "subject_id": "dog6",
+      "background_prompt": "on a beach at sunset",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 101,
+      "identity_fidelity": 0.8126245141029358,
+      "prompt_fidelity": 0.27042651176452637,
+      "output": "seed-101_on_a_beach_at_sunset.png"
+    },
+    {
+      "subject_id": "dog6",
+      "background_prompt": "on a beach at sunset",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 202,
+      "identity_fidelity": 0.8643987774848938,
+      "prompt_fidelity": 0.2705772817134857,
+      "output": "seed-202_on_a_beach_at_sunset.png"
+    },
+    {
+      "subject_id": "dog6",
+      "background_prompt": "on a beach at sunset",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 303,
+      "identity_fidelity": 0.8590207099914551,
+      "prompt_fidelity": 0.2713845372200012,
+      "output": "seed-303_on_a_beach_at_sunset.png"
+    },
+    {
+      "subject_id": "dog6",
+      "background_prompt": "in a snowy forest",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 101,
+      "identity_fidelity": 0.8614556789398193,
+      "prompt_fidelity": 0.2241942286491394,
+      "output": "seed-101_in_a_snowy_forest.png"
+    },
+    {
+      "subject_id": "dog6",
+      "background_prompt": "in a snowy forest",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 202,
+      "identity_fidelity": 0.7935391664505005,
+      "prompt_fidelity": 0.2368374764919281,
+      "output": "seed-202_in_a_snowy_forest.png"
+    },
+    {
+      "subject_id": "dog6",
+      "background_prompt": "in a snowy forest",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 303,
+      "identity_fidelity": 0.8749993443489075,
+      "prompt_fidelity": 0.2013903260231018,
+      "output": "seed-303_in_a_snowy_forest.png"
+    },
+    {
+      "subject_id": "dog6",
+      "background_prompt": "on a city street at night",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 101,
+      "identity_fidelity": 0.8461410999298096,
+      "prompt_fidelity": 0.2546079456806183,
+      "output": "seed-101_on_a_city_street_at_night.png"
+    },
+    {
+      "subject_id": "dog6",
+      "background_prompt": "on a city street at night",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 202,
+      "identity_fidelity": 0.9025075435638428,
+      "prompt_fidelity": 0.19615773856639862,
+      "output": "seed-202_on_a_city_street_at_night.png"
+    },
+    {
+      "subject_id": "dog6",
+      "background_prompt": "on a city street at night",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 303,
+      "identity_fidelity": 0.8649048805236816,
+      "prompt_fidelity": 0.24698103964328766,
+      "output": "seed-303_on_a_city_street_at_night.png"
+    },
+    {
+      "subject_id": "dog6",
+      "background_prompt": "in a colorful flower garden",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 101,
+      "identity_fidelity": 0.8176344633102417,
+      "prompt_fidelity": 0.2875928282737732,
+      "output": "seed-101_in_a_colorful_flower_garden.png"
+    },
+    {
+      "subject_id": "dog6",
+      "background_prompt": "in a colorful flower garden",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 202,
+      "identity_fidelity": 0.8711090087890625,
+      "prompt_fidelity": 0.2861027717590332,
+      "output": "seed-202_in_a_colorful_flower_garden.png"
+    },
+    {
+      "subject_id": "dog6",
+      "background_prompt": "in a colorful flower garden",
+      "latent_id": "seed-family-paired_20260907",
+      "seed": 303,
+      "identity_fidelity": 0.872150182723999,
+      "prompt_fidelity": 0.274692177772522,
+      "output": "seed-303_in_a_colorful_flower_garden.png"
+    }
+  ],
+  "mean_identity_fidelity": 0.8533737659454346,
+  "attribute_drift_std": 0.029539380222558975,
+  "mean_prompt_fidelity": 0.25174540529648465,
+  "governance_missing_reasons": [
+    "fewer_than_five_frozen_subjects",
+    "pinned_clip_and_dino_metadata_missing",
+    "protected_bounds_missing",
+    "complete_finite_five_metric_rows_missing"
+  ]
+}

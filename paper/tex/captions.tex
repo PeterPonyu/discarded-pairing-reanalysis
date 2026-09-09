@@ -114,18 +114,18 @@ number per arm and therefore admits no paired difference.%
 }
 
 \newcommand{\CapProtocol}{%
-The paired experiment, fixed before it is run. The pairing unit, the arms, the
-endpoints and the tests are stated here so that no choice among them can be
-made after the results are seen. The number of background prompts is the
+The paired experiment, locked before the run and then executed once. The pairing unit, the arms, the
+endpoints and the tests were fixed so that no choice among them could be
+made after the results were seen. The number of background prompts is the
 recorded grid, unchanged. The number of generation seeds is the smallest that
 leaves each concept able to reach \Alpha{} on an exact sign test with at least
 one pair falling the wrong way; every other size in the table follows from it.
 The training budget is that of the arms whose comparison this protocol
-re-tests. Nothing in this table has been executed.%
+re-tests. The table is that locked declaration.%
 }
 
 \newcommand{\CapProtocolFlow}{%
-The pre-registered sequence, shown as a design rather than a result. A pair is
+The pre-registered sequence, shown as the specification that was then executed once. A pair is
 one concept, one background prompt and one generation seed; the jointly trained
 and composed arms are matched on the recorded training budget and controls. The
 primary endpoint is the within-pair change in identity fidelity, tested by one
@@ -135,6 +135,33 @@ lower strip gives the derived design counts: \DesignConcepts{}
 concepts, \DesignPerConcept{} pairs per concept and \DesignTotal{} pairs in
 total, yielding \DesignGenerations{} generations. The analysis lock requires
 joining by the pair key, fixing the protocol before generation and unblinding
-once. The protocol is explicitly UNRUN and UNAUTHORIZED; no value in this
-diagram is an observed result.%
+once. The banner reports the declaration time and the realised pair count
+from the bound run; the boxes themselves remain the specification, not the
+primary result.%
 }
+
+\newcommand{\CapPairedRun}{%
+The registered paired run on all \RunPairs{} realised pairs. Each point is one
+concept--prompt--seed pair; its position is the composed arm minus the jointly
+trained arm on the endpoint named above the panel. Points are grouped by
+concept. The annotation in each panel is the two-sided exact sign-test
+probability on those pairs: identity fidelity is the registered primary
+endpoint (\RunIdentityLower{} of \RunPairs{} composed lower,
+$p=\RunIdentitySignP{}$); prompt fidelity is the registered secondary endpoint
+(\RunPromptLower{} of \RunPairs{} composed lower, $p=\RunPromptSignP{}$),
+shown only as that secondary and not as a confirmatory peer of the primary.
+The dashed vertical rule is zero paired change.%
+}
+
+\newcommand{\CapConceptSlopes}{%
+Paired identity and prompt-fidelity slopes in the registered run. Each segment
+joins the jointly trained and composed arms for one matched concept--prompt--seed
+pair; the two facets in each row are the dog and clock concepts. Identity
+fidelity is the registered primary endpoint and is shown in the top row;
+prompt fidelity is the declared secondary endpoint below it. The panel contains
+all \RunPairs{} realised pairs (\RunPairsPerConcept{} per concept), with
+\RunSeedCount{} generation seeds across \RunPromptCount{} prompts. Slopes are descriptive paired observations: they do
+not add a second confirmatory test, estimate a population beyond these two
+concepts, or turn prompt fidelity into an identity claim. The plotted rows are
+derived solely from the bound E-PAIRED analysis record; the declaration remains
+bound as E-PREDECL.}

@@ -1,0 +1,616 @@
+{
+  "package_id": "004-paired-run-20260907",
+  "mode": "PREREGISTERED_PAIRED_RUN_ANALYSIS",
+  "analysed_utc": "2026-09-08T05:56:02Z",
+  "predeclaration_sha256": "a263fb9706c96581188b936b2313d1fbb21461600ab815c752ea8c82525e6f96",
+  "design_declared": {
+    "pairs_per_concept": 12,
+    "pairs_total": 24,
+    "training_runs": 6,
+    "generations": 48
+  },
+  "pairs_realised": 24,
+  "pairs_missing": [],
+  "failure_ledger_entries": 0,
+  "primary_identity_fidelity": {
+    "n_pairs": 24,
+    "composed_higher": 11,
+    "composed_lower": 13,
+    "ties": 0,
+    "sign_test_two_sided_p": 0.8388197422027588,
+    "mean_diff": 0.01694990446170171,
+    "median_diff": -0.016303032636642456,
+    "mean_diff_ci95": [
+      -0.013720273288587728,
+      0.051724358648061734
+    ],
+    "median_diff_ci95": [
+      -0.02781367301940918,
+      0.02477163076400757
+    ],
+    "wilcoxon_two_sided_p": 1.0,
+    "discordant_pooled": 11,
+    "discordant_tolerance_pooled": 6,
+    "significant_at_alpha": false,
+    "direction": "composed lower on identity fidelity"
+  },
+  "concept_strata_descriptive": {
+    "dog6": {
+      "n_pairs": 12,
+      "composed_higher": 3,
+      "composed_lower": 9,
+      "ties": 0,
+      "sign_test_two_sided_p": 0.14599609375,
+      "mean_diff": -0.020971486965815227,
+      "median_diff": -0.02473953366279602,
+      "mean_diff_ci95": [
+        -0.03757881373167038,
+        -0.0032522387802600863
+      ],
+      "median_diff_ci95": [
+        -0.046971410512924194,
+        0.00572630763053894
+      ],
+      "wilcoxon_two_sided_p": 0.04248046875,
+      "confirmatory": false
+    },
+    "clock": {
+      "n_pairs": 12,
+      "composed_higher": 8,
+      "composed_lower": 4,
+      "ties": 0,
+      "sign_test_two_sided_p": 0.3876953125,
+      "mean_diff": 0.05487129588921865,
+      "median_diff": 0.029207348823547363,
+      "mean_diff_ci95": [
+        0.000824317832787832,
+        0.11117224507033824
+      ],
+      "median_diff_ci95": [
+        -0.02858641743659973,
+        0.12935611605644226
+      ],
+      "wilcoxon_two_sided_p": 0.20361328125,
+      "confirmatory": false
+    }
+  },
+  "secondary_prompt_fidelity": {
+    "n_pairs": 24,
+    "composed_higher": 3,
+    "composed_lower": 21,
+    "ties": 0,
+    "sign_test_two_sided_p": 0.0002771615982055664,
+    "mean_diff": -0.05189893146355947,
+    "median_diff": -0.05943179875612259,
+    "mean_diff_ci95": [
+      -0.06914498466067016,
+      -0.0344193614864101
+    ],
+    "median_diff_ci95": [
+      -0.07302424311637878,
+      -0.02170167863368988
+    ],
+    "wilcoxon_two_sided_p": 1.049041748046875e-05
+  },
+  "secondary_prompt_fidelity_strata_descriptive": {
+    "dog6": {
+      "n_pairs": 12,
+      "composed_higher": 0,
+      "composed_lower": 12,
+      "ties": 0,
+      "sign_test_two_sided_p": 0.00048828125,
+      "mean_diff": -0.08328065151969592,
+      "median_diff": -0.08456458151340485,
+      "mean_diff_ci95": [
+        -0.09927005534991623,
+        -0.06589565618584554
+      ],
+      "median_diff_ci95": [
+        -0.10848472267389297,
+        -0.06664302945137024
+      ],
+      "wilcoxon_two_sided_p": 0.00048828125,
+      "confirmatory": false
+    },
+    "clock": {
+      "n_pairs": 12,
+      "composed_higher": 3,
+      "composed_lower": 9,
+      "ties": 0,
+      "sign_test_two_sided_p": 0.14599609375,
+      "mean_diff": -0.02051721140742302,
+      "median_diff": -0.01610962301492691,
+      "mean_diff_ci95": [
+        -0.03759746756404638,
+        -0.002915373941262564
+      ],
+      "median_diff_ci95": [
+        -0.04745638370513916,
+        -0.0008355528116226196
+      ],
+      "wilcoxon_two_sided_p": 0.0341796875,
+      "confirmatory": false
+    }
+  },
+  "registered_dispersion_endpoint_recomputed": {
+    "dog6": {
+      "joint_identity_sd_population": 0.029539379395221013,
+      "composed_identity_sd_population": 0.019774825121875145,
+      "ratio_composed_over_joint": 0.6694394238043602,
+      "n_generations_per_arm": 12,
+      "f_statistic_composed_over_joint": 0.4481491421435138,
+      "f_df": [
+        11,
+        11
+      ],
+      "f_two_sided_p": 0.19890352422524754,
+      "variance_ratio_ci95": [
+        0.12901208065316752,
+        1.556735249808843
+      ],
+      "sd_ratio_ci95": [
+        0.35918251718752614,
+        1.2476919691209216
+      ],
+      "f_interval_assumes_independent_arms": true
+    },
+    "clock": {
+      "joint_identity_sd_population": 0.08448669617689952,
+      "composed_identity_sd_population": 0.04803347852434304,
+      "ratio_composed_over_joint": 0.5685330436376612,
+      "n_generations_per_arm": 12,
+      "f_statistic_composed_over_joint": 0.3232298217079027,
+      "f_df": [
+        11,
+        11
+      ],
+      "f_two_sided_p": 0.07402166337921072,
+      "variance_ratio_ci95": [
+        0.09305061174106823,
+        1.1228031249493766
+      ],
+      "sd_ratio_ci95": [
+        0.3050419835712262,
+        1.0596240488727011
+      ],
+      "f_interval_assumes_independent_arms": true
+    }
+  },
+  "training": {
+    "manifests": [
+      {
+        "concept": "dog6",
+        "adapter_name": "baseline",
+        "target": "full",
+        "trainable_params": 3188736,
+        "max_train_steps": 500,
+        "seed": 42,
+        "wall_clock_sec": 84.1,
+        "final_loss": 0.0301,
+        "manifest_sha256": "062b1d42f5be797129a187f3e6550a854990152081f168831059f20836bb414a"
+      },
+      {
+        "concept": "dog6",
+        "adapter_name": "identity",
+        "target": "cross",
+        "trainable_params": 1591296,
+        "max_train_steps": 500,
+        "seed": 42,
+        "wall_clock_sec": 75.2,
+        "final_loss": 0.036,
+        "manifest_sha256": "f2b7afb177f3f379b46940309f92b2ae2c7a7ac3d171d51fe87233a6c9141140"
+      },
+      {
+        "concept": "dog6",
+        "adapter_name": "style",
+        "target": "self",
+        "trainable_params": 1597440,
+        "max_train_steps": 500,
+        "seed": 42,
+        "wall_clock_sec": 82.5,
+        "final_loss": 0.0311,
+        "manifest_sha256": "2036a3454bf0fbf141b3592e2f8746a5a045df0dcc93b3410e40b8a9b70f7acd"
+      },
+      {
+        "concept": "clock",
+        "adapter_name": "baseline",
+        "target": "full",
+        "trainable_params": 3188736,
+        "max_train_steps": 500,
+        "seed": 42,
+        "wall_clock_sec": 116.9,
+        "final_loss": 0.0424,
+        "manifest_sha256": "90fe34bbfbc702a060fa76b4e5bb8849b77047b55d62da0b5facaf92ff128abe"
+      },
+      {
+        "concept": "clock",
+        "adapter_name": "identity",
+        "target": "cross",
+        "trainable_params": 1591296,
+        "max_train_steps": 500,
+        "seed": 42,
+        "wall_clock_sec": 118.5,
+        "final_loss": 0.0675,
+        "manifest_sha256": "43408a146684e04fd0fa1685d0d75774d1ab6dea6808415c63b13fc04bc9969a"
+      },
+      {
+        "concept": "clock",
+        "adapter_name": "style",
+        "target": "self",
+        "trainable_params": 1597440,
+        "max_train_steps": 500,
+        "seed": 42,
+        "wall_clock_sec": 89.8,
+        "final_loss": 0.0374,
+        "manifest_sha256": "67a6783dc795e68c11a7af70df2e6ce83f1aca04433cd5dabe63620b90705993"
+      }
+    ],
+    "training_runs_realised": 6,
+    "wall_clock_total_sec": 567.0,
+    "wall_clock_by_concept_sec": {
+      "dog6": 241.8,
+      "clock": 325.2
+    }
+  },
+  "arm_reports": {
+    "dog6": {
+      "joint": {
+        "mean_identity_fidelity": 0.8533737659454346,
+        "attribute_drift_std": 0.029539380222558975,
+        "mean_prompt_fidelity": 0.25174540529648465,
+        "adapters": {
+          "baseline": 1.0
+        }
+      },
+      "composed": {
+        "mean_identity_fidelity": 0.8324022889137268,
+        "attribute_drift_std": 0.019774824380874634,
+        "mean_prompt_fidelity": 0.1684647537767887,
+        "adapters": {
+          "identity": 1.0,
+          "style": 1.0
+        }
+      }
+    },
+    "clock": {
+      "joint": {
+        "mean_identity_fidelity": 0.8015169501304626,
+        "attribute_drift_std": 0.0844866931438446,
+        "mean_prompt_fidelity": 0.2604588766892751,
+        "adapters": {
+          "baseline": 1.0
+        }
+      },
+      "composed": {
+        "mean_identity_fidelity": 0.85638827085495,
+        "attribute_drift_std": 0.04803347960114479,
+        "mean_prompt_fidelity": 0.2399416652818521,
+        "adapters": {
+          "identity": 1.0,
+          "style": 1.0
+        }
+      }
+    }
+  },
+  "pairs": [
+    {
+      "concept": "dog6",
+      "background_prompt": "on a beach at sunset",
+      "seed": 101,
+      "joint_identity": 0.8126245141029358,
+      "composed_identity": 0.8373961448669434,
+      "identity_diff": 0.02477163076400757,
+      "joint_prompt": 0.27042651176452637,
+      "composed_prompt": 0.159123957157135,
+      "prompt_diff": -0.11130255460739136,
+      "joint_image": "seed-101_on_a_beach_at_sunset.png",
+      "composed_image": "seed-101_on_a_beach_at_sunset.png"
+    },
+    {
+      "concept": "dog6",
+      "background_prompt": "on a beach at sunset",
+      "seed": 202,
+      "joint_identity": 0.8643987774848938,
+      "composed_identity": 0.8023874759674072,
+      "identity_diff": -0.06201130151748657,
+      "joint_prompt": 0.2705772817134857,
+      "composed_prompt": 0.15209254622459412,
+      "prompt_diff": -0.1184847354888916,
+      "joint_image": "seed-202_on_a_beach_at_sunset.png",
+      "composed_image": "seed-202_on_a_beach_at_sunset.png"
+    },
+    {
+      "concept": "dog6",
+      "background_prompt": "on a beach at sunset",
+      "seed": 303,
+      "joint_identity": 0.8590207099914551,
+      "composed_identity": 0.8034277558326721,
+      "identity_diff": -0.05559295415878296,
+      "joint_prompt": 0.2713845372200012,
+      "composed_prompt": 0.14810048043727875,
+      "prompt_diff": -0.12328405678272247,
+      "joint_image": "seed-303_on_a_beach_at_sunset.png",
+      "composed_image": "seed-303_on_a_beach_at_sunset.png"
+    },
+    {
+      "concept": "dog6",
+      "background_prompt": "in a snowy forest",
+      "seed": 101,
+      "joint_identity": 0.8614556789398193,
+      "composed_identity": 0.8336420059204102,
+      "identity_diff": -0.02781367301940918,
+      "joint_prompt": 0.2241942286491394,
+      "composed_prompt": 0.15562237799167633,
+      "prompt_diff": -0.06857185065746307,
+      "joint_image": "seed-101_in_a_snowy_forest.png",
+      "composed_image": "seed-101_in_a_snowy_forest.png"
+    },
+    {
+      "concept": "dog6",
+      "background_prompt": "in a snowy forest",
+      "seed": 202,
+      "joint_identity": 0.7935391664505005,
+      "composed_identity": 0.8172714114189148,
+      "identity_diff": 0.023732244968414307,
+      "joint_prompt": 0.2368374764919281,
+      "composed_prompt": 0.1311705857515335,
+      "prompt_diff": -0.10566689074039459,
+      "joint_image": "seed-202_in_a_snowy_forest.png",
+      "composed_image": "seed-202_in_a_snowy_forest.png"
+    },
+    {
+      "concept": "dog6",
+      "background_prompt": "in a snowy forest",
+      "seed": 303,
+      "joint_identity": 0.8749993443489075,
+      "composed_identity": 0.8546246886253357,
+      "identity_diff": -0.020374655723571777,
+      "joint_prompt": 0.2013903260231018,
+      "composed_prompt": 0.1366761177778244,
+      "prompt_diff": -0.0647142082452774,
+      "joint_image": "seed-303_in_a_snowy_forest.png",
+      "composed_image": "seed-303_in_a_snowy_forest.png"
+    },
+    {
+      "concept": "dog6",
+      "background_prompt": "on a city street at night",
+      "seed": 101,
+      "joint_identity": 0.8461410999298096,
+      "composed_identity": 0.8216772079467773,
+      "identity_diff": -0.024463891983032227,
+      "joint_prompt": 0.2546079456806183,
+      "composed_prompt": 0.19734373688697815,
+      "prompt_diff": -0.05726420879364014,
+      "joint_image": "seed-101_on_a_city_street_at_night.png",
+      "composed_image": "seed-101_on_a_city_street_at_night.png"
+    },
+    {
+      "concept": "dog6",
+      "background_prompt": "on a city street at night",
+      "seed": 202,
+      "joint_identity": 0.9025075435638428,
+      "composed_identity": 0.8641576766967773,
+      "identity_diff": -0.03834986686706543,
+      "joint_prompt": 0.19615773856639862,
+      "composed_prompt": 0.18248337507247925,
+      "prompt_diff": -0.013674363493919373,
+      "joint_image": "seed-202_on_a_city_street_at_night.png",
+      "composed_image": "seed-202_on_a_city_street_at_night.png"
+    },
+    {
+      "concept": "dog6",
+      "background_prompt": "on a city street at night",
+      "seed": 303,
+      "joint_identity": 0.8649048805236816,
+      "composed_identity": 0.8526734709739685,
+      "identity_diff": -0.012231409549713135,
+      "joint_prompt": 0.24698103964328766,
+      "composed_prompt": 0.1698135882616043,
+      "prompt_diff": -0.07716745138168335,
+      "joint_image": "seed-303_on_a_city_street_at_night.png",
+      "composed_image": "seed-303_on_a_city_street_at_night.png"
+    },
+    {
+      "concept": "dog6",
+      "background_prompt": "in a colorful flower garden",
+      "seed": 101,
+      "joint_identity": 0.8176344633102417,
+      "composed_identity": 0.8413184881210327,
+      "identity_diff": 0.023684024810791016,
+      "joint_prompt": 0.2875928282737732,
+      "composed_prompt": 0.19334128499031067,
+      "prompt_diff": -0.09425154328346252,
+      "joint_image": "seed-101_in_a_colorful_flower_garden.png",
+      "composed_image": "seed-101_in_a_colorful_flower_garden.png"
+    },
+    {
+      "concept": "dog6",
+      "background_prompt": "in a colorful flower garden",
+      "seed": 202,
+      "joint_identity": 0.8711090087890625,
+      "composed_identity": 0.813116192817688,
+      "identity_diff": -0.05799281597137451,
+      "joint_prompt": 0.2861027717590332,
+      "composed_prompt": 0.19414106011390686,
+      "prompt_diff": -0.09196171164512634,
+      "joint_image": "seed-202_in_a_colorful_flower_garden.png",
+      "composed_image": "seed-202_in_a_colorful_flower_garden.png"
+    },
+    {
+      "concept": "dog6",
+      "background_prompt": "in a colorful flower garden",
+      "seed": 303,
+      "joint_identity": 0.872150182723999,
+      "composed_identity": 0.8471350073814392,
+      "identity_diff": -0.025015175342559814,
+      "joint_prompt": 0.274692177772522,
+      "composed_prompt": 0.2016679346561432,
+      "prompt_diff": -0.07302424311637878,
+      "joint_image": "seed-303_in_a_colorful_flower_garden.png",
+      "composed_image": "seed-303_in_a_colorful_flower_garden.png"
+    },
+    {
+      "concept": "clock",
+      "background_prompt": "on a beach at sunset",
+      "seed": 101,
+      "joint_identity": 0.8720329403877258,
+      "composed_identity": 0.8993638753890991,
+      "identity_diff": 0.02733093500137329,
+      "joint_prompt": 0.25058141350746155,
+      "composed_prompt": 0.24772197008132935,
+      "prompt_diff": -0.002859443426132202,
+      "joint_image": "seed-101_on_a_beach_at_sunset.png",
+      "composed_image": "seed-101_on_a_beach_at_sunset.png"
+    },
+    {
+      "concept": "clock",
+      "background_prompt": "on a beach at sunset",
+      "seed": 202,
+      "joint_identity": 0.8634982109069824,
+      "composed_identity": 0.8392682671546936,
+      "identity_diff": -0.02422994375228882,
+      "joint_prompt": 0.2603912949562073,
+      "composed_prompt": 0.26161453127861023,
+      "prompt_diff": 0.001223236322402954,
+      "joint_image": "seed-202_on_a_beach_at_sunset.png",
+      "composed_image": "seed-202_on_a_beach_at_sunset.png"
+    },
+    {
+      "concept": "clock",
+      "background_prompt": "on a beach at sunset",
+      "seed": 303,
+      "joint_identity": 0.8730287551879883,
+      "composed_identity": 0.9041125178337097,
+      "identity_diff": 0.031083762645721436,
+      "joint_prompt": 0.24017280340194702,
+      "composed_prompt": 0.23450976610183716,
+      "prompt_diff": -0.005663037300109863,
+      "joint_image": "seed-303_on_a_beach_at_sunset.png",
+      "composed_image": "seed-303_on_a_beach_at_sunset.png"
+    },
+    {
+      "concept": "clock",
+      "background_prompt": "in a snowy forest",
+      "seed": 101,
+      "joint_identity": 0.8772717714309692,
+      "composed_identity": 0.8317217826843262,
+      "identity_diff": -0.045549988746643066,
+      "joint_prompt": 0.20759764313697815,
+      "composed_prompt": 0.24912846088409424,
+      "prompt_diff": 0.04153081774711609,
+      "joint_image": "seed-101_in_a_snowy_forest.png",
+      "composed_image": "seed-101_in_a_snowy_forest.png"
+    },
+    {
+      "concept": "clock",
+      "background_prompt": "in a snowy forest",
+      "seed": 202,
+      "joint_identity": 0.6818680167198181,
+      "composed_identity": 0.8962897658348083,
+      "identity_diff": 0.21442174911499023,
+      "joint_prompt": 0.2562951445579529,
+      "composed_prompt": 0.1862272173166275,
+      "prompt_diff": -0.07006792724132538,
+      "joint_image": "seed-202_in_a_snowy_forest.png",
+      "composed_image": "seed-202_in_a_snowy_forest.png"
+    },
+    {
+      "concept": "clock",
+      "background_prompt": "in a snowy forest",
+      "seed": 303,
+      "joint_identity": 0.7697285413742065,
+      "composed_identity": 0.8755017518997192,
+      "identity_diff": 0.1057732105255127,
+      "joint_prompt": 0.25976672768592834,
+      "composed_prompt": 0.23693960905075073,
+      "prompt_diff": -0.022827118635177612,
+      "joint_image": "seed-303_in_a_snowy_forest.png",
+      "composed_image": "seed-303_in_a_snowy_forest.png"
+    },
+    {
+      "concept": "clock",
+      "background_prompt": "on a city street at night",
+      "seed": 101,
+      "joint_identity": 0.6704896688461304,
+      "composed_identity": 0.8852986693382263,
+      "identity_diff": 0.21480900049209595,
+      "joint_prompt": 0.29752790927886963,
+      "composed_prompt": 0.24106931686401367,
+      "prompt_diff": -0.05645859241485596,
+      "joint_image": "seed-101_on_a_city_street_at_night.png",
+      "composed_image": "seed-101_on_a_city_street_at_night.png"
+    },
+    {
+      "concept": "clock",
+      "background_prompt": "on a city street at night",
+      "seed": 202,
+      "joint_identity": 0.6948373913764954,
+      "composed_identity": 0.8477764129638672,
+      "identity_diff": 0.15293902158737183,
+      "joint_prompt": 0.2642541229724884,
+      "composed_prompt": 0.24255244433879852,
+      "prompt_diff": -0.02170167863368988,
+      "joint_image": "seed-202_on_a_city_street_at_night.png",
+      "composed_image": "seed-202_on_a_city_street_at_night.png"
+    },
+    {
+      "concept": "clock",
+      "background_prompt": "on a city street at night",
+      "seed": 303,
+      "joint_identity": 0.8740290403366089,
+      "composed_identity": 0.8981683254241943,
+      "identity_diff": 0.02413928508758545,
+      "joint_prompt": 0.23359015583992004,
+      "composed_prompt": 0.2230725884437561,
+      "prompt_diff": -0.01051756739616394,
+      "joint_image": "seed-303_on_a_city_street_at_night.png",
+      "composed_image": "seed-303_on_a_city_street_at_night.png"
+    },
+    {
+      "concept": "clock",
+      "background_prompt": "in a colorful flower garden",
+      "seed": 101,
+      "joint_identity": 0.8401798009872437,
+      "composed_identity": 0.7284623384475708,
+      "identity_diff": -0.11171746253967285,
+      "joint_prompt": 0.2862825095653534,
+      "composed_prompt": 0.28747084736824036,
+      "prompt_diff": 0.0011883378028869629,
+      "joint_image": "seed-101_in_a_colorful_flower_garden.png",
+      "composed_image": "seed-101_in_a_colorful_flower_garden.png"
+    },
+    {
+      "concept": "clock",
+      "background_prompt": "in a colorful flower garden",
+      "seed": 202,
+      "joint_identity": 0.7129852771759033,
+      "composed_identity": 0.8153841495513916,
+      "identity_diff": 0.10239887237548828,
+      "joint_prompt": 0.3086947202682495,
+      "composed_prompt": 0.27024054527282715,
+      "prompt_diff": -0.03845417499542236,
+      "joint_image": "seed-202_in_a_colorful_flower_garden.png",
+      "composed_image": "seed-202_in_a_colorful_flower_garden.png"
+    },
+    {
+      "concept": "clock",
+      "background_prompt": "in a colorful flower garden",
+      "seed": 303,
+      "joint_identity": 0.8882544040679932,
+      "composed_identity": 0.8553115129470825,
+      "identity_diff": -0.032942891120910645,
+      "joint_prompt": 0.26035207509994507,
+      "composed_prompt": 0.19875268638134003,
+      "prompt_diff": -0.06159938871860504,
+      "joint_image": "seed-303_in_a_colorful_flower_garden.png",
+      "composed_image": "seed-303_in_a_colorful_flower_garden.png"
+    }
+  ],
+  "inference_declared": {
+    "primary_test": "one pooled two-sided exact sign test across the 24 pairs at alpha = 0.05; ties (exact zero difference) are excluded from the sign test and counted",
+    "decision_rule": "if at least 18 of 24 non-tied pairs share a sign (<= 6 discordant pooled), the sign test is significant at alpha = 0.05; concept-level counts are reported descriptively and do not form a second confirmatory family",
+    "effect_sizes": "mean and median paired difference with 95% percentile bootstrap interval over pairs (B = 10000, fixed seed 20260907), reported regardless of outcome",
+    "no_other_test_is_confirmatory": true
+  },
+  "note": "Only primary_identity_fidelity.sign_test_two_sided_p is confirmatory. Concept strata and prompt fidelity are descriptive/secondary by pre-declaration."
+}

@@ -40,6 +40,8 @@ proxy_run <- read_bound("E-PROXY-RUN")
 closeout <- read_bound("E-CLOSEOUT")
 blocked <- read_bound("E-BLOCKED")
 authorisation <- read_bound("E-AUTHORISATION")
+predecl <- read_bound("E-PREDECL")
+paired <- read_bound("E-PAIRED")
 
 ## ---------------------------------------------------------------------------
 ## Checks that must hold before anything is drawn. Each one is a sentence the
@@ -136,12 +138,109 @@ train_seconds_all <- train_seconds_one * DESIGN_CONCEPTS
 if (DESIGN_PER_CONCEPT < MIN_N_ONE) stop("the derived design cannot tolerate a single discordant pair")
 
 ## ---------------------------------------------------------------------------
+## The executed paired run. Facts are read from the bound analysis and refused
+## if they drift. Historical macros for the n=4 reanalysis stay untouched.
+## ---------------------------------------------------------------------------
+
+EXPECTED_PREDECL_SHA <- "a263fb9706c96581188b936b2313d1fbb21461600ab815c752ea8c82525e6f96"
+
+if (!nzchar(as.character(predecl$declared_utc))) {
+  stop("E-PREDECL lacks declared_utc")
+}
+if (is.null(paired$pairs_realised)) {
+  stop("E-PAIRED lacks pairs_realised")
+}
+if (!identical(as.integer(paired$pairs_realised), 24L)) {
+  stop("pairs_realised is not 24")
+}
+if (length(paired$pairs_missing) != 0L) {
+  stop("pairs_missing is not empty")
+}
+if (!identical(as.integer(paired$failure_ledger_entries), 0L)) {
+  stop("failure_ledger_entries is not 0")
+}
+if (!identical(paired$predeclaration_sha256, EXPECTED_PREDECL_SHA) ||
+    !identical(bound_sha256(manifest, "E-PREDECL"), EXPECTED_PREDECL_SHA)) {
+  stop("predeclaration sha256 does not match the recorded digest of PREDECLARATION.json")
+}
+
+ident_run <- paired$primary_identity_fidelity
+prompt_run <- paired$secondary_prompt_fidelity
+if (!identical(as.integer(ident_run$composed_lower), 13L) ||
+    !identical(as.integer(ident_run$composed_higher), 11L) ||
+    !identical(as.integer(ident_run$ties), 0L)) {
+  stop("primary identity pair counts drifted")
+}
+if (abs(ident_run$sign_test_two_sided_p - 0.8388197422027588) > 1e-12) {
+  stop("primary identity sign-test p drifted")
+}
+if (!isFALSE(ident_run$significant_at_alpha)) {
+  stop("primary identity significant_at_alpha is not false")
+}
+ident_ci <- as.numeric(ident_run$mean_diff_ci95)
+if (length(ident_ci) != 2L ||
+    abs(ident_ci[1] - (-0.013720273288587728)) > 1e-9 ||
+    abs(ident_ci[2] - 0.051724358648061734) > 1e-9) {
+  stop("primary identity mean_diff_ci95 drifted")
+}
+if (!identical(as.integer(prompt_run$composed_lower), 21L)) {
+  stop("secondary prompt composed_lower drifted")
+}
+if (abs(prompt_run$sign_test_two_sided_p - 0.0002771615982055664) > 1e-12) {
+  stop("secondary prompt sign-test p drifted")
+}
+if (!identical(as.integer(paired$concept_strata_descriptive$dog6$composed_lower), 9L) ||
+    !identical(as.integer(paired$concept_strata_descriptive$clock$composed_higher), 8L)) {
+  stop("descriptive identity strata drifted")
+}
+
+disp_dog <- paired$registered_dispersion_endpoint_recomputed$dog6$ratio_composed_over_joint
+disp_clock <- paired$registered_dispersion_endpoint_recomputed$clock$ratio_composed_over_joint
+if (abs(disp_dog - 0.6694394238043602) > 1e-6 ||
+    abs(disp_clock - 0.5685330436376612) > 1e-6) {
+  stop("dispersion ratio composed/joint drifted")
+}
+if (!identical(as.integer(DESIGN_TOTAL), 24L) ||
+    !identical(as.integer(DESIGN_TOTAL), as.integer(paired$pairs_realised))) {
+  stop("DESIGN_TOTAL is not the realised pair count")
+}
+if (!identical(as.integer(N_PAIRS), 4L)) {
+  stop("historical N_PAIRS must remain 4")
+}
+
+run_concept_counts <- table(as.character(paired$pairs$concept))
+if (!identical(sort(names(run_concept_counts)), c("clock", "dog6")) ||
+    any(as.integer(run_concept_counts) != 12L)) {
+  stop("registered run must contain exactly 12 pairs for dog6 and clock")
+}
+run_seeds <- sort(unique(as.integer(paired$pairs$seed)))
+run_prompts <- sort(unique(as.character(paired$pairs$background_prompt)))
+if (anyNA(paired$pairs$concept) || anyNA(paired$pairs$background_prompt) ||
+    anyNA(paired$pairs$seed) || anyNA(run_prompts) ||
+    !identical(run_seeds, c(101L, 202L, 303L)) || length(run_prompts) != 4L) {
+  stop("registered run must contain three seeds and four prompts")
+}
+run_keys <- paste(as.character(paired$pairs$concept),
+                  as.character(paired$pairs$background_prompt),
+                  as.integer(paired$pairs$seed), sep = "|")
+expected_grid <- expand.grid(concept = c("clock", "dog6"),
+                             background_prompt = run_prompts,
+                             seed = run_seeds,
+                             stringsAsFactors = FALSE)
+expected_keys <- with(expected_grid,
+                      paste(concept, background_prompt, seed, sep = "|"))
+if (anyDuplicated(run_keys) || anyDuplicated(expected_keys) ||
+    !identical(sort(run_keys), sort(expected_keys))) {
+  stop("registered run is not a complete concept x prompt x seed Cartesian grid")
+}
+
+## ---------------------------------------------------------------------------
 ## Figures. Each panel reads the objects above and writes one file.
 ## ---------------------------------------------------------------------------
 
 for (unit in c("fig1_capacity.R", "fig2_collapse.R", "fig3_dispersion.R",
                "fig4_paired.R", "fig5_floor.R", "fig6_tradeoff.R",
-               "fig7_protocol.R")) {
+               "fig7_protocol.R", "fig8_paired_run.R", "fig9_concept_slopes.R")) {
   source(file.path("figs", "panels", unit))
 }
 
@@ -218,6 +317,22 @@ write_generated(c(
   macro("BlockedTier", blocked$status),
   macro("AuthorisationState", gsub("_", "\\\\_", authorisation$status)),
   macro("KillFires", if (isTRUE(kill$kill_fires_on_registered_comparison)) "fires" else "does not fire"),
+  macro("RunPairs", as.integer(paired$pairs_realised)),
+  macro("RunFailures", as.integer(paired$failure_ledger_entries)),
+  macro("RunIdentityLower", as.integer(ident_run$composed_lower)),
+  macro("RunIdentityHigher", as.integer(ident_run$composed_higher)),
+  macro("RunIdentitySignP", fmt(ident_run$sign_test_two_sided_p)),
+  macro("RunIdentityCiLo", fmt(ident_ci[1], 3)),
+  macro("RunIdentityCiHi", fmt(ident_ci[2], 3)),
+  macro("RunPromptLower", as.integer(prompt_run$composed_lower)),
+  macro("RunPromptSignP", fmt(prompt_run$sign_test_two_sided_p, 5)),
+  macro("RunPairsPerConcept", as.integer(run_concept_counts[["dog6"]])),
+  macro("RunSeedCount", length(unique(paired$pairs$seed))),
+  macro("RunPromptCount", length(unique(paired$pairs$background_prompt))),
+  macro("RunDogIdentityLower", as.integer(paired$concept_strata_descriptive$dog6$composed_lower)),
+  macro("RunClockIdentityHigher", as.integer(paired$concept_strata_descriptive$clock$composed_higher)),
+  macro("RunDispersionDog", fmt(disp_dog)),
+  macro("RunDispersionClock", fmt(disp_clock)),
   macro("NEvidence", nrow(manifest$entries)),
   macro("EvidenceBytes", format(sum(manifest$entries$bytes), big.mark = ","))
 ), "generated_numbers.tex")
@@ -268,7 +383,7 @@ write_generated(c(
 write_generated(c(
   "\\begin{tabular}{ll}",
   "\\toprule",
-  "Element & Fixed before the run \\\\",
+  "Element & Locked declaration (executed once) \\\\",
   "\\midrule",
   paste0("Pairing unit & one concept, one background prompt, one generation seed \\\\"),
   paste0("Arms within a pair & jointly trained adapter versus the two composed adapters \\\\"),
@@ -281,6 +396,7 @@ write_generated(c(
          " steps, the budget of the arms being re-tested \\\\"),
   paste0("Primary endpoint & per-pair difference in identity fidelity \\\\"),
   paste0("Primary test & two-sided exact sign test at $\\alpha=", fmt(ALPHA), "$ \\\\"),
+  paste0("Secondary endpoint & per-pair difference in prompt fidelity \\\\"),
   paste0("Secondary test & Wilcoxon signed rank on the same pairs \\\\"),
   paste0("Discordant pairs tolerated per concept & ", DESIGN_TOLERANCE, " \\\\"),
   paste0("Discordant pairs tolerated pooled & ", DESIGN_POOLED_TOLERANCE, " \\\\"),
@@ -292,6 +408,5 @@ write_generated(c(
 
 ## The manifest itself, so the evidence discipline can be checked rather than believed.
 
-write_generated(evidence_table(manifest), "generated_table_evidence.tex")
-
-message(sprintf("wrote 7 figures to figs/out and 5 generated tex files to tex/"))
+message(sprintf("wrote 9 figures to figs/out and 5 generated tex files to tex/"))
+unlink(file.path("tex", "generated_table_evidence.tex"), force = TRUE)

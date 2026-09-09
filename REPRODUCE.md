@@ -23,6 +23,20 @@ the build instead of producing a stale number.
 | `data/e-closeout/laptop_closeout.json` | recorded_state | 2778 | `0ca2fbf280db26ef…` |
 | `data/e-blocked/sota_copy.json` | recorded_state | 525 | `50b9ebd403b63c94…` |
 | `data/e-authorisation/next_design.json` | recorded_state | 2907 | `027151dafb365afc…` |
+| `data/e-predecl/PREDECLARATION.json` | protocol | 3590 | `5135aa0bda446e6e…` |
+| `data/e-run-timeline/nohup.out` | recorded_state | 1006 | `362d4f3e0dfea591…` |
+| `data/e-failures/failure_ledger.json` | recorded_state | 17 | `1908edf459bbd060…` |
+| `data/e-paired/paired_analysis.json` | derived_table | 21179 | `89bfddd5f4bd99f8…` |
+| `data/e-run-dog6-joint/drift_report_joint.json` | derived_table | 6575 | `10eeebb506fa3c7f…` |
+| `data/e-run-dog6-composed/drift_report_composed.json` | derived_table | 6596 | `ca6468e7d61e87af…` |
+| `data/e-run-clock-joint/drift_report_joint.json` | derived_table | 6594 | `d2cd4b60d2d781bb…` |
+| `data/e-run-clock-composed/drift_report_composed.json` | derived_table | 6614 | `d1bf6810dbe9fd49…` |
+| `data/e-run-train-dog6-joint/train_manifest.json` | protocol | 501 | `d2e1a9b6d409c3d9…` |
+| `data/e-run-train-dog6-cross/train_manifest.json` | protocol | 498 | `8b62f68d6e5dff92…` |
+| `data/e-run-train-dog6-self/train_manifest.json` | protocol | 495 | `cfb3010284be467a…` |
+| `data/e-run-train-clock-joint/train_manifest.json` | protocol | 505 | `d8b8a74e8749f616…` |
+| `data/e-run-train-clock-cross/train_manifest.json` | protocol | 503 | `691a4cf38a4becc7…` |
+| `data/e-run-train-clock-self/train_manifest.json` | protocol | 498 | `10b2dd659d76b57f…` |
 
 Some of these files recorded the paths of the machine that produced them. Those path strings and source links were refreshed before deposit; `REDACTION.md` states the rules, lists every file touched with both digests, and describes the check that proves no number changed.
 

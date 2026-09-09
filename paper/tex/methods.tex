@@ -1,10 +1,11 @@
 \subsection{What was already on disk}
 
-Nothing in this study was generated for it. Every quantity comes from records
-written by runs that finished before this analysis began, and each record is
-tied to the manuscript by its SHA-256 checksum; the figure code re-hashes each
-file before reading it and stops the build on any mismatch. No image was
-generated, no adapter was trained, and no evaluation was launched.
+The historical half of this study uses records written by runs that finished
+before that reanalysis began. Each record is tied to the manuscript by its
+evidence-manifest binding; the figure code verifies each bound file before reading it and
+stops the build on any mismatch. That half trained nothing and launched no
+new evaluation. The registered half is a later, declared execution of the
+protocol below, bound under evidence ID E-PREDECL.
 
 The records describe a subject-driven personalisation study on a latent
 diffusion backbone. A concept is taught to the backbone through low-rank
@@ -136,12 +137,25 @@ Figure~\ref{fig:protocol-flow} is a visual rendering of the same protocol
 contract. It is deliberately a flow of fixed objects rather than a result
 plot: the pair key is defined first, the two matched arms are generated under
 that key, the registered endpoints and exact tests are applied next, and the
-analysis is locked before a single unblinding. The ``UNRUN / UNAUTHORIZED''
-status is part of the figure, not a footnote, so the design counts cannot be
-mistaken for an observed sample size. The diagram is generated from the same
+analysis is locked before a single unblinding. The banner reads the
+declaration time from the bound pre-declaration and the realised pair count
+from the bound analysis, so the design counts cannot be mistaken for the
+historical \(n=\NPairs{}\) grid. The diagram is generated from the same
 derived constants that populate Table~\ref{tab:protocol}; if the protocol
-arithmetic or its gate status changes, the figure build stops rather than
+arithmetic or those bound fields change, the figure build stops rather than
 silently retaining the old flow.
+
+\subsection{The executed run}
+
+The registered execution is a single paired run authorised by the bound
+pre-declaration (evidence ID E-PREDECL). Pairing unit, arms,
+prompt grid, seeds, budget, primary test and failure rule are those of
+Table~\ref{tab:protocol}. The bound analysis records every realised pair, the
+pooled primary sign test, the descriptive concept strata, the secondary
+prompt-fidelity test, and the recomputed dispersion ratios. The figure code
+refuses to emit run macros unless those recorded facts match the declared
+design: \RunPairs{} realised pairs, and the historical grid remaining
+\NPairs{} prompts.
 
 \subsection{What is deliberately not computed}
 
@@ -149,6 +163,8 @@ The reference comparison this line of work would eventually be measured
 against was never produced, so no reference-level result exists to report. No
 value is imputed for it, no substitute metric is introduced in its place, and
 the two perceptual similarity measures the wider literature reports are
-recorded on disk as not computed and are not computed here either. The recorded
-recorded protocol remains unauthorised, and the paired evaluation this paper
-specifies is not executed: the deliverable is the specification.
+recorded on disk as not computed and are not computed here either. The historical
+authorisation record remains the status at protocol-design time; the single
+authorised execution is the run declared in
+E-PREDECL and bound as the registered result. Re-runs and
+unregistered variants are out of scope.

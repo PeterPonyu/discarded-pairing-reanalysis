@@ -15,9 +15,11 @@ if (!identical(as.integer(DESIGN_CONCEPTS), 2L) ||
   stop("protocol schematic constants no longer match the derived design")
 }
 
-if (!identical(as.character(authorisation$status), "designed_not_authorized") ||
-    !identical(as.character(blocked$status), "blocked")) {
-  stop("protocol schematic must remain explicitly unrun and blocked")
+if (!nzchar(as.character(predecl$declared_utc))) {
+  stop("E-PREDECL lacks declared_utc")
+}
+if (is.null(paired$pairs_realised)) {
+  stop("E-PAIRED lacks pairs_realised")
 }
 
 # Coordinates are in a unit square so that text placement is independent of
@@ -110,9 +112,10 @@ fig7 <- ggplot() +
            family = FIGURE_FONT_FAMILY, size = 3.35, fontface = "bold",
            colour = "#202020") +
   annotate("label", x = 0.5, y = 0.055,
-           label = "UNRUN / UNAUTHORIZED",
-           family = FIGURE_FONT_FAMILY, size = 3.0, fontface = "bold",
-           colour = "#8B1E1E", fill = "#FFF1F1",
+           label = sprintf("DECLARED %s  ·  %d PAIRS REALISED",
+                           predecl$declared_utc, as.integer(paired$pairs_realised)),
+           family = FIGURE_FONT_FAMILY, size = 2.6, fontface = "bold",
+           colour = "#1B4F72", fill = "#EAF3F8",
            label.padding = grid::unit(0.18, "lines")) +
   coord_cartesian(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE, clip = "off") +
   labs(subtitle = "The protocol fixes the unit, arms, endpoints, and analysis before any new generation") +
