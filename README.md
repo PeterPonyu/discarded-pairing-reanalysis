@@ -29,8 +29,8 @@ The build checks every data file against its hash and stops if a file has
 changed. Figures and printed numbers are generated from those files, not typed
 in by hand.
 
-Requires `python3`, `Rscript` with `digest`, `ggplot2`, `jsonlite` and
-`systemfonts`, and a TeX distribution with `latexmk`.
+Requires `python3`, `Rscript` with `digest`, `ggplot2`, `jsonlite`, `patchwork`
+and `systemfonts`, and a TeX distribution with `latexmk`.
 
 ## Status
 

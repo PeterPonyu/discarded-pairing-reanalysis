@@ -6,18 +6,18 @@ if (!identical(as.integer(N_PAIRS), 4L)) {
 }
 
 prompt_code <- paste0("P", seq_len(N_PAIRS))
+arm_levels <- c("Composed minus joint", "Cross-attention only minus joint")
 delta <- rbind(
-  data.frame(prompt_code = prompt_code, arm = "Composed minus joint",
+  data.frame(prompt_code = prompt_code, arm = arm_levels[1],
              delta_prompt = pairs$d_prompt,
              delta_identity = pairs$d_identity,
              stringsAsFactors = FALSE),
-  data.frame(prompt_code = prompt_code, arm = "Cross-only minus joint",
+  data.frame(prompt_code = prompt_code, arm = arm_levels[2],
              delta_prompt = pairs$idon_prompt - pairs$base_prompt,
              delta_identity = pairs$idon_identity - pairs$base_identity,
              stringsAsFactors = FALSE)
 )
-delta$arm <- factor(delta$arm,
-                    levels = c("Composed minus joint", "Cross-only minus joint"))
+delta$arm <- factor(delta$arm, levels = arm_levels)
 
 if (any(!is.finite(delta$delta_prompt)) ||
     any(!is.finite(delta$delta_identity)) || nrow(delta) != 2L * N_PAIRS) {
@@ -32,49 +32,51 @@ if (!all(pairs$d_prompt < 0) ||
   stop("the recorded endpoint-change pattern is not the one described here")
 }
 
-# A vector from the origin to each point is a compact reminder that both axes
-# are within-prompt changes.  The arrow has no temporal or causal meaning.
-delta$label_x <- delta$delta_prompt +
-  ifelse(delta$arm == levels(delta$arm)[1], 1, -1) *
-  max(0.004, diff(range(delta$delta_prompt)) * 0.035)
-delta$label_y <- delta$delta_identity +
-  ifelse(delta$arm == levels(delta$arm)[1], 1, -1) *
-  max(0.003, diff(range(delta$delta_identity)) * 0.035)
-
-segments <- transform(delta, x = 0, y = 0,
-                      xend = delta_prompt, yend = delta_identity)
+# Both axes are the same quantity in the same units, so the map is drawn with
+# equal scaling and symmetric limits: a change of 0.05 is the same length in
+# either direction.
 max_abs <- max(abs(c(delta$delta_prompt, delta$delta_identity)))
-plot_limit <- ceiling((max_abs * 1.20) * 100) / 100
+plot_limit <- ceiling((max_abs * 1.18) * 100) / 100
 if (!is.finite(plot_limit) || plot_limit <= 0) stop("invalid endpoint-change range")
 axis_breaks <- pretty(c(-plot_limit, plot_limit), n = 5)
+
+# A vector from the origin to each point is a compact reminder that both axes
+# are within-prompt changes.  The arrow has no temporal or causal meaning.  Each
+# shaft stops a fixed distance short of its marker so the head stays visible
+# instead of being hidden under the point.
+ARROW_GAP <- plot_limit * 0.045
+delta$len <- sqrt(delta$delta_prompt^2 + delta$delta_identity^2)
+if (any(delta$len <= ARROW_GAP)) stop("a change vector is too short to draw with a visible head")
+segments <- transform(delta, x = 0, y = 0,
+                      xend = delta_prompt * (1 - ARROW_GAP / len),
+                      yend = delta_identity * (1 - ARROW_GAP / len))
+
+# Row codes sit just outside each marker, on the side away from the origin.
+label_push <- plot_limit * 0.07
+delta$label_x <- delta$delta_prompt + label_push * delta$delta_prompt / delta$len
+delta$label_y <- delta$delta_identity + label_push * delta$delta_identity / delta$len
 
 p <- ggplot(delta, aes(x = delta_prompt, y = delta_identity)) +
   geom_hline(yintercept = 0, linewidth = 0.35, colour = "grey45") +
   geom_vline(xintercept = 0, linewidth = 0.35, colour = "grey45") +
   geom_segment(data = segments, inherit.aes = FALSE,
                aes(x = x, y = y, xend = xend, yend = yend, colour = arm),
-               linewidth = 0.35, alpha = 0.8,
-               arrow = grid::arrow(length = grid::unit(3, "pt"), type = "closed")) +
-  geom_point(aes(colour = arm, shape = arm), size = 2.5, stroke = 0.45) +
+               linewidth = 0.4, alpha = 0.85,
+               arrow = grid::arrow(length = grid::unit(3.2, "pt"), type = "closed")) +
+  geom_point(aes(colour = arm, shape = arm), size = 2.6, stroke = 0.45) +
   geom_text(aes(x = label_x, y = label_y, label = prompt_code, colour = arm),
-            size = 2.35, show.legend = FALSE) +
-  scale_colour_manual(values = c("Composed minus joint" = "#B2182B",
-                                 "Cross-only minus joint" = "#4D9221"),
-                      name = NULL) +
-  scale_shape_manual(values = c("Composed minus joint" = 17,
-                                "Cross-only minus joint" = 15), name = NULL) +
+            size = FIGURE_ANNOTATION_SIZE, show.legend = FALSE) +
+  scale_colour_manual(values = setNames(c(PAL_COMPOSED, PAL_CROSS), arm_levels), name = NULL) +
+  scale_shape_manual(values = setNames(c(17, 15), arm_levels), name = NULL) +
   scale_x_continuous(name = "Change in prompt fidelity (fidelity-score units)",
                      limits = c(-plot_limit, plot_limit), breaks = axis_breaks,
                      expand = c(0, 0)) +
   scale_y_continuous(name = "Change in identity fidelity (fidelity-score units)",
                      limits = c(-plot_limit, plot_limit), breaks = axis_breaks,
                      expand = c(0, 0)) +
-  labs(subtitle = "n = 4 recorded prompt pairs (P1--P4); zero means no within-prompt change") +
+  coord_fixed(ratio = 1, clip = "off") +
   guides(colour = guide_legend(nrow = 1), shape = guide_legend(nrow = 1)) +
   rtx_theme() +
-  theme(legend.position = "bottom", legend.text = element_text(size = 7),
-        legend.key.size = unit(0.3, "cm"), legend.margin = margin(t = -2),
-        axis.text = element_text(size = 7.2),
-        plot.subtitle = element_text(size = 7.1, colour = "grey25"))
+  rtx_legend_bottom()
 
-save_fig(p, "fig6_tradeoff", FIGURE_TEXT_WIDTH_IN, 3.85)
+save_fig(p, "fig6_tradeoff", 0.66 * FIGURE_TEXT_WIDTH_IN, 4.25)

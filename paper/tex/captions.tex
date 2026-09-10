@@ -49,45 +49,53 @@ background prompt, and its position is the composed arm's value minus the value
 of the arm trained as a single adapter at that same prompt, for the endpoint
 named above the panel. Identity fidelity is the quantity the recorded
 comparison aggregated into a dispersion; prompt fidelity is recorded in the
-same files and was not used. The grey band is the 95\% confidence interval for
-the mean paired difference and the vertical rule inside it is that mean. The
-annotation gives the interval and the exact two-sided sign-test probability on
-the same pairs. With \NPairs{} pairs the smallest value that probability can
-take is \FloorAtFour{}, so the sign test in either panel stays above a
-conventional threshold whatever the points do.
-The dashed vertical rule is zero paired change; marker fill and shape redundantly
-encode whether the composed arm is lower or higher. The y-axis uses the same
-P1--P4 row codes as the paired table; the codes are not prompt content.%
+same files and was not used. The row labelled \emph{mean} carries the 95\%
+confidence interval for the mean paired difference as a grey band, with the
+mean as the vertical rule inside it, and the note beneath it gives that
+interval together with the exact two-sided sign-test probability on the same
+pairs. With \NPairs{} pairs the smallest value that probability can take is
+\FloorAtFour{}, so the sign test in either panel stays above a conventional
+threshold whatever the points do. The dashed vertical rule is zero paired
+change; marker fill and shape redundantly encode whether the composed arm is
+lower or higher. The pair rows use the same P1--P4 row codes as the paired
+table; the codes are not prompt content.%
 }
 
 \newcommand{\CapEndpointMap}{%
 A descriptive paired map of two recorded endpoints. For each of the \NPairs{}
 background-prompt rows, the horizontal coordinate is prompt fidelity for the
 composed arm minus the jointly trained arm and the vertical coordinate is the
-corresponding identity-fidelity difference. The arrows start at zero only to
-make each within-prompt change vector visible; they are not trajectories and
-carry no causal interpretation. P1--P4 are stable row codes in the recorded
-order and intentionally do not reproduce prompt text. Red triangles are the
-composed arm and green squares are the cross-attention-only arm. Prompt fidelity
-was recorded but was not the registered historical endpoint, so this four-row
-diagnostic supplies no pooled effect, correlation, or general-population
-inference. All \PromptDown{} composed-arm prompt-fidelity changes are negative,
-while the identity changes do not share one sign; the figure is a separation of
-coordinates, not evidence of a trade-off.%
+corresponding identity-fidelity difference. Both axes are in the same
+fidelity-score units and share one scale, so a change of a given size has the
+same length in either direction. The arrows start at zero only to make each
+within-prompt change vector visible, and each stops just short of its marker;
+they are not trajectories and carry no causal interpretation. P1--P4 are
+stable row codes in the recorded order and intentionally do not reproduce
+prompt text. Triangles are the composed arm and squares are the
+cross-attention-only arm. Prompt fidelity was recorded but was not the
+registered historical endpoint, so this four-row diagnostic supplies no pooled
+effect, correlation, or general-population inference. All \PromptDown{}
+composed-arm prompt-fidelity changes are negative, while the identity changes
+do not share one sign; the figure is a separation of coordinates, not evidence
+of a trade-off.%
 }
 
 \newcommand{\CapFloor}{%
 What a sign test can reach, before any data. Each curve gives the smallest
 two-sided probability an exact sign test can return at a given number of pairs:
-the lower curve when every pair falls the same way, the others when one or two
+the lowest curve when every pair falls the same way, the others when one or two
 pairs fall the other way. The quantity depends on the number of pairs alone, so
 it is fixed before an experiment is run and no effect size changes it. The
-dashed line is \Alpha{}. The comparison re-analysed here has \NPairs{} pairs
-and sits above that line at every outcome; \MinNAny{} pairs is the first size
-that can cross it, and then only on unanimity. The pre-registered design pools \DesignTotal{} pairs
-across its two concept strata, reaching \Alpha{} while allowing \DesignPooledTolerance{}
-pairs to disagree. The vertical marker identifies the recorded \(n=\NPairs{}\)
-case, so the floor is a design limit rather than an observed effect.%
+dashed line is \Alpha{}. Four sizes are marked and explained in the key:
+(a) the comparison re-analysed here, with \NPairs{} pairs, sits above the line
+at every outcome; (b) \MinNAny{} pairs is the first size that can cross it, and
+then only on unanimity; (c) the pre-registered design's \DesignPerConcept{}
+pairs per concept reach \Alpha{} while \DesignTolerance{} pairs disagree; and
+(d) the registered run pools \DesignTotal{} pairs across its two concept
+strata, reaching \Alpha{} while allowing \DesignPooledTolerance{} pairs to
+disagree, and its all-agreeing floor is \SignFloorRealised{}. Mark (a)
+identifies the recorded \(n=\NPairs{}\) case, so the floor is a design limit
+rather than an observed effect.%
 }
 
 \newcommand{\CapArms}{%
@@ -130,39 +138,49 @@ one concept, one background prompt and one generation seed; the jointly trained
 and composed arms are matched on the recorded training budget and controls. The
 primary endpoint is the within-pair change in identity fidelity, tested by one
 pooled exact two-sided sign test at \Alpha{}; concept-specific estimates are
-descriptive strata, and the registered secondary checks sit beside them. The
-lower strip gives the derived design counts: \DesignConcepts{}
-concepts, \DesignPerConcept{} pairs per concept and \DesignTotal{} pairs in
-total, yielding \DesignGenerations{} generations. The analysis lock requires
-joining by the pair key, fixing the protocol before generation and unblinding
-once. The banner reports the declaration time and the realised pair count
-from the bound run; the boxes themselves remain the specification, not the
-primary result.%
+descriptive strata, and the registered secondary check sits beside them. The
+two strips beneath the boxes list the controls every arm shares and the
+derived design counts: \DesignConcepts{} concepts, \DesignPerConcept{} pairs
+per concept and \DesignTotal{} pairs in total, yielding \DesignGenerations{}
+generations. The analysis lock requires joining by the pair key, fixing the
+protocol before generation, unblinding once and admitting no re-run. The
+banner reports the declaration time and the realised pair count from the
+bound run; the boxes themselves remain the specification, not the primary
+result.%
 }
 
 \newcommand{\CapPairedRun}{%
-The registered paired run on all \RunPairs{} realised pairs. Each point is one
-concept--prompt--seed pair; its position is the composed arm minus the jointly
-trained arm on the endpoint named above the panel. Points are grouped by
-concept. The annotation in each panel is the two-sided exact sign-test
-probability on those pairs: identity fidelity is the registered primary
-endpoint (\RunIdentityLower{} of \RunPairs{} composed lower,
-$p=\RunIdentitySignP{}$); prompt fidelity is the registered secondary endpoint
-(\RunPromptLower{} of \RunPairs{} composed lower, $p=\RunPromptSignP{}$),
-shown at that secondary rank, outside the confirmatory family.
-The dashed vertical rule is zero paired change.%
+The registered paired run on all \RunPairs{} realised pairs. Panel A is the
+registered primary endpoint, identity fidelity; Panel B is the declared
+secondary endpoint, prompt fidelity, drawn narrower and on a tinted ground to
+mark its rank outside the confirmatory family. In each panel a point is one
+concept--prompt--seed pair, placed at the composed arm's value minus the
+jointly trained arm's; within a concept the three rows are the three
+generation seeds, in seed order from the top. The row labelled \emph{pooled
+mean} carries the 95\% interval for the mean paired difference across all
+\RunPairs{} pairs as a grey band, with the mean as the vertical rule inside
+it. The note in each panel gives the number of pairs on which the composed
+arm was lower and the two-sided exact sign-test probability on those pairs:
+Panel A, \RunIdentityLower{} of \RunPairs{}, $p=\RunIdentitySignP{}$, with the
+mean interval from \RunIdentityCiLo{} to \RunIdentityCiHi{}; Panel B,
+\RunPromptLower{} of \RunPairs{}, $p=\RunPromptSignP{}$, reported at that
+secondary rank. The dashed vertical rule is zero paired change; marker fill
+and shape encode whether the composed arm is lower or higher.%
 }
 
 \newcommand{\CapConceptSlopes}{%
 Paired identity and prompt-fidelity slopes in the registered run. Each segment
-joins the jointly trained and composed arms for one matched concept--prompt--seed
-pair; the two facets in each row are the dog and clock concepts. Identity
-fidelity is the registered primary endpoint and is shown in the top row;
-prompt fidelity is the declared secondary endpoint below it. The panel contains
-all \RunPairs{} realised pairs (\RunPairsPerConcept{} per concept), with
-\RunSeedCount{} generation seeds across \RunPromptCount{} prompts. Slopes are
-descriptive paired observations: they add no second confirmatory test,
+joins the jointly trained arm (open marker) to the composed arm (filled
+marker) for one matched concept--prompt--seed pair, and is coloured by the
+sign of that paired change, composed lower or composed higher. The column
+strips name the two concepts, dog and clock, with their pair counts; identity
+fidelity is the registered primary endpoint and occupies the upper row of
+facets, prompt fidelity the declared secondary endpoint below it. The figure
+contains all \RunPairs{} realised pairs (\RunPairsPerConcept{} per concept),
+with \RunSeedCount{} generation seeds across \RunPromptCount{} prompts. Slopes
+are descriptive paired observations: they add no second confirmatory test,
 estimate no population beyond these two concepts, and leave the identity claim
-to the primary endpoint. The plotted rows are
-derived solely from the bound paired-run analysis record; the declaration remains
-bound under digest \PredeclarationShaShort{}.}
+to the primary endpoint. The plotted rows are derived solely from the bound
+paired-run analysis record; the declaration remains bound under digest
+\PredeclarationShaShort{}.%
+}

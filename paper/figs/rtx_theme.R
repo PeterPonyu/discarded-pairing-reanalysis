@@ -19,6 +19,12 @@ FIGURE_FONT_FAMILY <- "Arial"
 # the page unchanged.  A panel that emits a different canvas width would
 # silently rescale its own type and reintroduce the size drift these constants
 # exist to prevent; figs/lib/emit.R refuses to write such a canvas.
+#
+# The print floor is 7 pt for any glyph, 8-9 pt for axis titles and 9-10 pt bold
+# for panel labels.  Theme sizes are points; geom text sizes are millimetres
+# and reach the page at size * 72.27 / 25.4 pt, so 2.55 mm is 7.25 pt.  No
+# panel may set a text size below these constants; a panel that needs a
+# different size uses the next constant up, never a smaller literal.
 FIGURE_TEXT_WIDTH_IN <- 6.5
 FIGURE_BASE_SIZE <- 9.8
 FIGURE_AXIS_TITLE_SIZE <- 8.9
@@ -26,11 +32,26 @@ FIGURE_AXIS_TEXT_SIZE <- 8.0
 FIGURE_LEGEND_TITLE_SIZE <- 8.2
 FIGURE_LEGEND_TEXT_SIZE <- 7.8
 FIGURE_STRIP_TEXT_SIZE <- 8.4
-FIGURE_TITLE_SIZE <- 10.7
+FIGURE_TITLE_SIZE <- 9.5
 FIGURE_SUBTITLE_SIZE <- 8.2
-FIGURE_ANNOTATION_SIZE <- 2.40
-FIGURE_CELL_SIZE <- 2.25
-FIGURE_PANEL_LABEL_SIZE <- 11.6
+FIGURE_ANNOTATION_SIZE <- 2.55   # 7.25 pt: notes, leaders' labels, in-panel statistics
+FIGURE_CELL_SIZE <- 2.80         # 8.0 pt: text that labels a box or a bar
+FIGURE_PANEL_LABEL_SIZE <- 10.0
+
+# One colour-blind-safe palette for the whole paper.  Hues are ColorBrewer RdBu
+# and Okabe-Ito picks that stay distinct under deuteranopia and protanopia, and
+# each name is a meaning rather than a slot, so the same arm is the same colour
+# in every figure and a figure never separates two series by red against green.
+PAL_JOINT <- "grey45"       # the jointly trained arm; "trained as one adapter"
+PAL_COMPOSED <- "#B2182B"   # the composed arm; also "composed lower" in difference plots
+PAL_CROSS <- "#2166AC"      # the cross-attention adapter alone; also "composed higher"
+PAL_SELF <- "#E08214"       # the self-attention adapter (orange: separable from the blue for every CVD type)
+PAL_LOWER <- PAL_COMPOSED
+PAL_HIGHER <- PAL_CROSS
+PAL_PROMPTS <- c(P1 = "#0072B2", P2 = "#D55E00", P3 = "#009E73", P4 = "#CC79A7")  # Okabe-Ito
+PAL_ORDERED3 <- c("black", PAL_CROSS, PAL_SELF)  # an ordered series of three (0, 1, 2 discordant pairs)
+PAL_NOTE <- "grey25"        # annotation text
+PAL_RULE <- "grey30"        # reference rules (zero, alpha, equal dispersion)
 
 # Resolve the family before any panel is built.  A `family` string alone is not
 # enough: on a different host Cairo can silently substitute a fallback when a
@@ -102,6 +123,26 @@ rtx_theme <- function(base_size = FIGURE_BASE_SIZE) {
       legend.key = ggplot2::element_blank(),
       strip.background = ggplot2::element_blank()
     )
+}
+
+# The one legend arrangement the paper uses: a single row under the panel, keys
+# tight, no extra gap.  Text sizes come from the theme so a panel cannot shrink
+# its legend below the print floor by restating them.
+rtx_legend_bottom <- function() {
+  ggplot2::theme(
+    legend.position = "bottom",
+    legend.key.size = grid::unit(0.3, "cm"),
+    legend.margin = ggplot2::margin(t = -2),
+    legend.box.spacing = grid::unit(4, "pt"),
+    legend.spacing.x = grid::unit(6, "pt")
+  )
+}
+
+# Text a panel prints inside itself: one size and one colour so that the notes
+# in different figures read as the same voice.
+rtx_note <- function(...) {
+  ggplot2::geom_text(..., size = FIGURE_ANNOTATION_SIZE, colour = PAL_NOTE,
+                     family = FIGURE_FONT_FAMILY, lineheight = 0.95)
 }
 
 # Apply a panel label to one member of a composed figure.  A ggplot plot tag
