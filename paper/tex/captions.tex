@@ -162,10 +162,14 @@ mean} carries the 95\% interval for the mean paired difference across all
 it. The note in each panel gives the number of pairs on which the composed
 arm was lower and the two-sided exact sign-test probability on those pairs:
 Panel A, \RunIdentityLower{} of \RunPairs{}, $p=\RunIdentitySignP{}$, with the
-mean interval from \RunIdentityCiLo{} to \RunIdentityCiHi{}; Panel B,
-\RunPromptLower{} of \RunPairs{}, $p=\RunPromptSignP{}$, reported at that
-secondary rank. The dashed vertical rule is zero paired change; marker fill
-and shape encode whether the composed arm is lower or higher.%
+mean interval from \RunIdentityCiLo{} to \RunIdentityCiHi{}; the registered
+Wilcoxon check on the same pairs is \RunIdentityWilcoxP{}, and the median
+interval runs from \RunIdentityMedianCiLo{} to \RunIdentityMedianCiHi{}.
+Panel B, \RunPromptLower{} of \RunPairs{}, $p=\RunPromptSignP{}$, Wilcoxon
+\RunPromptWilcoxP{}, mean interval \RunPromptCiLo{} to \RunPromptCiHi{},
+reported at that secondary rank. The dashed vertical rule is zero paired
+change; marker fill and shape encode whether the composed arm is lower or
+higher.%
 }
 
 \newcommand{\CapConceptSlopes}{%

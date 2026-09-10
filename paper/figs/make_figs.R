@@ -194,6 +194,75 @@ if (!identical(as.integer(paired$concept_strata_descriptive$dog6$composed_lower)
   stop("descriptive identity strata drifted")
 }
 
+# Registered leftover robustness, already in E-PAIRED / E-PREDECL and not a
+# new analysis: Wilcoxon on the same primary pairs, mean and median intervals
+# "regardless of outcome", descriptive stratum intervals, and the recomputed
+# dispersion interval the binding note already names. None of these is a
+# second confirmatory family.
+ident_median_ci <- as.numeric(ident_run$median_diff_ci95)
+if (length(ident_median_ci) != 2L ||
+    abs(ident_run$median_diff - (-0.016303032636642456)) > 1e-9 ||
+    abs(ident_median_ci[1] - (-0.02781367301940918)) > 1e-9 ||
+    abs(ident_median_ci[2] - 0.02477163076400757) > 1e-9) {
+  stop("primary identity median difference or its interval drifted")
+}
+if (abs(ident_run$wilcoxon_two_sided_p - 1) > 1e-12) {
+  stop("primary identity Wilcoxon p drifted")
+}
+if (!(ident_median_ci[1] < 0 && ident_median_ci[2] > 0)) {
+  stop("primary identity median interval excludes zero, contradicting the non-separation")
+}
+if (!(ident_run$wilcoxon_two_sided_p > ALPHA)) {
+  stop("registered Wilcoxon on the primary pairs no longer agrees with the sign-test non-separation")
+}
+
+prompt_ci <- as.numeric(prompt_run$mean_diff_ci95)
+if (length(prompt_ci) != 2L ||
+    abs(prompt_ci[1] - (-0.06914498466067016)) > 1e-9 ||
+    abs(prompt_ci[2] - (-0.0344193614864101)) > 1e-9) {
+  stop("secondary prompt mean_diff_ci95 drifted")
+}
+if (abs(prompt_run$wilcoxon_two_sided_p - 1.049041748046875e-05) > 1e-12) {
+  stop("secondary prompt Wilcoxon p drifted")
+}
+
+dog_run <- paired$concept_strata_descriptive$dog6
+clock_run <- paired$concept_strata_descriptive$clock
+dog_ci <- as.numeric(dog_run$mean_diff_ci95)
+clock_ci <- as.numeric(clock_run$mean_diff_ci95)
+if (length(dog_ci) != 2L ||
+    abs(dog_ci[1] - (-0.03757881373167038)) > 1e-9 ||
+    abs(dog_ci[2] - (-0.0032522387802600863)) > 1e-9) {
+  stop("descriptive dog identity mean_diff_ci95 drifted")
+}
+if (length(clock_ci) != 2L ||
+    abs(clock_ci[1] - 0.000824317832787832) > 1e-9 ||
+    abs(clock_ci[2] - 0.11117224507033824) > 1e-9) {
+  stop("descriptive clock identity mean_diff_ci95 drifted")
+}
+if (!(dog_ci[2] < 0 && clock_ci[1] > 0)) {
+  stop("descriptive identity stratum intervals no longer pull in opposite directions")
+}
+
+disp_dog_obj <- paired$registered_dispersion_endpoint_recomputed$dog6
+disp_clock_obj <- paired$registered_dispersion_endpoint_recomputed$clock
+disp_dog_ci <- as.numeric(disp_dog_obj$sd_ratio_ci95)
+disp_clock_ci <- as.numeric(disp_clock_obj$sd_ratio_ci95)
+if (length(disp_dog_ci) != 2L ||
+    abs(disp_dog_ci[1] - 0.35918251718752614) > 1e-9 ||
+    abs(disp_dog_ci[2] - 1.2476919691209216) > 1e-9) {
+  stop("dog dispersion sd_ratio_ci95 drifted")
+}
+if (length(disp_clock_ci) != 2L ||
+    abs(disp_clock_ci[1] - 0.3050419835712262) > 1e-9 ||
+    abs(disp_clock_ci[2] - 1.0596240488727011) > 1e-9) {
+  stop("clock dispersion sd_ratio_ci95 drifted")
+}
+if (!(disp_dog_ci[1] < 1 && disp_dog_ci[2] > 1) ||
+    !(disp_clock_ci[1] < 1 && disp_clock_ci[2] > 1)) {
+  stop("descriptive dispersion intervals no longer include one; the reversal sentence would overclaim")
+}
+
 disp_dog <- paired$registered_dispersion_endpoint_recomputed$dog6$ratio_composed_over_joint
 disp_clock <- paired$registered_dispersion_endpoint_recomputed$clock$ratio_composed_over_joint
 if (abs(disp_dog - 0.6694394238043602) > 1e-6 ||
@@ -431,15 +500,30 @@ write_generated(c(
   macro("RunIdentitySignP", fmt(ident_run$sign_test_two_sided_p)),
   macro("RunIdentityCiLo", fmt(ident_ci[1], 3)),
   macro("RunIdentityCiHi", fmt(ident_ci[2], 3)),
+  macro("RunIdentityWilcoxP", fmt(ident_run$wilcoxon_two_sided_p, 2)),
+  macro("RunIdentityMedian", fmt(ident_run$median_diff, 3)),
+  macro("RunIdentityMedianCiLo", fmt(ident_median_ci[1], 3)),
+  macro("RunIdentityMedianCiHi", fmt(ident_median_ci[2], 3)),
   macro("RunPromptLower", as.integer(prompt_run$composed_lower)),
   macro("RunPromptSignP", fmt(prompt_run$sign_test_two_sided_p, 5)),
+  macro("RunPromptWilcoxP", fmt_sci(prompt_run$wilcoxon_two_sided_p, 1)),
+  macro("RunPromptCiLo", fmt(prompt_ci[1], 3)),
+  macro("RunPromptCiHi", fmt(prompt_ci[2], 3)),
   macro("RunPairsPerConcept", as.integer(run_concept_counts[["dog6"]])),
   macro("RunSeedCount", length(unique(paired$pairs$seed))),
   macro("RunPromptCount", length(unique(paired$pairs$background_prompt))),
   macro("RunDogIdentityLower", as.integer(paired$concept_strata_descriptive$dog6$composed_lower)),
   macro("RunClockIdentityHigher", as.integer(paired$concept_strata_descriptive$clock$composed_higher)),
+  macro("RunDogIdentityCiLo", fmt(dog_ci[1], 3)),
+  macro("RunDogIdentityCiHi", fmt(dog_ci[2], 3)),
+  macro("RunClockIdentityCiLo", fmt(clock_ci[1], 3)),
+  macro("RunClockIdentityCiHi", fmt(clock_ci[2], 3)),
   macro("RunDispersionDog", fmt(disp_dog)),
   macro("RunDispersionClock", fmt(disp_clock)),
+  macro("RunDispersionDogLo", fmt(disp_dog_ci[1])),
+  macro("RunDispersionDogHi", fmt(disp_dog_ci[2])),
+  macro("RunDispersionClockLo", fmt(disp_clock_ci[1])),
+  macro("RunDispersionClockHi", fmt(disp_clock_ci[2])),
   macro("NEvidence", nrow(manifest$entries)),
   macro("EvidenceBytes", format(sum(manifest$entries$bytes), big.mark = ","))
 ), "generated_numbers.tex")

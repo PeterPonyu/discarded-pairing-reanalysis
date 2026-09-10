@@ -469,25 +469,34 @@ had \SignPowerTarget{}\% power only for a true composed-lower proportion of at
 least \SignPowerEighty{}; the observed proportion \SignObservedProp{} (exact
 95\% interval \SignObservedPropLo{} to \SignObservedPropHi{}) lies inside the
 region the design left unresolved, so the result is a non-separation at this
-size rather than evidence of equality.
+size rather than evidence of equality. Wilcoxon on the same pairs is
+\RunIdentityWilcoxP{} and the median difference \RunIdentityMedian{} has
+interval \RunIdentityMedianCiLo{} to \RunIdentityMedianCiHi{}, also
+including zero.
 
 Prompt fidelity is the registered secondary endpoint. The composed arm was
 lower on \RunPromptLower{} of \RunPairs{} pairs at a sign-test probability
-of \RunPromptSignP{}. The protocol fixed that rank before the run and the
-paper keeps it: the count is reported as the declared secondary, it is not
-promoted to a confirmatory claim, and the identity conclusion rests on the
-primary endpoint alone.
+of \RunPromptSignP{}. Wilcoxon on those pairs returns \RunPromptWilcoxP{},
+and the mean interval \RunPromptCiLo{} to \RunPromptCiHi{} excludes zero.
+The protocol fixed that rank before the run and the paper keeps it: the
+count is reported as the declared secondary, it is not promoted to a
+confirmatory claim, and the identity conclusion rests on the primary
+endpoint alone.
 
 Concept strata are descriptive. On identity fidelity the composed arm was
 lower on \RunDogIdentityLower{} of the twelve dog pairs and higher on
-\RunClockIdentityHigher{} of the twelve clock pairs. The two strata are read
-as description, outside the confirmatory family.
+\RunClockIdentityHigher{} of the twelve clock pairs. The descriptive mean
+intervals run from \RunDogIdentityCiLo{} to \RunDogIdentityCiHi{} (dog) and
+from \RunClockIdentityCiLo{} to \RunClockIdentityCiHi{} (clock); they pull
+in opposite directions and sit outside the confirmatory family.
 
 The historical dispersion ratio on the \NPairs{}-prompt grid was
 \SDRatioComposed{}. On the executed run the recomputed composed-over-joint
-dispersion ratios are \RunDispersionDog{} (dog) and \RunDispersionClock{}
-(clock). Both are below one, the reverse of the historical point, and both
-are reported as description.
+dispersion ratios are \RunDispersionDog{} (dog; interval
+\RunDispersionDogLo{} to \RunDispersionDogHi{}) and \RunDispersionClock{}
+(clock; interval \RunDispersionClockLo{} to \RunDispersionClockHi{}). Both
+point estimates are below one, the reverse of the historical point; both
+intervals include one, and both are reported as description.
 
 The pre-registered kills settle as follows. Kill 1 fires: the identity
 interval contains zero, so the claim is that no separation was observed on
@@ -596,8 +605,11 @@ imputes no value for it, introduces no substitute, and presents nothing here
 as an approximation of it.
 
 The concept strata are descriptive. The registered run includes both declared
-concepts; the dog and clock identity counts differ in sign and are read as
-description rather than as a second test family.
+concepts; the dog and clock identity counts differ in sign, their mean
+intervals pull in opposite directions, and both are read as description
+rather than as a second test family. The registered Wilcoxon check and the
+median identity interval agree with the confirmatory sign test and do not
+form a second confirmatory claim.
 
 The result reported is the single execution authorised under the bound
 pre-declaration, digest \PredeclarationShaShort{}. The protocol admits no
